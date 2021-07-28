@@ -1,11 +1,8 @@
 import { css, html, LitElement, customElement, property } from 'lit-element';
-import { nothing } from 'lit-html';
+import { nothing, TemplateResult } from 'lit-html';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
-import {
-  ModalConfig,
-  ModalManagerInterface,
-} from '@internetarchive/modal-manager';
+import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses';
 
 @customElement('item-navigator')
@@ -50,8 +47,6 @@ export class ItemNavigator extends LitElement {
 
   @property({ type: String }) openMenu = '';
 
-  @property({ type: Object }) modalConfig: ModalConfig = new ModalConfig();
-
   @property({ type: Object }) modal:
     | ModalManagerInterface
     | undefined = undefined;
@@ -73,31 +68,108 @@ export class ItemNavigator extends LitElement {
     this.menuContents = [];
     this.viewportInFullscreen = false;
     this.openMenu = '';
-    this.renderModalManager();
   }
 
-  showItemNavigatorModal(e: CustomEvent) {
-    const { detail } = e;
+  firstUpdated(): void {
+    if (!this.modal) {
+      this.createModal();
+    }
+  }
+
+  render(): TemplateResult {
+    return html`
+      <div id="frame" class=${this.menuClass}>
+        <slot name="item-nav-header"></slot>
+        <div class="menu-and-reader">
+          ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
+          <div id="reader">${this.renderViewport}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  get renderViewport(): TemplateResult {
+    if (this.itemType === 'bookreader') {
+      return html`
+        <book-navigator
+          .baseHost=${this.baseHost}
+          .book=${this.item}
+          ?signedIn=${this.signedIn}
+          ?sideMenuOpen=${this.menuOpened}
+          @ViewportInFullScreen=${this.manageViewportFullscreen}
+          @updateSideMenu=${this.manageSideMenuEvents}
+          @menuUpdated=${this.setMenuContents}
+          @menuShortcutsUpdated=${this.setMenuShortcuts}
+          @showItemNavigatorModal=${this.openModal}
+          @closeItemNavigatorModal=${this.closeModal}
+        >
+          <div slot="bookreader">
+            <slot name="bookreader"></slot>
+          </div>
+        </book-navigator>
+      `;
+    }
+    return html`<div class="viewport"></div>`;
+  }
+
+  /* Modal management */
+  openModal(e: CustomEvent): void {
+    const { config, customModalContent } = e.detail;
+    if (!config || !customModalContent) {
+      return;
+    }
+
     this.modal?.showModal({
-      config: this.modalConfig,
-      customModalContent: detail.customModalContent,
+      config,
+      customModalContent,
     });
   }
 
-  closeItemNavigatorModal() {
+  closeModal(): void {
     this.modal?.closeModal();
   }
 
-  /**
-   * Event handler - handles viewport slot going into fullscreen
-   */
-  manageViewportFullscreen(e: CustomEvent) {
+  /** Creates modal DOM & attaches to `<body>` */
+  private createModal(): void {
+    this.modal = document.createElement(
+      'modal-manager'
+    ) as ModalManagerInterface;
+    document.body.appendChild(this.modal);
+  }
+  /* End Modal management */
+
+  /** Fullscreen Management */
+  manageViewportFullscreen(e: CustomEvent): void {
     const { isFullScreen } = e.detail;
     this.viewportInFullscreen = isFullScreen;
   }
+  /** End Fullscreen Management */
+
+  /** Side menu */
+  get shouldRenderMenu(): boolean {
+    return !!(this.menuContents.length || this.menuShortcuts.length);
+  }
+
+  toggleMenu(): void {
+    this.menuOpened = !this.menuOpened;
+  }
+
+  closeMenu(): void {
+    this.menuOpened = false;
+  }
+
+  setOpenMenu(e: CustomEvent): void {
+    const { id } = e.detail;
+    this.openMenu = id === this.openMenu ? '' : id;
+  }
+
+  setMenuContents(e: CustomEvent): void {
+    const updatedContents = [...e.detail];
+    this.menuContents = updatedContents;
+  }
 
   /**
-   * Event handler - handles viewport slot going into fullscreen
+   * Toggles Side Menu & Sets viewable subpanel
    * @param {Event} e - custom event object
    *   @param {object} event.detail - custom event detail
    *     @param {string} detail.action - open, toggle, close
@@ -115,164 +187,63 @@ export class ItemNavigator extends LitElement {
     }
   }
 
-  toggleMenu() {
-    this.menuOpened = !this.menuOpened;
+  get renderSideMenu(): TemplateResult {
+    return html`
+      <nav>
+        <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
+        <div id="menu">
+          <ia-menu-slider
+            .menus=${this.menuContents}
+            .selectedMenu=${this.openMenu}
+            @menuTypeSelected=${this.setOpenMenu}
+            @menuSliderClosed=${this.closeMenu}
+            manuallyHandleClose
+            open
+          ></ia-menu-slider>
+        </div>
+      </nav>
+    `;
+  }
+  /** End Side menu */
+
+  /** Menu Shortcuts */
+  setMenuShortcuts(e: CustomEvent): void {
+    this.menuShortcuts = [...e.detail];
   }
 
-  closeMenu() {
-    this.menuOpened = false;
-  }
-
-  /**
-   * Opens menu to selected menu
-   * @param {string} selectedMenuId
-   */
-  openShortcut(selectedMenuId = '') {
-    // open sidemenu to proper tab
+  openShortcut(selectedMenuId = ''): void {
     this.openMenu = selectedMenuId;
     this.menuOpened = true;
   }
 
-  setOpenMenu(e: CustomEvent) {
-    const { id } = e.detail;
-    this.openMenu = id === this.openMenu ? '' : id;
+  get shortcuts(): TemplateResult {
+    const shortcuts = this.menuShortcuts.map(
+      ({ icon, id }) => html`
+        <button class="shortcut ${id}" @click="${() => this.openShortcut(id)}">
+          ${icon}
+        </button>
+      `
+    );
+    return html`<div class="shortcuts">${shortcuts}</div>`;
   }
+  /** End Menu Shortcuts */
 
-  setMenuContents(e: CustomEvent) {
-    const updatedContents = [...e.detail];
-    this.menuContents = updatedContents;
-  }
-
-  setMenuShortcuts(e: CustomEvent) {
-    this.menuShortcuts = [...e.detail];
-  }
-
-  /**
-   * computes classes for item-navigator <section> node
-   */
-  get menuClass() {
+  /** Misc Render */
+  get menuClass(): string {
     const drawerState = this.menuOpened ? 'open' : '';
     const fullscreenState = this.viewportInFullscreen ? 'fullscreen' : '';
     return `${drawerState} ${fullscreenState}`;
   }
 
-  get menuToggleButton() {
+  get menuToggleButton(): TemplateResult {
     return html`
       <button
         class="toggle-menu"
         @click=${() => this.toggleMenu()}
         title="Toggle theater side panels"
       >
-        <div>
-          <ia-icon-ellipses
-            style="width: var(--iconWidth); height: var(--iconHeight);"
-          ></ia-icon-ellipses>
-        </div>
+        <div><ia-icon-ellipses></ia-icon-ellipses></div>
       </button>
-    `;
-  }
-
-  get menuSlider() {
-    return html`
-      <div id="menu">
-        <ia-menu-slider
-          .menus=${this.menuContents}
-          .selectedMenu=${this.openMenu}
-          @menuTypeSelected=${this.setOpenMenu}
-          @menuSliderClosed=${this.closeMenu}
-          manuallyHandleClose
-          open
-        ></ia-menu-slider>
-      </div>
-    `;
-  }
-
-  /**
-   * Returns the shortcut buttons for minimized view
-   * @return html
-   */
-  get shortcuts() {
-    // todo: aria tags
-    const shortcuts = this.menuShortcuts.map(
-      ({ icon, id }) => html`
-        <button
-          class="shortcut ${id}"
-          @click="${() => {
-            this.openShortcut(id);
-          }}"
-        >
-          ${icon}
-        </button>
-      `
-    );
-
-    return html`<div class="shortcuts">${shortcuts}</div>`;
-  }
-
-  /**
-   * Returns the side menu given it's open/close state
-   * @return html
-   */
-  get renderSideMenu() {
-    // todo: aria tags
-    return html`
-      <nav>
-        <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
-        ${this.menuSlider}
-      </nav>
-    `;
-  }
-
-  /**
-   * Given a itemType, this chooses the proper viewport component
-   * @return html
-   */
-  get renderViewport() {
-    if (this.itemType === 'bookreader') {
-      return html`
-        <book-navigator
-          .baseHost=${this.baseHost}
-          .book=${this.item}
-          ?signedIn=${this.signedIn}
-          ?sideMenuOpen=${this.menuOpened}
-          @ViewportInFullScreen=${this.manageViewportFullscreen}
-          @updateSideMenu=${this.manageSideMenuEvents}
-          @menuUpdated=${this.setMenuContents}
-          @menuShortcutsUpdated=${this.setMenuShortcuts}
-          @showItemNavigatorModal=${this.showItemNavigatorModal}
-          @closeItemNavigatorModal=${this.closeItemNavigatorModal}
-        >
-          <div slot="bookreader">
-            <slot name="bookreader"></slot>
-          </div>
-        </book-navigator>
-      `;
-    }
-    return html`<div class="viewport"></div>`;
-  }
-
-  renderModalManager() {
-    this.modal = document.createElement(
-      'modal-manager'
-    ) as ModalManagerInterface;
-    this.modal.setAttribute('id', 'item-navigator-modal');
-    this.modalConfig.title = html`Delete Bookmark`;
-    this.modalConfig.headline = html`This bookmark contains a note. Deleting it
-    will permanently delete the note. Are you sure?`;
-    this.modalConfig.headerColor = '#194880';
-    document.body.appendChild(this.modal);
-  }
-
-  render() {
-    const renderMenu = this.menuContents.length || this.menuShortcuts.length;
-    return html`
-      <div id="frame" class=${this.menuClass}>
-        <slot name="item-nav-header"></slot>
-        <div class="menu-and-reader">
-          ${renderMenu ? this.renderSideMenu : nothing}
-          <div id="reader">${this.renderViewport}</div>
-        </div>
-      </div>
     `;
   }
 
@@ -344,6 +315,11 @@ export class ItemNavigator extends LitElement {
         width: var(--iconWidth);
         height: var(--iconHeight);
         margin: auto;
+      }
+
+      ia-icon-ellipses {
+        width: var(--iconWidth);
+        height: var(--iconHeight);
       }
 
       #menu {

@@ -12,14 +12,16 @@
       background: #222;
     }
 
-    #item-navigator-modal {
+    modal-manager {
       display: none
     }
   </style>
 </head>
 <body>
   <app-root></app-root>
-
+  <script type="module">
+    import '@internetarchive/modal-manager';
+  </script>
   <script type="module" src="../dist/demo/app-root.js">
   </script>
 </body>
