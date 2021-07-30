@@ -1,12 +1,11 @@
 import { html, css, LitElement, customElement, property } from 'lit-element';
-// import '../src/your-webcomponent';
 import '../src/item-navigator';
+import '../src/item-inspector';
 
-// <your-webcomponent title="Hello">
-// <div slot="my-slot">Some LightDOM Content</div>
-// </your-webcomponent>
 @customElement('app-root')
 export class AppRoot extends LitElement {
+  @property({ type: Object }) itemMD = {};
+
   @property({ type: Object }) bookManifest = {};
 
   @property({ type: String }) encodedManifest = '';
@@ -18,22 +17,24 @@ export class AppRoot extends LitElement {
 
   updated(changed: object) {
     console.log('updated=', changed);
-    // console.log('updated= this.bookManifest', encodeURIComponent(JSON.stringify(this.bookManifest)));
   }
 
   async fetchDemoBook() {
-    const manifest = await fetch('./demo-book-manifest.json');
+    const manifest = await fetch('/demo/demo-book-manifest.json');
     const theJson = await manifest.json();
-
     this.bookManifest = theJson;
     this.encodedManifest = btoa(JSON.stringify(this.bookManifest));
+  }
 
-    console.log('FETCH DEMO BOOK theJson', theJson, this.encodedManifest);
+  async fetchItemMD() {
+    const manifest = await fetch('https://archive.org/metadata/ux-team-books');
+    const theJson = await manifest.json();
+    this.itemMD = theJson;
   }
 
   render() {
     return html`
-      <item-navigator baseHost="archive.org" item=${this.encodedManifest}>
+      <item-navigator baseHost="https://archive.org" .item=${this.itemMD}>
       </item-navigator>
     `;
   }
