@@ -5,6 +5,17 @@ import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses';
 
+import {
+  IntManageFullscreenEvent,
+  IntOpenModalEvent,
+  IntManageSideMenuEvent,
+  IntSetOpenMenuEvent,
+  IntSetMenuContentsEvent,
+  IntSetMenuShortcuts,
+} from './interfaces/event-interfaces';
+
+import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
+
 @customElement('item-navigator')
 export class ItemNavigator extends LitElement {
   @property({
@@ -37,9 +48,9 @@ export class ItemNavigator extends LitElement {
       return false;
     },
   })
-  menuShortcuts: any[] = []; // specify
+  menuShortcuts: IntMenuShortcut[] = [];
 
-  @property({ type: Array }) menuContents: any[] = []; // specify
+  @property({ type: Array }) menuContents: IntMenuProvider[] = [];
 
   @property({ type: Boolean }) viewportInFullscreen = false;
 
@@ -88,32 +99,36 @@ export class ItemNavigator extends LitElement {
     `;
   }
 
+  get BooksViewer(): TemplateResult {
+    return html`
+      <book-navigator
+        .baseHost=${this.baseHost}
+        .book=${this.item}
+        ?signedIn=${this.signedIn}
+        ?sideMenuOpen=${this.menuOpened}
+        @ViewportInFullScreen=${this.manageViewportFullscreen}
+        @updateSideMenu=${this.manageSideMenuEvents}
+        @menuUpdated=${this.setMenuContents}
+        @menuShortcutsUpdated=${this.setMenuShortcuts}
+        @showItemNavigatorModal=${this.openModal}
+        @closeItemNavigatorModal=${this.closeModal}
+      >
+        <div slot="bookreader">
+          <slot name="bookreader"></slot>
+        </div>
+      </book-navigator>
+    `;
+  }
+
   get renderViewport(): TemplateResult {
     if (this.itemType === 'bookreader') {
-      return html`
-        <book-navigator
-          .baseHost=${this.baseHost}
-          .book=${this.item}
-          ?signedIn=${this.signedIn}
-          ?sideMenuOpen=${this.menuOpened}
-          @ViewportInFullScreen=${this.manageViewportFullscreen}
-          @updateSideMenu=${this.manageSideMenuEvents}
-          @menuUpdated=${this.setMenuContents}
-          @menuShortcutsUpdated=${this.setMenuShortcuts}
-          @showItemNavigatorModal=${this.openModal}
-          @closeItemNavigatorModal=${this.closeModal}
-        >
-          <div slot="bookreader">
-            <slot name="bookreader"></slot>
-          </div>
-        </book-navigator>
-      `;
+      return this.BooksViewer;
     }
-    return html`<div class="viewport"></div>`;
+    return html`<ia-item-inspector .itemMD=${this.item}></ia-item-inspector>`;
   }
 
   /* Modal management */
-  openModal(e: CustomEvent): void {
+  openModal(e: IntOpenModalEvent): void {
     const { config, customModalContent } = e.detail;
     if (!config || !customModalContent) {
       return;
@@ -139,7 +154,7 @@ export class ItemNavigator extends LitElement {
   /* End Modal management */
 
   /** Fullscreen Management */
-  manageViewportFullscreen(e: CustomEvent): void {
+  manageViewportFullscreen(e: IntManageFullscreenEvent): void {
     const { isFullScreen } = e.detail;
     this.viewportInFullscreen = isFullScreen;
   }
@@ -158,24 +173,18 @@ export class ItemNavigator extends LitElement {
     this.menuOpened = false;
   }
 
-  setOpenMenu(e: CustomEvent): void {
+  setOpenMenu(e: IntSetOpenMenuEvent): void {
     const { id } = e.detail;
     this.openMenu = id === this.openMenu ? '' : id;
   }
 
-  setMenuContents(e: CustomEvent): void {
+  setMenuContents(e: IntSetMenuContentsEvent): void {
     const updatedContents = [...e.detail];
     this.menuContents = updatedContents;
   }
 
-  /**
-   * Toggles Side Menu & Sets viewable subpanel
-   * @param {Event} e - custom event object
-   *   @param {object} event.detail - custom event detail
-   *     @param {string} detail.action - open, toggle, close
-   *     @param {string} detail.menuId - menu id to be shown
-   */
-  manageSideMenuEvents(e: CustomEvent): void {
+  /** Toggles Side Menu & Sets viewable subpanel  */
+  manageSideMenuEvents(e: IntManageSideMenuEvent): void {
     const { menuId, action } = e.detail;
     if (menuId) {
       if (action === 'open') {
@@ -207,7 +216,7 @@ export class ItemNavigator extends LitElement {
   /** End Side menu */
 
   /** Menu Shortcuts */
-  setMenuShortcuts(e: CustomEvent): void {
+  setMenuShortcuts(e: IntSetMenuShortcuts): void {
     this.menuShortcuts = [...e.detail];
   }
 
