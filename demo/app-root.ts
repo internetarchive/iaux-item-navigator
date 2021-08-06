@@ -1,6 +1,6 @@
 import { html, css, LitElement, customElement, property } from 'lit-element';
 import '../src/item-navigator';
-import '../src/item-inspector';
+import '../src/item-inspector/item-inspector';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
@@ -10,13 +10,8 @@ export class AppRoot extends LitElement {
 
   @property({ type: String }) encodedManifest = '';
 
-  firstUpdated(changed: object) {
+  firstUpdated() {
     this.fetchDemoBook();
-    console.log('firstUpdated=', changed);
-  }
-
-  updated(changed: object) {
-    console.log('updated=', changed);
   }
 
   async fetchDemoBook() {
@@ -42,16 +37,6 @@ export class AppRoot extends LitElement {
   static styles = css`
     :host {
       display: block;
-      --primaryBGColor: var(--black, #000);
-      --secondaryBGColor: #222;
-      --tertiaryBGColor: #333;
-      --primaryTextColor: var(--white, #fff);
-      --primaryCTAFill: #194880;
-      --primaryCTABorder: #c5d1df;
-      --secondaryCTAFill: #333;
-      --secondaryCTABorder: #999;
-      --primaryErrorCTAFill: #e51c26;
-      --primaryErrorCTABorder: #f8c6c8;
     }
 
     item-navigator {

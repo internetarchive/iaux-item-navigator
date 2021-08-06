@@ -9,10 +9,13 @@ export interface IntMenuIconAndDetails extends IntMenuShortcut {
   icon: TemplateResult;
   id: string;
   label: string;
-  menuDetails: TemplateResult;
-  selected: boolean;
-  followable: boolean;
-  href: string;
+  menuDetails?: TemplateResult;
+  selected?: boolean;
+  followable?: boolean;
+  href?: string;
 }
 
-export interface IntMenuProvider extends IntMenuIconAndDetails {}
+export interface IntMenuProvider extends IntMenuIconAndDetails {
+  item: any;
+  baseHost: string;
+}

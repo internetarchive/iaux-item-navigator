@@ -7,4 +7,6 @@ export interface IntNavController extends LitElement {
   menuProviders: object;
   menuShortcuts: IntMenuShortcut[];
   sideMenuOpen: boolean;
+
+  emitLoadingStatusUpdate: (loaded: boolean) => void;
 }

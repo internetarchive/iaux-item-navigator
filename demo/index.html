@@ -6,6 +6,43 @@
     html {
       font-size: 10px; /* This is to match petabox's base font size */
       font-family: sans-serif;
+      --primaryBGColor: var(--black, #000);
+      --secondaryBGColor: #222;
+      --tertiaryBGColor: #333;
+      --primaryTextColor: var(--white, #fff);
+      --primaryCTAFill: #194880;
+      --primaryCTABorder: #c5d1df;
+      --secondaryCTAFill: #333;
+      --secondaryCTABorder: #999;
+      --primaryErrorCTAFill: #e51c26;
+      --primaryErrorCTABorder: #f8c6c8;
+      --defaultBookmarkColor: #eb3223;
+      --redBookmarkColor: #eb3223;
+      --blueBookmarkColor: #0023f5;
+      --greenBookmarkColor: #75ef4c;
+    }
+
+    item-navigator {
+      display: block;
+      width: 100%;
+      color: var(--primaryTextColor);
+      --menuButtonLabelDisplay: block;
+      --menuWidth: 320px;
+      --menuSliderBg: var(--secondaryBGColor);
+      --activeButtonBg: var(--tertiaryBGColor);
+      --animationTiming: 100ms;
+      --iconFillColor: var(--primaryTextColor);
+      --iconStrokeColor: var(--primaryTextColor);
+      --subpanelRightBorderColor: var(--secondaryCTABorder);
+      --menuSliderHeaderIconHeight: 2rem;
+      --menuSliderHeaderIconWidth: 2rem;
+      --iconWidth: 2.4rem;
+      --iconHeight: 2.4rem;
+      --shareLinkColor: var(--primaryTextColor);
+      --shareIconBorder: var(--primaryTextColor);
+      --shareIconBg: var(--secondaryBGColor);
+      --activityIndicatorLoadingDotColor: var(--primaryTextColor);
+      --activityIndicatorLoadingRingColor: var(--primaryTextColor);
     }
 
     body {
@@ -16,6 +53,8 @@
     modal-manager {
       display: none
     }
+
+
   </style>
 </head>
 <body>

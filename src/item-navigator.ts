@@ -1,9 +1,17 @@
-import { css, html, LitElement, customElement, property } from 'lit-element';
+import {
+  css,
+  html,
+  LitElement,
+  customElement,
+  property,
+  state,
+} from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses';
+import './loader';
 
 import {
   IntManageFullscreenEvent,
@@ -12,6 +20,7 @@ import {
   IntSetOpenMenuEvent,
   IntSetMenuContentsEvent,
   IntSetMenuShortcuts,
+  IntLoadingStateUpdatedEvent,
 } from './interfaces/event-interfaces';
 
 import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
@@ -62,24 +71,7 @@ export class ItemNavigator extends LitElement {
     | ModalManagerInterface
     | undefined = undefined;
 
-  constructor() {
-    /** TODO: Request BookModel.js
-     * Request BookNavigator.js
-     * Show loading spinner
-     * When JS assets loaded:
-     * - render book-navigator component
-     */
-    super();
-    this.baseHost = 'archive.org';
-    this.item = {};
-    this.itemType = '';
-    this.menuOpened = false;
-    this.signedIn = false;
-    this.menuShortcuts = [];
-    this.menuContents = [];
-    this.viewportInFullscreen = false;
-    this.openMenu = '';
-  }
+  @state() loaded: boolean = false;
 
   firstUpdated(): void {
     if (!this.modal) {
@@ -88,12 +80,16 @@ export class ItemNavigator extends LitElement {
   }
 
   render(): TemplateResult {
+    const displayReaderClass = this.loaded ? '' : 'hide';
     return html`
       <div id="frame" class=${this.menuClass}>
         <slot name="item-nav-header"></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <div id="reader">${this.renderViewport}</div>
+          ${!this.loaded
+            ? html`<ia-itemnav-loader></ia-itemnav-loader>`
+            : nothing}
+          <div id=${`reader ${displayReaderClass}`}>${this.renderViewport}</div>
         </div>
       </div>
     `;
@@ -107,6 +103,7 @@ export class ItemNavigator extends LitElement {
         ?signedIn=${this.signedIn}
         ?sideMenuOpen=${this.menuOpened}
         @ViewportInFullScreen=${this.manageViewportFullscreen}
+        @loadingStateUpdated=${this.loadingStateUpdated}
         @updateSideMenu=${this.manageSideMenuEvents}
         @menuUpdated=${this.setMenuContents}
         @menuShortcutsUpdated=${this.setMenuShortcuts}
@@ -124,7 +121,17 @@ export class ItemNavigator extends LitElement {
     if (this.itemType === 'bookreader') {
       return this.BooksViewer;
     }
-    return html`<ia-item-inspector .itemMD=${this.item}></ia-item-inspector>`;
+    return html` <ia-item-inspector
+      .itemMD=${this.item}
+      @loadingStateUpdated=${this.loadingStateUpdated}
+      @updateSideMenu=${this.manageSideMenuEvents}
+      @menuUpdated=${this.setMenuContents}
+    ></ia-item-inspector>`;
+  }
+
+  loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
+    const { loaded } = e.detail;
+    this.loaded = !!loaded;
   }
 
   /* Modal management */
@@ -268,6 +275,7 @@ export class ItemNavigator extends LitElement {
       #frame {
         position: relative;
         overflow: hidden;
+        border: 1px solid white;
       }
 
       #frame.fullscreen,
@@ -364,14 +372,6 @@ export class ItemNavigator extends LitElement {
           transform: translateX(${subnavWidth});
           width: calc(100% - ${subnavWidth});
         }
-      }
-
-      #loading-indicator {
-        display: none;
-      }
-
-      #loading-indicator.visible {
-        display: block;
       }
     `;
   }

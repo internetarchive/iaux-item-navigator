@@ -47,3 +47,11 @@ export interface IntOpenModalEvent extends CustomEvent {
     customModalContent: TemplateResult;
   };
 }
+
+/** Toggles loading view */
+export interface IntLoadingStateUpdatedEvent extends CustomEvent {
+  type: 'loadingStateUpdated';
+  detail: {
+    loaded: boolean;
+  };
+}
