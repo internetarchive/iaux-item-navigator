@@ -1,6 +1,7 @@
 import { html, TemplateResult } from 'lit-element';
 import { IntMenuProvider } from '../interfaces/menu-interfaces';
 import '@internetarchive/ia-sharing-options';
+import '@internetarchive/icon-share/icon-share';
 
 interface ProviderArgs {
   item: any;
@@ -13,10 +14,7 @@ export class ShareProvider implements IntMenuProvider {
 
   baseHost: string = 'https://archive.org';
 
-  icon: TemplateResult = html`<ia-icon
-    icon="share"
-    style="width: var(--iconWidth); height: var(--iconHeight);"
-  ></ia-icon>`;
+  icon: TemplateResult = html`<ia-icon-share style="width: var(--iconWidth); height: var(--iconHeight);"></ia-icon>`;
 
   id: string = 'share';
 

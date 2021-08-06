@@ -10,7 +10,7 @@ import { nothing, TemplateResult } from 'lit-html';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
-import '@internetarchive/icon-ellipses';
+import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
 
 import {
