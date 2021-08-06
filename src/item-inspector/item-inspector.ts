@@ -124,10 +124,15 @@ export class IaItemInspector extends LitElement implements IntNavController {
         display: block;
         width: 100%;
         margin: 0 auto;
+        position: relative;
       }
 
       section {
         display: flex;
+        width: 100%;
+        /* border: 5px dotted green; */
+        justify-content: center;
+        align-items: center;
       }
     `;
     return [main];

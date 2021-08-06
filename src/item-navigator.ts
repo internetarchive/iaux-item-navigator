@@ -89,7 +89,9 @@ export class ItemNavigator extends LitElement {
           ${!this.loaded
             ? html`<ia-itemnav-loader></ia-itemnav-loader>`
             : nothing}
-          <div id=${`reader ${displayReaderClass}`}>${this.renderViewport}</div>
+          <div id=${`reader`} class=${displayReaderClass}>
+            ${this.renderViewport}
+          </div>
         </div>
       </div>
     `;
@@ -204,10 +206,12 @@ export class ItemNavigator extends LitElement {
   }
 
   get renderSideMenu(): TemplateResult {
+    const drawerState = this.menuOpened ? '' : 'hidden';
+
     return html`
       <nav>
         <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
-        <div id="menu">
+        <div id="menu" class=${drawerState}>
           <ia-menu-slider
             .menus=${this.menuContents}
             .selectedMenu=${this.openMenu}
@@ -274,12 +278,13 @@ export class ItemNavigator extends LitElement {
     return css`
       :host,
       #frame,
+      #reader,
       .menu-and-reader {
+        min-height: inherit;
+        height: inherit;
         position: relative;
         overflow: hidden;
         display: block;
-        height: inherit;
-        min-height: inherit;
       }
       #frame {
         border: 1px solid white;
@@ -288,6 +293,11 @@ export class ItemNavigator extends LitElement {
       #frame.fullscreen,
       #frame.fullscreen #reader {
         height: 100vh;
+      }
+
+      .hidden {
+        height: 1px;
+        width: 1px;
       }
 
       button {
