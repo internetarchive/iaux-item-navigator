@@ -36,30 +36,18 @@ export class AppRoot extends LitElement {
 
   static styles = css`
     :host {
-      display: block;
+      min-height: 64vh;
+      border: 1px solid pink;
     }
-
+    :host,
     item-navigator {
       display: block;
+      position: relative;
       width: 100%;
-      color: var(--primaryTextColor);
-      --menuButtonLabelDisplay: block;
-      --menuWidth: 320px;
-      --menuSliderBg: var(--secondaryBGColor);
-      --activeButtonBg: var(--tertiaryBGColor);
-      --subpanelRightBorderColor: var(--secondaryCTABorder);
-      --animationTiming: 100ms;
-      --iconFillColor: var(--primaryTextColor);
-      --iconStrokeColor: var(--primaryTextColor);
-      --menuSliderHeaderIconHeight: 2rem;
-      --menuSliderHeaderIconWidth: 2rem;
-      --iconWidth: 2.4rem;
-      --iconHeight: 2.4rem;
-      --shareLinkColor: var(--primaryTextColor);
-      --shareIconBorder: var(--primaryTextColor);
-      --shareIconBg: var(--secondaryBGColor);
-      --activityIndicatorLoadingDotColor: var(--primaryTextColor);
-      --activityIndicatorLoadingRingColor: var(--primaryTextColor);
+    }
+    item-navigator {
+      height: inherit;
+      min-height: inherit;
     }
   `;
 }

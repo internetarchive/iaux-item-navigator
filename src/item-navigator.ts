@@ -272,9 +272,16 @@ export class ItemNavigator extends LitElement {
     const transitionEffect = css`transform ${transitionTiming} ease-out`;
 
     return css`
-      #frame {
+      :host,
+      #frame,
+      .menu-and-reader {
         position: relative;
         overflow: hidden;
+        display: block;
+        height: inherit;
+        min-height: inherit;
+      }
+      #frame {
         border: 1px solid white;
       }
 
