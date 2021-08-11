@@ -51,7 +51,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   updated(changed: any) {
-    console.log('CHANED', changed);
+    // console.log('CHANED', changed);
     if (changed.has('itemMD')) {
       this.parseItemInfo();
     }
@@ -65,7 +65,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   setMenu() {
-    console.log('SeT MENUS');
     const menuProviders = {
       share: new ShareProvider({
         item: this.itemMD,
@@ -86,7 +85,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
       detail: availableMenus,
     });
 
-    console.log('AAILSDFs MENUTs', availableMenus);
     this.dispatchEvent(event);
   }
 

@@ -7,6 +7,7 @@ import {
   state,
 } from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
+import { MetadataResponse } from '@internetarchive/search-service';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
@@ -28,11 +29,20 @@ import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
 @customElement('item-navigator')
 export class ItemNavigator extends LitElement {
   @property({
-    converter: (value: string | null) => {
-      return !value ? {} : JSON.parse(atob(value));
+    type: Object,
+    converter: (value: string): MetadataResponse => {
+      const valueType = typeof value;
+      switch (valueType) {
+        case 'string':
+          return new MetadataResponse(JSON.parse(atob(value)));
+        case 'object':
+          return (value as unknown) as MetadataResponse;
+        default:
+          return {} as MetadataResponse;
+      }
     },
   })
-  item = {};
+  item: MetadataResponse = {} as MetadataResponse;
 
   @property({ type: String }) itemType = '';
 
