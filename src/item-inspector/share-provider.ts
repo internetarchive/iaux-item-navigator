@@ -1,20 +1,20 @@
 import { html, TemplateResult } from 'lit-element';
-import { IntMenuProvider } from '../interfaces/menu-interfaces';
+
 import '@internetarchive/ia-sharing-options';
 import '@internetarchive/icon-share/icon-share';
-
-interface ProviderArgs {
-  item: any;
-  baseHost: string;
-  subPrefix: string;
-}
+import {
+  IntMenuProvider,
+  IntProviderArgs,
+} from '../interfaces/menu-interfaces';
 
 export class ShareProvider implements IntMenuProvider {
   item: any = null;
 
   baseHost: string = 'https://archive.org';
 
-  icon: TemplateResult = html`<ia-icon-share style="width: var(--iconWidth); height: var(--iconHeight);"></ia-icon>`;
+  icon: TemplateResult = html`<ia-icon-share
+    style="width: var(--iconWidth); height: var(--iconHeight);"
+  ></ia-icon-share>`;
 
   id: string = 'share';
 
@@ -22,7 +22,11 @@ export class ShareProvider implements IntMenuProvider {
 
   component: TemplateResult | null = null;
 
-  constructor(shareArgs: ProviderArgs) {
+  subPrefix: string = '';
+
+  encodedSubPrefix: string = '';
+
+  constructor(shareArgs: IntProviderArgs) {
     const { item, baseHost, subPrefix = '' } = shareArgs;
     const { identifier = '', creator = '', title = '' } = item.metadata || {};
     const encodedSubPrefix = encodeURIComponent(subPrefix);
@@ -33,6 +37,8 @@ export class ShareProvider implements IntMenuProvider {
 
     this.item = item;
     this.baseHost = baseHost;
+    this.subPrefix = subPrefix;
+    this.encodedSubPrefix = encodedSubPrefix;
 
     this.component = html`<ia-sharing-options
       identifier=${urlIdentifier}

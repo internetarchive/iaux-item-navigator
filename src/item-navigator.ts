@@ -30,16 +30,11 @@ import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
 export class ItemNavigator extends LitElement {
   @property({
     type: Object,
-    converter: (value: string): MetadataResponse => {
-      const valueType = typeof value;
-      switch (valueType) {
-        case 'string':
-          return new MetadataResponse(JSON.parse(atob(value)));
-        case 'object':
-          return (value as unknown) as MetadataResponse;
-        default:
-          return {} as MetadataResponse;
+    converter: (value: string | MetadataResponse | null): MetadataResponse => {
+      if (typeof value === 'string') {
+        return new MetadataResponse(JSON.parse(atob(value)));
       }
+      return value as MetadataResponse;
     },
   })
   item: MetadataResponse = {} as MetadataResponse;

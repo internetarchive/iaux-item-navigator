@@ -8,6 +8,7 @@ import {
   state,
 } from 'lit-element';
 // import { nothing, TemplateResult } from 'lit-html';
+import { MetadataResponse } from '@internetarchive/search-service';
 import { IntNavController } from '../interfaces/nav-controller-interface';
 import {
   IntMenuShortcut,
@@ -15,26 +16,26 @@ import {
 } from '../interfaces/menu-interfaces';
 
 import { ShareProvider } from './share-provider';
+import { FilesByTypeProvider } from './files-by-type/files-by-type-provider';
 
-const events = {
-  menuUpdated: 'menuUpdated',
-  updateSideMenu: 'updateSideMenu',
-  PostInit: 'PostInit',
-  ViewportInFullScreen: 'ViewportInFullScreen',
-};
+// eslint-disable-next-line no-shadow
+enum ItemInspectorEvents {
+  menuUpdated = 'menuUpdated',
+  updateSideMenu = 'updateSideMenu',
+  PostInit = 'PostInit',
+  ViewportInFullScreen = 'ViewportInFullScreen',
+}
 
 interface menuProvidersInt {
   share?: IntMenuProvider;
+  filesByType?: IntMenuProvider;
 }
 
 @customElement('ia-item-inspector')
 export class IaItemInspector extends LitElement implements IntNavController {
-  @property({ type: Object }) itemMD = {
-    files: [],
-    metadata: { identifier: '' },
-  };
+  @property({ type: Object }) itemMD: MetadataResponse = {} as MetadataResponse;
 
-  @property({ type: String }) baseHost = 'archive.org';
+  @property({ type: String }) baseHost = 'https://archive.org';
 
   @property({ type: Object }) menuProviders: menuProvidersInt = {};
 
@@ -51,17 +52,32 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   updated(changed: any) {
-    // console.log('CHANED', changed);
-    if (changed.has('itemMD')) {
+    if (changed.has('itemMD') && this.itemMD) {
       this.parseItemInfo();
     }
-    if (changed.has('loaded')) {
+    if (changed.has('loaded') && this.itemMD) {
       this.emitLoadingStatusUpdate(this.loaded);
       this.setMenu();
     }
     if (changed.has('menuProviders')) {
       this.updateMenuContents();
     }
+  }
+
+  render() {
+    const { identifier = '' } = this.itemMD?.metadata;
+    return html`
+      <section>
+        <div>
+          <h3>${identifier}</h3>
+          <p>foo</p>
+        </div>
+        <img
+          src=${this.imageUrl}
+          alt=${`${this.itemMD?.metadata?.identifier} thumbnail`}
+        />
+      </section>
+    `;
   }
 
   setMenu() {
@@ -71,17 +87,21 @@ export class IaItemInspector extends LitElement implements IntNavController {
         baseHost: this.baseHost,
         subPrefix: '',
       }),
-      // downloads: new DownloadProvider(this.item, this.baseHost)
+      filesByType: new FilesByTypeProvider({
+        item: this.itemMD,
+        baseHost: this.baseHost,
+        subPrefix: '',
+      }),
     };
 
     this.menuProviders = menuProviders;
   }
 
   updateMenuContents() {
-    const { share } = this.menuProviders;
-    const availableMenus = [share].filter(menu => !!menu);
+    const { share, filesByType } = this.menuProviders;
+    const availableMenus = [share, filesByType].filter(menu => !!menu);
 
-    const event = new CustomEvent(events.menuUpdated, {
+    const event = new CustomEvent(ItemInspectorEvents.menuUpdated, {
       detail: availableMenus,
     });
 
@@ -100,20 +120,10 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   get imageUrl() {
-    const { metadata } = this.itemMD;
-    return `${this.baseHost}/services/img/${metadata?.identifier}`;
-  }
-
-  render() {
-    return html`
-      <section>
-        <img src=${this.imageUrl} alt="default item" />
-        <div>
-          <h3>Welcome to item:</h3>
-          <p>foo</p>
-        </div>
-      </section>
-    `;
+    const { metadata = {} } = this.itemMD;
+    const url = `${this.baseHost}/download/${metadata?.identifier}/__ia_thumb.jpg`;
+    console.log('imageUrl metadata', metadata?.identifier, url);
+    return url;
   }
 
   static get styles() {
@@ -123,14 +133,22 @@ export class IaItemInspector extends LitElement implements IntNavController {
         width: 100%;
         margin: 0 auto;
         position: relative;
+        min-height: inherit;
+        height: inherit;
+        position: relative;
+        overflow: hidden;
+        display: block;
       }
 
       section {
-        display: flex;
+        margin: auto;
         width: 100%;
-        /* border: 5px dotted green; */
-        justify-content: center;
-        align-items: center;
+        border: 1px solid;
+        text-align: center;
+      }
+
+      img {
+        border: 1px solid var(--primaryTextColor, #fff);
       }
     `;
     return [main];

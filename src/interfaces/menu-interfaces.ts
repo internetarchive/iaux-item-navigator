@@ -1,4 +1,5 @@
 import { TemplateResult } from 'lit-html';
+import { MetadataResponse } from '@internetarchive/search-service';
 
 export interface IntMenuShortcut {
   icon: TemplateResult;
@@ -15,7 +16,11 @@ export interface IntMenuIconAndDetails extends IntMenuShortcut {
   href?: string;
 }
 
-export interface IntMenuProvider extends IntMenuIconAndDetails {
-  item: any;
+export interface IntProviderArgs {
+  item: MetadataResponse;
   baseHost: string;
+  subPrefix: string;
 }
+export interface IntMenuProvider
+  extends IntProviderArgs,
+    IntMenuIconAndDetails {}

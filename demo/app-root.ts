@@ -39,7 +39,7 @@ export class AppRoot extends LitElement {
     }
 
     this.itemMD = mdResponse.success;
-    console.log('this.itemMD', this.itemMD);
+    console.log('** App Root: this.itemMD', this.itemMD);
   }
 
   render() {
