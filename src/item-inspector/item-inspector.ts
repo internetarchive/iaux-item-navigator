@@ -62,7 +62,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
       this.setMenu();
     }
 
-    if (changed.has('menuProviders')) {
+    if (changed.has('menuProviders') || changed.has('menuShortcuts')) {
       this.updateMenuContents();
     }
   }
@@ -99,7 +99,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   addMenuShortcut(menuId: keyof menuProvidersInt) {
-    console.log('addMenuShortcut', menuId, this.menuShortcuts);
     if (this.menuShortcuts.find(m => m.id === menuId)) {
       return;
     }
@@ -126,8 +125,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
       },
       []
     );
-
-    console.log('sorTed', sorted);
 
     this.menuShortcuts = sorted;
   }
@@ -169,7 +166,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
   get imageUrl() {
     const { metadata = {} } = this.itemMD;
     const url = `${this.baseHost}/download/${metadata?.identifier}/__ia_thumb.jpg`;
-    console.log('imageUrl metadata', metadata?.identifier, url);
     return url;
   }
 
