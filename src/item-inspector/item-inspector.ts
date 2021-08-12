@@ -27,8 +27,7 @@ enum ItemInspectorEvents {
 }
 
 interface menuProvidersInt {
-  share?: IntMenuProvider;
-  filesByType?: IntMenuProvider;
+  [menuId: string]: IntMenuProvider;
 }
 
 @customElement('ia-item-inspector')
@@ -41,6 +40,8 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
 
+  @property({ type: Array }) shortcutOrder: string[] = ['filesByType'];
+
   @property({ type: Boolean }) sideMenuOpen = false;
 
   @state() fileCount: number = 0;
@@ -52,30 +53,28 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   updated(changed: any) {
+    if (changed.has('loaded')) {
+      this.emitLoadingStatusUpdate(this.loaded);
+    }
+
     if (changed.has('itemMD') && this.itemMD) {
       this.parseItemInfo();
-    }
-    if (changed.has('loaded') && this.itemMD) {
-      this.emitLoadingStatusUpdate(this.loaded);
       this.setMenu();
     }
+
     if (changed.has('menuProviders')) {
       this.updateMenuContents();
     }
   }
 
   render() {
-    const { identifier = '' } = this.itemMD?.metadata;
+    const { identifier = '' } = this.itemMD?.metadata || {};
     return html`
       <section>
         <div>
-          <h3>${identifier}</h3>
-          <p>foo</p>
+          <h2>${identifier}</h2>
         </div>
-        <img
-          src=${this.imageUrl}
-          alt=${`${this.itemMD?.metadata?.identifier} thumbnail`}
-        />
+        <img src=${this.imageUrl} alt=${`${identifier} thumbnail`} />
       </section>
     `;
   }
@@ -95,11 +94,59 @@ export class IaItemInspector extends LitElement implements IntNavController {
     };
 
     this.menuProviders = menuProviders;
+
+    this.addMenuShortcut('filesByType');
+  }
+
+  addMenuShortcut(menuId: keyof menuProvidersInt) {
+    console.log('addMenuShortcut', menuId, this.menuShortcuts);
+    if (this.menuShortcuts.find(m => m.id === menuId)) {
+      return;
+    }
+
+    const shortcut = this.menuProviders[menuId];
+    this.menuShortcuts.push(shortcut);
+    this.sortMenuShortcuts();
+    this.emitMenuShortcutsUpdated();
+  }
+
+  sortMenuShortcuts() {
+    const sorted = this.shortcutOrder.reduce(
+      (shortcuts: IntMenuShortcut[], id): IntMenuShortcut[] => {
+        const menu = this.menuShortcuts.find(
+          m => m.id === id
+        ) as IntMenuShortcut;
+
+        let allShortcuts: IntMenuShortcut[] = [...shortcuts];
+        if (menu) {
+          const newShortcut = [menu];
+          allShortcuts = [...shortcuts, ...newShortcut];
+        }
+        return allShortcuts;
+      },
+      []
+    );
+
+    console.log('sorTed', sorted);
+
+    this.menuShortcuts = sorted;
+  }
+
+  emitMenuShortcutsUpdated() {
+    const event = new CustomEvent('menuShortcutsUpdated', {
+      detail: this.menuShortcuts,
+    });
+    this.dispatchEvent(event);
+  }
+
+  removeMenuShortcut(menuId: string) {
+    this.menuShortcuts = this.menuShortcuts.filter(m => m.id !== menuId);
+    this.emitMenuShortcutsUpdated();
   }
 
   updateMenuContents() {
     const { share, filesByType } = this.menuProviders;
-    const availableMenus = [share, filesByType].filter(menu => !!menu);
+    const availableMenus = [filesByType, share].filter(menu => !!menu);
 
     const event = new CustomEvent(ItemInspectorEvents.menuUpdated, {
       detail: availableMenus,
@@ -133,11 +180,14 @@ export class IaItemInspector extends LitElement implements IntNavController {
         width: 100%;
         margin: 0 auto;
         position: relative;
-        min-height: inherit;
-        height: inherit;
-        position: relative;
         overflow: hidden;
         display: block;
+      }
+
+      :host,
+      section {
+        min-height: inherit;
+        height: inherit;
       }
 
       section {

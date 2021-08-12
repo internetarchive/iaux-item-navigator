@@ -37,7 +37,7 @@ export class ItemNavigator extends LitElement {
       return value as MetadataResponse;
     },
   })
-  item: MetadataResponse = {} as MetadataResponse;
+  item: MetadataResponse | undefined = undefined;
 
   @property({ type: String }) itemType = '';
 
@@ -94,9 +94,11 @@ export class ItemNavigator extends LitElement {
           ${!this.loaded
             ? html`<ia-itemnav-loader></ia-itemnav-loader>`
             : nothing}
-          <div id=${`reader`} class=${displayReaderClass}>
-            ${this.renderViewport}
-          </div>
+          ${this.item
+            ? html`<div id="reader" class=${displayReaderClass}>
+                ${this.renderViewport}
+              </div>`
+            : nothing}
         </div>
       </div>
     `;
@@ -124,7 +126,10 @@ export class ItemNavigator extends LitElement {
     `;
   }
 
-  get renderViewport(): TemplateResult {
+  get renderViewport(): TemplateResult | typeof nothing {
+    if (!this.item) {
+      return nothing;
+    }
     if (this.itemType === 'bookreader') {
       return this.BooksViewer;
     }
@@ -133,6 +138,7 @@ export class ItemNavigator extends LitElement {
       @loadingStateUpdated=${this.loadingStateUpdated}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
+      @menuShortcutsUpdated=${this.setMenuShortcuts}
     ></ia-item-inspector>`;
   }
 
