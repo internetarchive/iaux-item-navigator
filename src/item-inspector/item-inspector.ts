@@ -68,7 +68,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   render() {
-    const { identifier = '' } = this.itemMD?.metadata || {};
+    const { identifier = '' } = this.itemMD?.metadata;
     return html`
       <section>
         <div>

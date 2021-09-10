@@ -23,4 +23,5 @@ export interface IntProviderArgs {
 }
 export interface IntMenuProvider
   extends IntProviderArgs,
-    IntMenuIconAndDetails {}
+    IntMenuIconAndDetails,
+    IntMenuShortcut {}

@@ -20,18 +20,17 @@ import {
   IntManageSideMenuEvent,
   IntSetOpenMenuEvent,
   IntSetMenuContentsEvent,
-  IntSetMenuShortcuts,
   IntLoadingStateUpdatedEvent,
 } from './interfaces/event-interfaces';
 
-import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
+import { IntMenuProvider } from './interfaces/menu-interfaces';
 
 @customElement('item-navigator')
 export class ItemNavigator extends LitElement {
   @property({
     type: Object,
     converter: (value: string | MetadataResponse | null): MetadataResponse => {
-      if (typeof value === 'string') {
+      if (value && typeof value === 'string') {
         return new MetadataResponse(JSON.parse(atob(value)));
       }
       return value as MetadataResponse;
@@ -62,9 +61,8 @@ export class ItemNavigator extends LitElement {
       return false;
     },
   })
-  menuShortcuts: IntMenuShortcut[] = [];
-
-  @property({ type: Array }) menuContents: IntMenuProvider[] = [];
+  @property({ type: Array })
+  menuContents: IntMenuProvider[] = [];
 
   @property({ type: Boolean }) viewportInFullscreen = false;
 
@@ -115,7 +113,6 @@ export class ItemNavigator extends LitElement {
         @loadingStateUpdated=${this.loadingStateUpdated}
         @updateSideMenu=${this.manageSideMenuEvents}
         @menuUpdated=${this.setMenuContents}
-        @menuShortcutsUpdated=${this.setMenuShortcuts}
         @showItemNavigatorModal=${this.openModal}
         @closeItemNavigatorModal=${this.closeModal}
       >
@@ -138,7 +135,6 @@ export class ItemNavigator extends LitElement {
       @loadingStateUpdated=${this.loadingStateUpdated}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
-      @menuShortcutsUpdated=${this.setMenuShortcuts}
     ></ia-item-inspector>`;
   }
 
@@ -182,7 +178,7 @@ export class ItemNavigator extends LitElement {
 
   /** Side menu */
   get shouldRenderMenu(): boolean {
-    return !!(this.menuContents.length || this.menuShortcuts.length);
+    return !!this.menuContents.length;
   }
 
   toggleMenu(): void {
@@ -221,7 +217,7 @@ export class ItemNavigator extends LitElement {
 
     return html`
       <nav>
-        <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
+        <div class="minimized">${this.shortcuts}</div>
         <div id="menu" class=${drawerState}>
           <ia-menu-slider
             .menus=${this.menuContents}
@@ -238,17 +234,13 @@ export class ItemNavigator extends LitElement {
   /** End Side menu */
 
   /** Menu Shortcuts */
-  setMenuShortcuts(e: IntSetMenuShortcuts): void {
-    this.menuShortcuts = [...e.detail];
-  }
-
   openShortcut(selectedMenuId = ''): void {
     this.openMenu = selectedMenuId;
     this.menuOpened = true;
   }
 
   get shortcuts(): TemplateResult {
-    const shortcuts = this.menuShortcuts.map(
+    const shortcuts = this.menuContents.map(
       ({ icon, id }) => html`
         <button class="shortcut ${id}" @click="${() => this.openShortcut(id)}">
           ${icon}
@@ -266,18 +258,6 @@ export class ItemNavigator extends LitElement {
     return `${drawerState} ${fullscreenState}`;
   }
 
-  get menuToggleButton(): TemplateResult {
-    return html`
-      <button
-        class="toggle-menu"
-        @click=${() => this.toggleMenu()}
-        title="Toggle theater side panels"
-      >
-        <div><ia-icon-ellipses></ia-icon-ellipses></div>
-      </button>
-    `;
-  }
-
   static get styles() {
     const subnavWidth = css`var(--menuWidth, 320px)`;
     const tabletPlusQuery = css`
@@ -285,6 +265,7 @@ export class ItemNavigator extends LitElement {
     `;
     const transitionTiming = css`var(--animationTiming, 200ms)`;
     const transitionEffect = css`transform ${transitionTiming} ease-out`;
+    const menuMargin = css`var(--theaterMenuMargin, 42px)`;
 
     return css`
       :host,
@@ -296,9 +277,6 @@ export class ItemNavigator extends LitElement {
         position: relative;
         overflow: hidden;
         display: block;
-      }
-      #frame {
-        border: 1px solid white;
       }
 
       #frame.fullscreen,
@@ -331,18 +309,25 @@ export class ItemNavigator extends LitElement {
       }
 
       nav .minimized {
-        background: rgba(0, 0, 0, 0.7);
-        border-bottom-right-radius: 5%;
         position: absolute;
-        padding-top: 0.6rem;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        background: rgba(0, 0, 0, 0.7);
+        position: absolute;
+        padding-top: 6px;
         left: 0;
-        width: 4rem;
+        width: ${menuMargin};
         z-index: 2;
+        border-right-width: 1px;
+        border-right-style: solid;
+        border-color: var(--subpanelRightBorderColor);
       }
 
       nav .minimized button {
         width: var(--iconWidth);
         height: var(--iconHeight);
+        margin-bottom: 0.2rem;
         margin: auto;
         display: inline-flex;
         vertical-align: middle;
@@ -350,8 +335,9 @@ export class ItemNavigator extends LitElement {
         align-items: center;
         -webkit-box-pack: center;
         justify-content: center;
-        width: 4rem;
-        height: 4rem;
+        width: ${menuMargin};
+        height: ${menuMargin};
+        border: 1px solid salmon;
       }
 
       nav .minimized button.toggle-menu > * {
@@ -385,7 +371,7 @@ export class ItemNavigator extends LitElement {
         z-index: 1;
         transition: ${transitionEffect};
         transform: translateX(0);
-        width: 100%;
+        margin-left: ${menuMargin};
       }
 
       .open #menu {
