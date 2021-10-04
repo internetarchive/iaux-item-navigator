@@ -32,7 +32,9 @@ interface menuProvidersInt {
 
 @customElement('ia-item-inspector')
 export class IaItemInspector extends LitElement implements IntNavController {
-  @property({ type: Object }) itemMD: MetadataResponse = {} as MetadataResponse;
+  @property({ type: Object }) itemMD: MetadataResponse = {
+    metadata: {},
+  } as MetadataResponse;
 
   @property({ type: String }) baseHost = 'https://archive.org';
 

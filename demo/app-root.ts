@@ -7,7 +7,7 @@ import {
 } from '@internetarchive/search-service';
 @customElement('app-root')
 export class AppRoot extends LitElement {
-  @property({ type: Object }) itemMD: MetadataResponse | any = {};
+  @property({ type: Object }) itemMD: MetadataResponse | undefined = undefined;
 
   @property({ type: Object }) bookManifest = {};
 
@@ -43,6 +43,7 @@ export class AppRoot extends LitElement {
   }
 
   render() {
+    console.log('---- APP ROOT - ', this.itemMD);
     if (!this.itemMD) {
       return html`<h2>Please hold as we fetch an item for ya</h2>`;
     }

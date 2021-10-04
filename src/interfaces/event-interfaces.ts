@@ -1,6 +1,6 @@
 import { TemplateResult } from 'lit-html';
 import { ModalConfig } from '@internetarchive/modal-manager';
-import { IntMenuProvider, IntMenuShortcut } from './menu-interfaces';
+import { IntMenuProvider } from './menu-interfaces';
 
 /** Toggles Menu && Sets open panel */
 export interface IntManageSideMenuEvent extends CustomEvent {
@@ -23,12 +23,6 @@ export interface IntSetOpenMenuEvent extends CustomEvent {
 export interface IntSetMenuContentsEvent extends CustomEvent {
   type: 'menuUpdated';
   detail: IntMenuProvider[];
-}
-
-/** list of shortcut configs that displays in minimized menu */
-export interface IntSetMenuShortcuts extends CustomEvent {
-  type: 'menuShortcutsUpdated';
-  detail: IntMenuShortcut[];
 }
 
 /** Toggles fullscreen mode */

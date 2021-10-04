@@ -284,6 +284,10 @@ export class ItemNavigator extends LitElement {
         height: 100vh;
       }
 
+      #reader {
+        border: 1px solid yellow;
+      }
+
       .hidden {
         height: 1px;
         width: 1px;
@@ -377,6 +381,12 @@ export class ItemNavigator extends LitElement {
       .open #menu {
         width: ${subnavWidth};
         transform: translateX(0);
+        transition: ${transitionEffect};
+      }
+
+      .open #reader {
+        width: calc(100% - var(--menuWidth));
+        float: right;
         transition: ${transitionEffect};
       }
 

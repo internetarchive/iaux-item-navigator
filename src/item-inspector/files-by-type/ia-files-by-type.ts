@@ -30,6 +30,22 @@ export default class IaFilesByType extends LitElement {
     `;
   }
 
+  sortByViewer() {
+    //   const images = [];
+    //   const books = [];
+    //   const radio = [];
+    //   const audio = [];
+    //   const video = [];
+    //   const albums = [];
+    //   const software = [];
+    //  this.collapsedFiles.forEach((fi) => {
+    //   // if image
+    //   // sort by various viewers
+    //  })
+
+    return true;
+  }
+
   collapseFiles() {
     const { files = [] } = this?.item as MetadataResponse;
 
