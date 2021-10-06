@@ -153,7 +153,8 @@ export class IaItemInspector extends LitElement implements IntNavController {
         margin: 0 auto;
         position: relative;
         overflow: hidden;
-        display: block;
+        background-color: black;
+        color: var(--primaryTextColor, #fff);
       }
 
       :host,
@@ -165,7 +166,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
       section {
         margin: auto;
         width: 100%;
-        border: 1px solid;
         text-align: center;
       }
 

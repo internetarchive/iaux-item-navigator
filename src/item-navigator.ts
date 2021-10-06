@@ -292,10 +292,6 @@ export class ItemNavigator extends LitElement {
         height: 100vh;
       }
 
-      #reader {
-        border: 1px solid yellow;
-      }
-
       .hidden {
         height: 1px;
         width: 1px;
@@ -349,15 +345,6 @@ export class ItemNavigator extends LitElement {
         justify-content: center;
         width: ${menuMargin};
         height: ${menuMargin};
-        border: 1px solid salmon;
-      }
-
-      nav .minimized button.toggle-menu > * {
-        border: 2px solid var(--iconStrokeColor);
-        border-radius: var(--iconWidth);
-        width: var(--iconWidth);
-        height: var(--iconHeight);
-        margin: auto;
       }
 
       ia-icon-ellipses {
