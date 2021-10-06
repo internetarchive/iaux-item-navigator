@@ -4,7 +4,7 @@
 import { html, TemplateResult, customElement, LitElement } from 'lit-element';
 
 import '@internetarchive/ia-sharing-options';
-import '@internetarchive/icon-share/icon-share';
+import '@internetarchive/icon-visual-adjustment/icon-visual-adjustment';
 import {
   IntMenuProvider,
   IntProviderArgs,
@@ -28,11 +28,11 @@ export class VisualModsProvider implements IntMenuProvider {
 
   baseHost: string = 'https://archive.org';
 
-  icon: TemplateResult = html`<ia-icon-share
+  icon: TemplateResult = html`<ia-icon-visual-adjustment
     style="width: var(--iconWidth); height: var(--iconHeight);"
-  ></ia-icon-share>`;
+  ></ia-icon-visual-adjustment>`;
 
-  id: string = 'visual-mods';
+  id: string = 'visualMods';
 
   label: string = 'Visual Modifications';
 

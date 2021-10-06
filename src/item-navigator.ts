@@ -5,9 +5,16 @@ import {
   customElement,
   property,
   state,
+  query,
 } from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
+import { PromisedSingleton } from '@internetarchive/promised-singleton';
+import {
+  SharedResizeObserver,
+  SharedResizeObserverInterface,
+  SharedResizeObserverResizeHandlerInterface,
+} from '@internetarchive/shared-resize-observer';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
@@ -19,13 +26,16 @@ import {
   IntManageSideMenuEvent,
   IntSetOpenMenuEvent,
   IntSetMenuContentsEvent,
+  IntSetMenuShortcutsEvent,
   IntLoadingStateUpdatedEvent,
 } from './interfaces/event-interfaces';
 
-import { IntMenuProvider } from './interfaces/menu-interfaces';
+import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
 
 @customElement('item-navigator')
-export class ItemNavigator extends LitElement {
+export class ItemNavigator
+  extends LitElement
+  implements SharedResizeObserverResizeHandlerInterface {
   @property({
     type: Object,
     converter: (value: string | MetadataResponse | null): MetadataResponse => {
@@ -63,6 +73,8 @@ export class ItemNavigator extends LitElement {
   @property({ type: Array })
   menuContents: IntMenuProvider[] = [];
 
+  @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
+
   @property({ type: Boolean, reflect: true }) viewportInFullscreen = false;
 
   @property({ type: Boolean }) menuOpened = false;
@@ -73,12 +85,51 @@ export class ItemNavigator extends LitElement {
     | ModalManagerInterface
     | undefined = undefined;
 
-  @state() loaded: boolean = false;
+  @property({ attribute: false }) private sharedObserver?: any; // PromisedSingleton<SharedResizeObserverInterface>;
+
+  @state() private loaded: boolean = false;
+
+  @state() private openMenuState: 'overlay' | 'shift' = 'shift';
+
+  @query('#frame') private frame!: HTMLDivElement;
+
+  disconnectedCallback() {
+    this.sharedObserver?.removeObserver({
+      handler: this,
+      target: this.frame,
+    });
+  }
 
   firstUpdated(): void {
     if (!this.modal) {
       this.createModal();
     }
+
+    this.startResizeObserver();
+  }
+
+  handleResize(entry: ResizeObserverEntry): void {
+    const { width } = entry.contentRect;
+    if (width <= 600) {
+      this.openMenuState = 'overlay';
+      return;
+    }
+    this.openMenuState = 'shift';
+    console.log('width', width);
+  }
+
+  private async startResizeObserver(): Promise<void> {
+    const ro = new PromisedSingleton<SharedResizeObserverInterface>({
+      generator: async (): Promise<SharedResizeObserverInterface> => {
+        return new SharedResizeObserver();
+      },
+    });
+
+    this.sharedObserver = await ro.get();
+    this.sharedObserver?.addObserver({
+      handler: this,
+      target: this.frame,
+    });
   }
 
   render(): TemplateResult {
@@ -89,13 +140,13 @@ export class ItemNavigator extends LitElement {
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
           ${!this.loaded
-            ? html`<ia-itemnav-loader></ia-itemnav-loader>`
-            : nothing}
-          ${this.item
-            ? html`<div id="reader" class=${displayReaderClass}>
-                ${this.renderViewport}
+            ? html`<div class="loading-view">
+                <ia-itemnav-loader></ia-itemnav-loader>
               </div>`
             : nothing}
+          <div id="reader" class=${displayReaderClass}>
+            ${this.renderViewport}
+          </div>
         </div>
       </div>
     `;
@@ -108,10 +159,12 @@ export class ItemNavigator extends LitElement {
         .book=${this.item}
         ?signedIn=${this.signedIn}
         ?sideMenuOpen=${this.menuOpened}
+        .sharedObserver=${this.sharedObserver}
         @ViewportInFullScreen=${this.manageViewportFullscreen}
         @loadingStateUpdated=${this.loadingStateUpdated}
         @updateSideMenu=${this.manageSideMenuEvents}
         @menuUpdated=${this.setMenuContents}
+        @menuShortcutsUpdated=${this.setMenuShortcuts}
         @showItemNavigatorModal=${this.openModal}
         @closeItemNavigatorModal=${this.closeModal}
       >
@@ -131,10 +184,13 @@ export class ItemNavigator extends LitElement {
     }
     return html` <ia-item-inspector
       .itemMD=${this.item}
-      @loadingStateUpdated=${this.loadingStateUpdated}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
       @ViewportInFullScreen=${this.manageViewportFullscreen}
+      @menuShortcutsUpdated=${this.setMenuShortcuts}
+      @showItemNavigatorModal=${this.openModal}
+      @closeItemNavigatorModal=${this.closeModal}
+      @loadingStateUpdated=${this.loadingStateUpdated}
     ></ia-item-inspector>`;
   }
 
@@ -198,6 +254,10 @@ export class ItemNavigator extends LitElement {
     this.menuContents = updatedContents;
   }
 
+  setMenuShortcuts(e: IntSetMenuShortcutsEvent) {
+    this.menuShortcuts = [...e.detail];
+  }
+
   /** Toggles Side Menu & Sets viewable subpanel  */
   manageSideMenuEvents(e: IntManageSideMenuEvent): void {
     const { menuId, action } = e.detail;
@@ -211,12 +271,29 @@ export class ItemNavigator extends LitElement {
     }
   }
 
+  get menuToggleButton() {
+    // <ia-icon icon="ellipses" style="width: var(--iconWidth); height: var(--iconHeight);"></ia-icon>
+    return html`
+      <button
+        class="toggle-menu"
+        @click=${this.toggleMenu}
+        title="Toggle theater side panels"
+      >
+        <div>
+          <ia-icon-ellipses
+            style="width: var(--iconWidth); height: var(--iconHeight);"
+          ></ia-icon-ellipses>
+        </div>
+      </button>
+    `;
+  }
+
   get renderSideMenu(): TemplateResult {
     const drawerState = this.menuOpened ? '' : 'hidden';
 
     return html`
       <nav>
-        <div class="minimized">${this.shortcuts}</div>
+        <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
         <div id="menu" class=${drawerState}>
           <ia-menu-slider
             .menus=${this.menuContents}
@@ -239,7 +316,7 @@ export class ItemNavigator extends LitElement {
   }
 
   get shortcuts(): TemplateResult {
-    const shortcuts = this.menuContents.map(
+    const shortcuts = this.menuShortcuts.map(
       ({ icon, id }) => html`
         <button class="shortcut ${id}" @click="${() => this.openShortcut(id)}">
           ${icon}
@@ -254,14 +331,11 @@ export class ItemNavigator extends LitElement {
   get menuClass(): string {
     const drawerState = this.menuOpened ? 'open' : '';
     const fullscreenState = this.viewportInFullscreen ? 'fullscreen' : '';
-    return `${drawerState} ${fullscreenState}`;
+    return `${drawerState} ${fullscreenState} ${this.openMenuState}`;
   }
 
   static get styles() {
     const subnavWidth = css`var(--menuWidth, 320px)`;
-    const tabletPlusQuery = css`
-      @media (min-width: 640px);
-    `;
     const transitionTiming = css`var(--animationTiming, 200ms)`;
     const transitionEffect = css`transform ${transitionTiming} ease-out`;
     const menuMargin = css`var(--theaterMenuMargin, 42px)`;
@@ -278,6 +352,10 @@ export class ItemNavigator extends LitElement {
         display: block;
       }
 
+      #frame {
+        background-color: var(--menuSliderBg);
+      }
+
       #frame.fullscreen {
         position: fixed;
         top: 0;
@@ -290,6 +368,19 @@ export class ItemNavigator extends LitElement {
       #frame.fullscreen,
       #frame.fullscreen #reader {
         height: 100vh;
+      }
+
+      .loading-view {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: inherit;
+        height: inherit;
+      }
+
+      ia-itemnav-loader {
+        display: block;
+        width: 100%;
       }
 
       .hidden {
@@ -317,19 +408,13 @@ export class ItemNavigator extends LitElement {
       }
 
       nav .minimized {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        left: 0px;
         background: rgba(0, 0, 0, 0.7);
-        position: absolute;
         padding-top: 6px;
-        left: 0;
+        position: absolute;
         width: ${menuMargin};
         z-index: 2;
-        border-right-width: 1px;
-        border-right-style: solid;
-        border-color: var(--subpanelRightBorderColor);
+        left: 0;
+        border-bottom-right-radius: 5%;
       }
 
       nav .minimized button {
@@ -345,6 +430,14 @@ export class ItemNavigator extends LitElement {
         justify-content: center;
         width: ${menuMargin};
         height: ${menuMargin};
+      }
+
+      nav .minimized button.toggle-menu > * {
+        border: 2px solid var(--iconStrokeColor);
+        border-radius: var(--iconWidth);
+        width: var(--iconWidth);
+        height: var(--iconHeight);
+        margin: auto;
       }
 
       ia-icon-ellipses {
@@ -368,9 +461,13 @@ export class ItemNavigator extends LitElement {
       #reader {
         position: relative;
         z-index: 1;
-        transition: ${transitionEffect};
+        /* transition: ${transitionEffect}; */
         transform: translateX(0);
-        margin-left: ${menuMargin};
+        width: 100%;
+      }
+
+      .open.overlay #reader {
+        transition: none;
       }
 
       .open #menu {
@@ -379,18 +476,10 @@ export class ItemNavigator extends LitElement {
         transition: ${transitionEffect};
       }
 
-      .open #reader {
+      .open.shift #reader {
         width: calc(100% - var(--menuWidth));
         float: right;
         transition: ${transitionEffect};
-      }
-
-      ${tabletPlusQuery} {
-        .open #reader {
-          transition: ${transitionEffect};
-          transform: translateX(${subnavWidth});
-          width: calc(100% - ${subnavWidth});
-        }
       }
     `;
   }

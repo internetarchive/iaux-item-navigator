@@ -8,8 +8,12 @@ import {
   state,
 } from 'lit-element';
 import { MetadataResponse } from '@internetarchive/search-service';
+
 import { IntNavController } from '../interfaces/nav-controller-interface';
-import { IntMenuProvider } from '../interfaces/menu-interfaces';
+import {
+  IntMenuProvider,
+  IntMenuShortcut,
+} from '../interfaces/menu-interfaces';
 
 import { ShareProvider } from './share-provider';
 import { FilesByTypeProvider } from './files-by-type/files-by-type-provider';
@@ -37,6 +41,8 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   @property({ type: Object }) menuProviders: menuProvidersInt = {};
 
+  @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
+
   @property({ type: Boolean }) sideMenuOpen = false;
 
   @property({ type: Boolean }) fullscreenState = false;
@@ -45,13 +51,16 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   @state() loaded: boolean = false;
 
+  @state() private shortcutOrder = ['visualMods'];
+
   firstUpdated() {
     this.loaded = true;
+    console.log('loaded ');
   }
 
   updated(changed: any) {
     if (changed.has('loaded')) {
-      this.emitLoadingStatusUpdate(this.loaded);
+      setTimeout(() => this.emitLoadingStatusUpdate(this.loaded), 1000);
     }
 
     if (changed.has('itemMD') && this.itemMD) {
@@ -74,6 +83,53 @@ export class IaItemInspector extends LitElement implements IntNavController {
         <img src=${this.imageUrl} alt=${`${identifier} thumbnail`} />
       </section>
     `;
+  }
+
+  addMenuShortcut(menuId: keyof menuProvidersInt) {
+    if (this.menuShortcuts.find(m => m.id === menuId)) {
+      return;
+    }
+
+    const shortcut = this.menuProviders[menuId];
+    this.menuShortcuts.push(shortcut);
+    this.sortMenuShortcuts();
+    this.emitMenuShortcutsUpdated();
+  }
+
+  /**
+   * Removes a provider object from the menuShortcuts array and emits a
+   * menuShortcutsUpdated event.
+   */
+  removeMenuShortcut(menuId: string) {
+    this.menuShortcuts = this.menuShortcuts.filter(m => m.id !== menuId);
+    this.emitMenuShortcutsUpdated();
+  }
+
+  /**
+   * Sorts the menuShortcuts property by comparing each provider's id to
+   * the id in each iteration over the shortcutOrder array.
+   */
+  sortMenuShortcuts() {
+    this.menuShortcuts = this.shortcutOrder.reduce(
+      (shortcuts: IntMenuShortcut[], id) => {
+        const menu = this.menuShortcuts.find(m => m.id === id);
+
+        // eslint-disable-next-line no-param-reassign
+        if (menu) {
+          shortcuts = [...shortcuts, menu];
+        }
+        console.log({ shortcuts, menu });
+        return shortcuts;
+      },
+      []
+    );
+  }
+
+  emitMenuShortcutsUpdated() {
+    const event = new CustomEvent('menuShortcutsUpdated', {
+      detail: this.menuShortcuts,
+    });
+    this.dispatchEvent(event);
   }
 
   setMenu() {
@@ -103,6 +159,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
     };
 
     this.menuProviders = menuProviders;
+    this.addMenuShortcut('visualMods');
   }
 
   updateFullscreenState() {

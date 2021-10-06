@@ -12,9 +12,11 @@ export class FilesByTypeProvider implements IntMenuProvider {
 
   baseHost: string = 'https://archive.org';
 
-  icon: TemplateResult = html`<ia-icon-share
-    style="width: var(--iconWidth); height: var(--iconHeight);"
-  ></ia-icon-share>`;
+  icon: TemplateResult = html`<p
+    style="color: #fff; font-size: var(--iconHeight);"
+  >
+    F
+  </p>`;
 
   id: string = 'filesByType';
 
