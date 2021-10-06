@@ -42,6 +42,20 @@ export class AppRoot extends LitElement {
     console.log('** App Root: this.itemMD', this.itemMD);
   }
 
+  get renderMD() {
+    const x = [];
+    // eslint-disable-next-line guard-for-in, no-restricted-syntax
+    for (const md in this.itemMD) {
+      const val = (this.itemMD as any)[md];
+      x.push(
+        html`<dt>${md}</dt>
+          :
+          <dd>${val}</dd>`
+      );
+    }
+    return html`<dl>${[...x]}</dl>`;
+  }
+
   render() {
     console.log('---- APP ROOT - ', this.itemMD);
     if (!this.itemMD) {
@@ -49,8 +63,10 @@ export class AppRoot extends LitElement {
     }
 
     return html`
+      <h1>theater, in page</h1>
       <item-navigator baseHost="https://archive.org" .item=${this.itemMD}>
       </item-navigator>
+      <section>${this.renderMD}</section>
     `;
   }
 
@@ -58,6 +74,7 @@ export class AppRoot extends LitElement {
     :host {
       min-height: 64vh;
       border: 1px solid pink;
+      color: #222;
     }
     :host,
     item-navigator {
@@ -67,6 +84,12 @@ export class AppRoot extends LitElement {
     }
     item-navigator {
       height: inherit;
+      min-height: inherit;
+    }
+    div {
+      position: relative;
+      overflow: hidden;
+      height: 100%;
       min-height: inherit;
     }
   `;

@@ -7,16 +7,13 @@ import {
   property,
   state,
 } from 'lit-element';
-// import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
 import { IntNavController } from '../interfaces/nav-controller-interface';
-import {
-  IntMenuShortcut,
-  IntMenuProvider,
-} from '../interfaces/menu-interfaces';
+import { IntMenuProvider } from '../interfaces/menu-interfaces';
 
 import { ShareProvider } from './share-provider';
 import { FilesByTypeProvider } from './files-by-type/files-by-type-provider';
+import { VisualModsProvider } from './visual-mod-provider';
 
 // eslint-disable-next-line no-shadow
 enum ItemInspectorEvents {
@@ -40,11 +37,9 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   @property({ type: Object }) menuProviders: menuProvidersInt = {};
 
-  @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
-
-  @property({ type: Array }) shortcutOrder: string[] = ['filesByType'];
-
   @property({ type: Boolean }) sideMenuOpen = false;
+
+  @property({ type: Boolean }) fullscreenState = false;
 
   @state() fileCount: number = 0;
 
@@ -93,59 +88,38 @@ export class IaItemInspector extends LitElement implements IntNavController {
         baseHost: this.baseHost,
         subPrefix: '',
       }),
+      visualMods: new VisualModsProvider({
+        updated: (modType: string) => {
+          console.log('visal mods updated', modType);
+          if (modType === 'toggleFullscreen') {
+            this.updateFullscreenState();
+          }
+        },
+        item: this.itemMD,
+        baseHost: this.baseHost,
+        subPrefix: '',
+        // maybe DOM root for class configs?
+      }),
     };
 
     this.menuProviders = menuProviders;
-
-    this.addMenuShortcut('filesByType');
   }
 
-  addMenuShortcut(menuId: keyof menuProvidersInt) {
-    if (this.menuShortcuts.find(m => m.id === menuId)) {
-      return;
-    }
-
-    const shortcut = this.menuProviders[menuId];
-    this.menuShortcuts.push(shortcut);
-    this.sortMenuShortcuts();
-    this.emitMenuShortcutsUpdated();
-  }
-
-  sortMenuShortcuts() {
-    const sorted = this.shortcutOrder.reduce(
-      (shortcuts: IntMenuShortcut[], id): IntMenuShortcut[] => {
-        const menu = this.menuShortcuts.find(
-          m => m.id === id
-        ) as IntMenuShortcut;
-
-        let allShortcuts: IntMenuShortcut[] = [...shortcuts];
-        if (menu) {
-          const newShortcut = [menu];
-          allShortcuts = [...shortcuts, ...newShortcut];
-        }
-        return allShortcuts;
-      },
-      []
+  updateFullscreenState() {
+    const nextFSState = !this.fullscreenState;
+    this.fullscreenState = nextFSState;
+    this.dispatchEvent(
+      new CustomEvent('ViewportInFullScreen', {
+        detail: nextFSState,
+      })
     );
-
-    this.menuShortcuts = sorted;
-  }
-
-  emitMenuShortcutsUpdated() {
-    const event = new CustomEvent('menuShortcutsUpdated', {
-      detail: this.menuShortcuts,
-    });
-    this.dispatchEvent(event);
-  }
-
-  removeMenuShortcut(menuId: string) {
-    this.menuShortcuts = this.menuShortcuts.filter(m => m.id !== menuId);
-    this.emitMenuShortcutsUpdated();
   }
 
   updateMenuContents() {
-    const { share, filesByType } = this.menuProviders;
-    const availableMenus = [filesByType, share].filter(menu => !!menu);
+    const { share, filesByType, visualMods } = this.menuProviders;
+    const availableMenus = [filesByType, share, visualMods].filter(
+      menu => !!menu
+    );
 
     const event = new CustomEvent(ItemInspectorEvents.menuUpdated, {
       detail: availableMenus,

@@ -15,7 +15,6 @@ import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
 
 import {
-  IntManageFullscreenEvent,
   IntOpenModalEvent,
   IntManageSideMenuEvent,
   IntSetOpenMenuEvent,
@@ -64,7 +63,7 @@ export class ItemNavigator extends LitElement {
   @property({ type: Array })
   menuContents: IntMenuProvider[] = [];
 
-  @property({ type: Boolean }) viewportInFullscreen = false;
+  @property({ type: Boolean, reflect: true }) viewportInFullscreen = false;
 
   @property({ type: Boolean }) menuOpened = false;
 
@@ -135,6 +134,7 @@ export class ItemNavigator extends LitElement {
       @loadingStateUpdated=${this.loadingStateUpdated}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
+      @ViewportInFullScreen=${this.manageViewportFullscreen}
     ></ia-item-inspector>`;
   }
 
@@ -170,9 +170,8 @@ export class ItemNavigator extends LitElement {
   /* End Modal management */
 
   /** Fullscreen Management */
-  manageViewportFullscreen(e: IntManageFullscreenEvent): void {
-    const { isFullScreen } = e.detail;
-    this.viewportInFullscreen = isFullScreen;
+  manageViewportFullscreen(): void {
+    this.viewportInFullscreen = !this.viewportInFullscreen;
   }
   /** End Fullscreen Management */
 
@@ -277,6 +276,15 @@ export class ItemNavigator extends LitElement {
         position: relative;
         overflow: hidden;
         display: block;
+      }
+
+      #frame.fullscreen {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9;
       }
 
       #frame.fullscreen,

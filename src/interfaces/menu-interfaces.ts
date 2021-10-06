@@ -20,6 +20,7 @@ export interface IntProviderArgs {
   item: MetadataResponse;
   baseHost: string;
   subPrefix: string;
+  updated?: any;
 }
 export interface IntMenuProvider
   extends IntProviderArgs,
