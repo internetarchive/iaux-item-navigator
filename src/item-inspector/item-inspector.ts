@@ -14,6 +14,7 @@ import {
   IntMenuProvider,
   IntMenuShortcut,
 } from '../interfaces/menu-interfaces';
+import { IntManageFullscreenEvent } from '../interfaces/event-interfaces';
 
 import { ShareProvider } from './share-provider';
 import { FilesByTypeProvider } from './files-by-type/files-by-type-provider';
@@ -116,7 +117,9 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
         // eslint-disable-next-line no-param-reassign
         if (menu) {
-          shortcuts = [...shortcuts, menu];
+          const newShortcuts = [...shortcuts, menu];
+          // eslint-disable-next-line no-param-reassign
+          shortcuts = newShortcuts;
         }
         console.log({ shortcuts, menu });
         return shortcuts;
@@ -163,13 +166,13 @@ export class IaItemInspector extends LitElement implements IntNavController {
   }
 
   updateFullscreenState() {
-    const nextFSState = !this.fullscreenState;
-    this.fullscreenState = nextFSState;
-    this.dispatchEvent(
-      new CustomEvent('ViewportInFullScreen', {
-        detail: nextFSState,
-      })
-    );
+    const isFullScreen = !this.fullscreenState;
+    this.fullscreenState = isFullScreen;
+
+    const event = new CustomEvent('ViewportInFullScreen', {
+      detail: { isFullScreen },
+    } as IntManageFullscreenEvent);
+    this.dispatchEvent(event);
   }
 
   updateMenuContents() {

@@ -28,6 +28,7 @@ import {
   IntSetMenuContentsEvent,
   IntSetMenuShortcutsEvent,
   IntLoadingStateUpdatedEvent,
+  IntManageFullscreenEvent,
 } from './interfaces/event-interfaces';
 
 import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
@@ -115,7 +116,6 @@ export class ItemNavigator
       return;
     }
     this.openMenuState = 'shift';
-    console.log('width', width);
   }
 
   private async startResizeObserver(): Promise<void> {
@@ -233,8 +233,8 @@ export class ItemNavigator
   /* End Modal management */
 
   /** Fullscreen Management */
-  manageViewportFullscreen(): void {
-    this.viewportInFullscreen = !this.viewportInFullscreen;
+  manageViewportFullscreen(e: IntManageFullscreenEvent): void {
+    this.viewportInFullscreen = !!e.detail.isFullScreen;
   }
   /** End Fullscreen Management */
 
