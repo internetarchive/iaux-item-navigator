@@ -139,15 +139,22 @@ export class ItemNavigator
         <slot name="item-nav-header"></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          ${!this.loaded
-            ? html`<div class="loading-view">
-                <ia-itemnav-loader></ia-itemnav-loader>
-              </div>`
-            : nothing}
           <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
           </div>
+          <div class="loading-area">
+            <div class="loading-view">
+              <ia-itemnav-loader></ia-itemnav-loader>
+            </div>
+          </div>
         </div>
+        ${!this.loaded
+          ? html` <div class="loading-area">
+              <div class="loading-view">
+                <ia-itemnav-loader></ia-itemnav-loader>
+              </div>
+            </div>`
+          : nothing}
       </div>
     `;
   }
@@ -368,6 +375,16 @@ export class ItemNavigator
       #frame.fullscreen,
       #frame.fullscreen #reader {
         height: 100vh;
+      }
+
+      .loading-area {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: inherit;
+        min-height: inherit;
       }
 
       .loading-view {
