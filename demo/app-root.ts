@@ -76,11 +76,13 @@ export class AppRoot extends LitElement {
       border: 1px solid pink;
       color: #222;
     }
+
     :host,
     item-navigator {
       display: block;
       position: relative;
       width: 100%;
+      min-height: 64vh;
     }
     item-navigator {
       height: inherit;
