@@ -1,0 +1,1163 @@
+{
+  "data": {
+    "data": {
+      "streamOnly": false,
+      "isRestricted": false,
+      "id": "EWReidquotsNurs00EWReH",
+      "subPrefix": "EWReidquotsNurs00EWReH",
+      "olHost": "https:\/\/openlibrary.org",
+      "bookUrl": "\/details\/EWReidquotsNurs00EWReH",
+      "downloadUrls": [
+        [
+          "PDF",
+          "\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH.pdf"
+        ],
+        [
+          "ePub",
+          "\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH.epub"
+        ],
+        [
+          "Plain Text",
+          "\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_djvu.txt"
+        ],
+        [
+          "DAISY",
+          "\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_daisy.zip"
+        ],
+        [
+          "Kindle",
+          "\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH.mobi"
+        ]
+      ]
+    },
+    "brOptions": {
+      "bookId": "EWReidquotsNurs00EWReH",
+      "bookPath": "\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH",
+      "imageFormat": "jp2",
+      "server": "ia801302.us.archive.org",
+      "subPrefix": "EWReidquotsNurs00EWReH",
+      "zip": "\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip",
+      "bookTitle": "[E.W. Reid's Nurseries materials]",
+      "ppi": "300",
+      "coverLeaf": 1,
+      "defaultStartLeaf": 1,
+      "pageProgression": "lr",
+      "vars": {
+        "bookId": "EWReidquotsNurs00EWReH",
+        "bookPath": "\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH",
+        "server": "ia801302.us.archive.org",
+        "subPrefix": "EWReidquotsNurs00EWReH"
+      },
+      "plugins": {
+        "textSelection": {
+          "enabled": true,
+          "singlePageDjvuXmlUrl": "https:\/\/{{server}}\/BookReader\/BookReaderGetTextWrapper.php?path={{bookPath|urlencode}}_djvu.xml&mode=djvu_xml&page={{pageIndex}}"
+        }
+      },
+      "data": [
+        [
+          {
+            "width": 2006,
+            "height": 2965,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0001.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 1,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0001.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Cover",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1997,
+            "height": 2962,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0002.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 2,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0002.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1997,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0003.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 3,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0003.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1972,
+            "height": 2995,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0004.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 4,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0004.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1760,
+            "height": 2738,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0005.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 5,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0005.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1787,
+            "height": 2775,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0006.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 6,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0006.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 1772,
+            "height": 980,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0007.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 7,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0007.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1772,
+            "height": 980,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0008.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 8,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0008.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 1918,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0009.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 9,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0009.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 1,
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1927,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0010.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 10,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0010.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 2,
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 1944,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0011.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 11,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0011.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 3,
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1921,
+            "height": 2963,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0012.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 12,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0012.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 4,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1939,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0013.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 13,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0013.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 5,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1920,
+            "height": 2962,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0014.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 14,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0014.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 6,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1934,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0015.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 15,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0015.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 7,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1916,
+            "height": 2962,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0016.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 16,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0016.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 8,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1932,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0017.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 17,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0017.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 9,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1914,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0018.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 18,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0018.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 10,
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 1929,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0019.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 19,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0019.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 11,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1915,
+            "height": 2962,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0020.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 20,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0020.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 12,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1930,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0021.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 21,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0021.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 13,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1911,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0022.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 22,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0022.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 14,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1924,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0023.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 23,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0023.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 15,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1906,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0024.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 24,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0024.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 16,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1922,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0025.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 25,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0025.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 17,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1908,
+            "height": 2966,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0026.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 26,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0026.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 18,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1925,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0027.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 27,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0027.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 19,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1897,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0028.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 28,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0028.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 20,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1919,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0029.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 29,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0029.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 21,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1901,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0030.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 30,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0030.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 22,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1922,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0031.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 31,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0031.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 23,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1901,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0032.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 32,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0032.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 24,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1918,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0033.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 33,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0033.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 25,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1942,
+            "height": 2965,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0034.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 34,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0034.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 26,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1919,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0035.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 35,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0035.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 27,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1898,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0036.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 36,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0036.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 28,
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 1916,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0037.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 37,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0037.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 29,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1906,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0038.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 38,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0038.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 30,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1919,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0039.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 39,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0039.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 31,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1896,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0040.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 40,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0040.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 32,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1910,
+            "height": 2952,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0041.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 41,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0041.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 33,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1898,
+            "height": 2953,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0042.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 42,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0042.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 34,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1916,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0043.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 43,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0043.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 35,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1893,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0044.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 44,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0044.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 36,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1909,
+            "height": 2951,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0045.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 45,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0045.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 37,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1917,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0046.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 46,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0046.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 38,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1923,
+            "height": 2947,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0047.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 47,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0047.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 39,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1914,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0048.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 48,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0048.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 40,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1935,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0049.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 49,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0049.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 41,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1908,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0050.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 50,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0050.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 42,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1929,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0051.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 51,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0051.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 43,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1910,
+            "height": 2957,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0052.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 52,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0052.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 44,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1932,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0053.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 53,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0053.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 45,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1917,
+            "height": 2956,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0054.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 54,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0054.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 46,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1934,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0055.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 55,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0055.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 47,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1915,
+            "height": 2957,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0056.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 56,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0056.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 48,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1933,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0057.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 57,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0057.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 49,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1913,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0058.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 58,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0058.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 50,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1935,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0059.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 59,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0059.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 51,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1924,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0060.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 60,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0060.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 52,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1935,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0061.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 61,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0061.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 53,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1930,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0062.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 62,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0062.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 54,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1938,
+            "height": 2959,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0063.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 63,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0063.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 55,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1934,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0064.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 64,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0064.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 56,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1941,
+            "height": 2958,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0065.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 65,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0065.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 57,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1937,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0066.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 66,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0066.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 58,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1942,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0067.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 67,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0067.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 59,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1940,
+            "height": 2961,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0068.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 68,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0068.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 60,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1944,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0069.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 69,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0069.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 61,
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 1941,
+            "height": 2962,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0070.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 70,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0070.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 62,
+            "pageType": "Illustrations",
+            "pageSide": "L"
+          },
+          {
+            "width": 1943,
+            "height": 2960,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0071.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 71,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0071.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 63,
+            "pageType": "Normal",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 2016,
+            "height": 2982,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0072.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 72,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0072.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageNum": 64,
+            "pageType": "Normal",
+            "pageSide": "L"
+          },
+          {
+            "width": 2016,
+            "height": 2979,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0073.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 73,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0073.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Illustrations",
+            "pageSide": "R"
+          }
+        ],
+        [
+          {
+            "width": 2040,
+            "height": 2992,
+            "uri": "https:\/\/ia801302.us.archive.org\/BookReader\/BookReaderImages.php?zip=\/34\/items\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip&file=EWReidquotsNurs00EWReH_jp2\/EWReidquotsNurs00EWReH_0074.jp2&id=EWReidquotsNurs00EWReH",
+            "leafNum": 74,
+            "uri_2": {
+              "link": "https:\/\/archive.org\/download\/EWReidquotsNurs00EWReH\/EWReidquotsNurs00EWReH_jp2.zip\/EWReidquotsNurs00EWReH_jp2%2FEWReidquotsNurs00EWReH_0074.jp2",
+              "base_params": "ext=jpg"
+            },
+            "pageType": "Cover",
+            "pageSide": "L"
+          }
+        ]
+      ]
+    },
+    "lendingInfo": {
+      "lendingStatus": null,
+      "userid": "@isa-at-the-archive",
+      "isAdmin": false,
+      "isArchiveOrgLending": false,
+      "isOpenLibraryLending": false,
+      "isLendingRequired": false,
+      "isBrowserBorrowable": false,
+      "isPrintDisabledOnly": false,
+      "isAvailable": false,
+      "isAvailableForBrowsing": false,
+      "userHasBorrowed": false,
+      "userHasBrowsed": false,
+      "userOnWaitingList": false,
+      "userHoldIsReady": false,
+      "userIsPrintDisabled": false,
+      "shouldProtectImages": false,
+      "daysLeftOnLoan": 0,
+      "secondsLeftOnLoan": 0,
+      "loansUrl": "",
+      "bookUrl": "",
+      "loanCount": 0,
+      "totalWaitlistCount": 0,
+      "userWaitlistPosition": -1,
+      "maxLoans": 10,
+      "loanRecord": [
+        
+      ]
+    },
+    "metadata": {
+      "identifier": "EWReidquotsNurs00EWReH",
+      "abstract": "A collection of nursery and seed catalogs published by E.W. Reid&quot;s Nurseries (Bridgeport; Upland, Ohio; also known as E.W. Reid (Firm)) from 1890-1901; part of the Ethel Z. Bailey Horticultural Catalogue Collection.",
+      "call_number": "CUbiodiversity31924108762588",
+      "call-number": "CUbiodiversity31924108762588",
+      "contributor": "Cornell University Library",
+      "creator": [
+        "E.W. Reid's Nurseries",
+        "Liberty Hyde Bailey Hortorium. Ethel Z. Bailey Horticultural Catalogue Collection"
+      ],
+      "curation": "[curator]biodiversitylibrary.org[\/curator][date]20150910023608[\/date][state]approved[\/state]",
+      "date": "1890",
+      "genre": "catalog",
+      "identifier-bib": "CUbiodiversity31924108762588",
+      "language": "eng",
+      "mediatype": "texts",
+      "possible-copyright-status": "Public domain. The BHL considers that this work is no longer under copyright protection.",
+      "sponsor": "L.H. Bailey Hortorium; Mann Library; IMLS",
+      "title": "[E.W. Reid's Nurseries materials]",
+      "volume": "1897 Spring",
+      "year": "1890",
+      "collection": [
+        "cornell",
+        "biodiversity",
+        "seedcatalogs"
+      ],
+      "subject": [
+        "Seeds",
+        "Nurseries (Horticulture)",
+        "E.W. Reid's Nurseries"
+      ],
+      "publicdate": "2015-09-10 06:39:09",
+      "uploader": "mikecook@cornell.edu",
+      "addeddate": "2015-09-10 06:39:09",
+      "description": "A collection of nursery and seed catalogs published by E.W. Reid's Nurseries (Bridgeport; Upland, Ohio; also known as E.W. Reid (Firm)) from 1890-1901; part of the Ethel Z. Bailey Horticultural Catalogue Collection",
+      "ppi": "300",
+      "imagecount": "74",
+      "foldoutcount": "0",
+      "identifier-access": "http:\/\/archive.org\/details\/EWReidquotsNurs00EWReH",
+      "identifier-ark": "ark:\/13960\/t9z06rw3f",
+      "ocr": "ABBYY FineReader 11.0",
+      "repub_state": "4",
+      "backup_location": "ia905501_8",
+      "filesxml": "Thu Dec 24 5:55:19 UTC 2020"
+    }
+  }
+}

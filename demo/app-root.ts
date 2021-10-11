@@ -1,10 +1,19 @@
-import { html, css, LitElement, customElement, property } from 'lit-element';
-import '../src/item-navigator';
+/* eslint-disable no-restricted-globals */
+import {
+  html,
+  css,
+  LitElement,
+  customElement,
+  property,
+  query,
+} from 'lit-element';
 import '../src/item-inspector/item-inspector';
 import {
   MetadataResponse,
   SearchService,
 } from '@internetarchive/search-service';
+import '../src/item-navigator';
+
 @customElement('app-root')
 export class AppRoot extends LitElement {
   @property({ type: Object }) itemMD: MetadataResponse | undefined = undefined;
@@ -13,16 +22,26 @@ export class AppRoot extends LitElement {
 
   @property({ type: String }) encodedManifest = '';
 
+  @query('item-navigator') private itemNav!: any;
+
   firstUpdated() {
     this.fetchItemMD();
     // this.fetchDemoBook();
   }
 
-  async fetchDemoBook() {
-    const manifest = await fetch('/demo/demo-book-manifest.json');
-    const theJson = await manifest.json();
-    this.bookManifest = theJson;
-    this.encodedManifest = btoa(JSON.stringify(this.bookManifest));
+  /**
+   * @inheritdoc
+   */
+  updated(changed: any) {
+    if (changed.has('itemMD')) {
+      this.fullscreenCheck();
+    }
+  }
+
+  fullscreenCheck() {
+    if (this.showFullscreen && this.itemNav) {
+      this.itemNav.viewportInFullscreen = true;
+    }
   }
 
   async fetchItemMD() {
@@ -39,7 +58,14 @@ export class AppRoot extends LitElement {
     }
 
     this.itemMD = mdResponse.success;
-    console.log('** App Root: this.itemMD', this.itemMD);
+  }
+
+  get urlParams(): URLSearchParams {
+    return new URLSearchParams(location.search.slice(1));
+  }
+
+  get showFullscreen(): boolean {
+    return this.urlParams.get('view') === 'theater';
   }
 
   get renderMD() {
@@ -56,15 +82,25 @@ export class AppRoot extends LitElement {
     return html`<dl>${[...x]}</dl>`;
   }
 
+  toggleFS() {
+    if (this.urlParams.get('view')) {
+      location.search = '';
+    } else {
+      location.search = 'view=theater';
+    }
+  }
+
   render() {
-    console.log('---- APP ROOT - ', this.itemMD);
     if (!this.itemMD) {
       return html`<h2>Please hold as we fetch an item for ya</h2>`;
     }
-
     return html`
       <h1>theater, in page</h1>
-      <item-navigator baseHost="https://archive.org" .item=${this.itemMD}>
+      <item-navigator
+        baseHost="https://archive.org"
+        .item=${this.itemMD}
+        @ViewportInFullScreen=${this.toggleFS}
+      >
       </item-navigator>
       <section>${this.renderMD}</section>
     `;
@@ -72,7 +108,6 @@ export class AppRoot extends LitElement {
 
   static styles = css`
     :host {
-      min-height: 64vh;
       border: 1px solid pink;
       color: #222;
     }
@@ -83,6 +118,7 @@ export class AppRoot extends LitElement {
       position: relative;
       width: 100%;
       min-height: 64vh;
+      height: 64vh;
     }
     item-navigator {
       height: inherit;

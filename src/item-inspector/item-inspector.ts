@@ -56,7 +56,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   firstUpdated() {
     this.loaded = true;
-    console.log('loaded ');
   }
 
   updated(changed: any) {
@@ -121,7 +120,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
           // eslint-disable-next-line no-param-reassign
           shortcuts = newShortcuts;
         }
-        console.log({ shortcuts, menu });
         return shortcuts;
       },
       []
@@ -149,7 +147,6 @@ export class IaItemInspector extends LitElement implements IntNavController {
       }),
       visualMods: new VisualModsProvider({
         updated: (modType: string) => {
-          console.log('visal mods updated', modType);
           if (modType === 'toggleFullscreen') {
             this.updateFullscreenState();
           }
@@ -212,7 +209,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
         width: 100%;
         margin: 0 auto;
         position: relative;
-        overflow: hidden;
+        overflow: auto;
         background-color: black;
         color: var(--primaryTextColor, #fff);
       }

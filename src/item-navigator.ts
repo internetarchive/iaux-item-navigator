@@ -235,6 +235,11 @@ export class ItemNavigator
   /** Fullscreen Management */
   manageViewportFullscreen(e: IntManageFullscreenEvent): void {
     this.viewportInFullscreen = !!e.detail.isFullScreen;
+    this.dispatchEvent(
+      new CustomEvent('ViewportInFullScreen', {
+        detail: e.detail,
+      }) as IntManageFullscreenEvent
+    );
   }
   /** End Fullscreen Management */
 
@@ -346,6 +351,7 @@ export class ItemNavigator
     const transitionTiming = css`var(--animationTiming, 200ms)`;
     const transitionEffect = css`transform ${transitionTiming} ease-out`;
     const menuMargin = css`var(--theaterMenuMargin, 42px)`;
+    const theaterBg = css`var(--theaterBgColor, #000)`;
 
     return css`
       :host,
@@ -360,7 +366,7 @@ export class ItemNavigator
       }
 
       #frame {
-        background-color: var(--menuSliderBg);
+        background-color: ${theaterBg};
       }
 
       #frame.fullscreen {

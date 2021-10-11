@@ -49,6 +49,9 @@
       display: none
     }
 
+    .fullscreen {
+      position: fixed;
+    }
 
   </style>
 </head>
@@ -56,6 +59,12 @@
   <app-root></app-root>
   <script type="module">
     import '@internetarchive/modal-manager';
+
+    const params = new URLSearchParams(location.search.slice(1));
+    if (params.get('view') === 'theater') {
+      const body = document.querySelector('body');
+      body.classList.toggle('fullscreen');
+    }
   </script>
   <script type="module" src="../dist/demo/app-root.js">
   </script>
