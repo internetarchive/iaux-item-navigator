@@ -1,5 +1,3 @@
-import { TemplateResult } from 'lit-html';
-import { ModalConfig } from '@internetarchive/modal-manager';
 import { IntMenuProvider, IntMenuShortcut } from './menu-interfaces';
 
 /** Toggles Menu && Sets open panel */
@@ -36,15 +34,6 @@ export interface IntManageFullscreenEvent extends CustomEvent {
   type: 'ViewportInFullScreen';
   detail: {
     isFullScreen: boolean;
-  };
-}
-
-/** Toggles modal & sets contents */
-export interface IntOpenModalEvent extends CustomEvent {
-  type: 'showItemNavigatorModal';
-  detail: {
-    config: ModalConfig;
-    customModalContent: TemplateResult;
   };
 }
 

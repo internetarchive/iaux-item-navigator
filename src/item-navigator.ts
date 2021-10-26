@@ -22,7 +22,6 @@ import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
 
 import {
-  IntOpenModalEvent,
   IntManageSideMenuEvent,
   IntSetOpenMenuEvent,
   IntSetMenuContentsEvent,
@@ -82,11 +81,9 @@ export class ItemNavigator
 
   @property({ type: String }) openMenu = '';
 
-  @property({ type: Object }) modal:
-    | ModalManagerInterface
-    | undefined = undefined;
+  @property({ attribute: false }) modal?: ModalManagerInterface;
 
-  @property({ attribute: false }) private sharedObserver?: any; // PromisedSingleton<SharedResizeObserverInterface>;
+  @property({ attribute: false }) sharedObserver?: any; // PromisedSingleton<SharedResizeObserverInterface>;
 
   @state() private loaded: boolean = false;
 
@@ -101,7 +98,8 @@ export class ItemNavigator
     });
   }
 
-  firstUpdated(): void {
+  firstUpdated(pp: any): void {
+    console.log('first updated item-nav', this.modal, pp);
     if (!this.modal) {
       this.createModal();
     }
@@ -162,6 +160,7 @@ export class ItemNavigator
   get BooksViewer(): TemplateResult {
     return html`
       <book-navigator
+        .modal=${this.modal}
         .baseHost=${this.baseHost}
         .book=${this.item}
         ?signedIn=${this.signedIn}
@@ -172,8 +171,6 @@ export class ItemNavigator
         @updateSideMenu=${this.manageSideMenuEvents}
         @menuUpdated=${this.setMenuContents}
         @menuShortcutsUpdated=${this.setMenuShortcuts}
-        @showItemNavigatorModal=${this.openModal}
-        @closeItemNavigatorModal=${this.closeModal}
       >
         <div slot="bookreader">
           <slot name="bookreader"></slot>
@@ -191,12 +188,11 @@ export class ItemNavigator
     }
     return html` <ia-item-inspector
       .itemMD=${this.item}
+      .modal=${this.modal}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
       @ViewportInFullScreen=${this.manageViewportFullscreen}
       @menuShortcutsUpdated=${this.setMenuShortcuts}
-      @showItemNavigatorModal=${this.openModal}
-      @closeItemNavigatorModal=${this.closeModal}
       @loadingStateUpdated=${this.loadingStateUpdated}
     ></ia-item-inspector>`;
   }
@@ -204,23 +200,6 @@ export class ItemNavigator
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
     this.loaded = !!loaded;
-  }
-
-  /* Modal management */
-  openModal(e: IntOpenModalEvent): void {
-    const { config, customModalContent } = e.detail;
-    if (!config || !customModalContent) {
-      return;
-    }
-
-    this.modal?.showModal({
-      config,
-      customModalContent,
-    });
-  }
-
-  closeModal(): void {
-    this.modal?.closeModal();
   }
 
   /** Creates modal DOM & attaches to `<body>` */

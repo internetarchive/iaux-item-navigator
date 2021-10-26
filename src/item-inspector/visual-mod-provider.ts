@@ -51,8 +51,13 @@ export class VisualModsProvider implements IntMenuProvider {
 
     this.component = html`<ia-visual-mods
       @fullscreenToggle=${() => this?.updated('toggleFullscreen')}
+      @openModa=${this.openModal}
     ></ia-visual-mods>`;
   }
+
+  openModal() {}
+
+  closeModal() {}
 
   toggleFullscreen() {
     this.updated('toggleFullscreen');

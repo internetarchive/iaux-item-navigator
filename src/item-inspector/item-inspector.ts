@@ -9,6 +9,11 @@ import {
 } from 'lit-element';
 import { MetadataResponse } from '@internetarchive/search-service';
 
+import {
+  ModalManagerInterface,
+  ModalConfig,
+} from '@internetarchive/modal-manager';
+import { SharedResizeObserverInterface } from '@internetarchive/shared-resize-observer';
 import { IntNavController } from '../interfaces/nav-controller-interface';
 import {
   IntMenuProvider,
@@ -48,6 +53,10 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   @property({ type: Boolean }) fullscreenState = false;
 
+  @property({ attribute: false }) modal!: ModalManagerInterface;
+
+  @property({ attribute: false }) sharedRO!: SharedResizeObserverInterface;
+
   @state() fileCount: number = 0;
 
   @state() loaded: boolean = false;
@@ -56,6 +65,7 @@ export class IaItemInspector extends LitElement implements IntNavController {
 
   firstUpdated() {
     this.loaded = true;
+    console.log('modal', this.modal);
   }
 
   updated(changed: any) {
@@ -73,6 +83,28 @@ export class IaItemInspector extends LitElement implements IntNavController {
     }
   }
 
+  modalClosedCallback() {
+    console.log('item-inspector, modal closed');
+  }
+
+  openModal() {
+    const config = new ModalConfig();
+    const customModalContent = html`
+      Can contain any markup, including web components. Event listeners also
+      work. Try clicking on the picture.
+      <div style="text-align: center">
+        <a href="https://fillmurray.com" style="display: block">Fill Murray</a>
+        <img src="100x100.jpg" alt="foo" />
+      </div>
+    `;
+
+    this.modal.showModal({
+      config,
+      customModalContent,
+      userClosedModalCallback: this.modalClosedCallback,
+    });
+  }
+
   render() {
     const { identifier = '' } = this.itemMD?.metadata;
     return html`
@@ -81,6 +113,34 @@ export class IaItemInspector extends LitElement implements IntNavController {
           <h2>${identifier}</h2>
         </div>
         <img src=${this.imageUrl} alt=${`${identifier} thumbnail`} />
+        <button @click=${() => this.openModal()}>open modal</button>
+        <p style="font-size: 20px;">
+          Bacon ipsum dolor amet flank chicken leberkas sausage, meatball pork
+          belly jowl. Chislic bacon salami frankfurter shankle drumstick
+          andouille ball tip alcatra. Fatback beef ribs chicken, jerky ground
+          round hamburger pork chop biltong. Shoulder short loin rump jerky
+          kielbasa pork porchetta fatback ribeye pork belly sirloin chislic
+          turducken corned beef tri-tip. Chuck pancetta meatball tail, spare
+          ribs ham hock capicola pig. Ham hock hamburger chicken tri-tip venison
+          swine burgdoggen boudin meatloaf pastrami chuck. Tri-tip spare ribs
+          drumstick, tail rump hamburger burgdoggen swine t-bone tongue
+          andouille chislic alcatra. Pork loin jowl frankfurter, doner meatball
+          short loin ham hock filet mignon hamburger rump turkey bresaola
+          shoulder sirloin flank. Ribeye sausage pig t-bone bacon frankfurter
+          cupim capicola fatback pastrami ball tip pork belly. Picanha pancetta
+          andouille flank shankle venison tri-tip tail, kevin turkey turducken
+          chicken. Bacon picanha swine frankfurter, prosciutto chislic doner
+          alcatra pork loin corned beef jowl biltong meatball chuck. Bacon
+          burgdoggen pig fatback cupim t-bone. Cow pork loin bresaola brisket
+          shoulder filet mignon chicken. Sirloin bresaola porchetta beef
+          capicola meatloaf brisket shankle jerky turkey pork tri-tip swine
+          kevin salami. Meatball t-bone doner venison. Pig tri-tip chuck, shank
+          chicken pork chop landjaeger spare ribs jerky swine ham hock buffalo
+          sirloin. Leberkas pancetta tenderloin, meatloaf buffalo rump pastrami
+          chuck. Jerky cupim porchetta, tenderloin chuck andouille venison pork
+          salami. Chuck strip steak cupim, turducken ham hock kielbasa shoulder
+          porchetta chislic short loin tri-tip biltong cow corned beef.
+        </p>
       </section>
     `;
   }

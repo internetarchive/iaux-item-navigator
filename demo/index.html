@@ -58,8 +58,6 @@
 <body>
   <app-root></app-root>
   <script type="module">
-    import '@internetarchive/modal-manager';
-
     const params = new URLSearchParams(location.search.slice(1));
     if (params.get('view') === 'theater') {
       const body = document.querySelector('body');

@@ -13,6 +13,12 @@ import {
   SearchService,
 } from '@internetarchive/search-service';
 import '../src/item-navigator';
+import '@internetarchive/modal-manager';
+import {
+  SharedResizeObserver,
+  // SharedResizeObserverInterface,
+  // SharedResizeObserverResizeHandlerInterface,
+} from '@internetarchive/shared-resize-observer';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
@@ -24,18 +30,27 @@ export class AppRoot extends LitElement {
 
   @query('item-navigator') private itemNav!: any;
 
+  @query('modal-manager') modalMgr!: any;
+
+  @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
+
   firstUpdated() {
     this.fetchItemMD();
-    // this.fetchDemoBook();
+    console.log('AP R', this.modalMgr, this.sharedObserver);
   }
 
   /**
    * @inheritdoc
    */
   updated(changed: any) {
+    console.log('changed', changed);
     if (changed.has('itemMD')) {
       this.fullscreenCheck();
     }
+  }
+
+  get theaterReady(): boolean {
+    return this.modalMgr && this.sharedObserver && this.itemMD;
   }
 
   fullscreenCheck() {
@@ -90,19 +105,29 @@ export class AppRoot extends LitElement {
     }
   }
 
-  render() {
-    if (!this.itemMD) {
-      return html`<h2>Please hold as we fetch an item for ya</h2>`;
-    }
+  get theaterBlock() {
     return html`
-      <h1>theater, in page</h1>
       <item-navigator
         baseHost="https://archive.org"
         .item=${this.itemMD}
+        .modal=${this.modalMgr}
+        .sharedObserver=${this.sharedObserver}
         @ViewportInFullScreen=${this.toggleFS}
-      >
-      </item-navigator>
+      ></item-navigator>
+    `;
+  }
+
+  get placeholder() {
+    return html`<h2>Please hold as we fetch an item for ya</h2>`;
+  }
+
+  render() {
+    const theater = this.theaterReady ? this.theaterBlock : this.placeholder;
+    return html`
+      <h1>theater, in page</h1>
+      ${theater}
       <section>${this.renderMD}</section>
+      <modal-manager></modal-manager>
     `;
   }
 
@@ -129,6 +154,10 @@ export class AppRoot extends LitElement {
       overflow: hidden;
       height: 100%;
       min-height: inherit;
+    }
+
+    modal-manager[mode='closed'] {
+      display: none;
     }
   `;
 }
