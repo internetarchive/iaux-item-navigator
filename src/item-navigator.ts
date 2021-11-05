@@ -141,9 +141,10 @@ export class ItemNavigator
 
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hide';
+    console.log('item-nav -render', this.loaded, displayReaderClass);
     return html`
       <div id="frame" class=${this.menuClass}>
-        <slot name="item-nav-header"></slot>
+        <slot name="theater-header"></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
           <div id="reader" class=${displayReaderClass}>
@@ -183,8 +184,8 @@ export class ItemNavigator
         @menuUpdated=${this.setMenuContents}
         @menuShortcutsUpdated=${this.setMenuShortcuts}
       >
-        <div slot="bookreader" style=${slotVisibility}>
-          <slot name="bookreader"></slot>
+        <div slot="theater-main" style=${slotVisibility}>
+          <slot name="theater-main"></slot>
         </div>
       </book-navigator>
     `;
