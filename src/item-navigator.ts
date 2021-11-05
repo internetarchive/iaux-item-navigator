@@ -18,6 +18,7 @@ import {
 } from '@internetarchive/shared-resize-observer';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
+
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
@@ -33,7 +34,7 @@ import {
 
 import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
 
-@customElement('item-navigator')
+@customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
   implements SharedResizeObserverResizeHandlerInterface {
@@ -264,13 +265,15 @@ export class ItemNavigator
   /** Toggles Side Menu & Sets viewable subpanel  */
   manageSideMenuEvents(e: IntManageSideMenuEvent): void {
     const { menuId, action } = e.detail;
-    if (menuId) {
-      if (action === 'open') {
-        this.openShortcut(menuId);
-      } else if (action === 'toggle') {
-        this.openMenu = menuId;
-        this.toggleMenu();
-      }
+    if (!menuId) {
+      return;
+    }
+
+    if (action === 'open') {
+      this.openShortcut(menuId);
+    } else if (action === 'toggle') {
+      this.openMenu = menuId;
+      this.toggleMenu();
     }
   }
 
@@ -319,13 +322,17 @@ export class ItemNavigator
   }
 
   get shortcuts(): TemplateResult {
-    const shortcuts = this.menuShortcuts.map(
-      ({ icon, id }) => html`
+    const shortcuts = this.menuShortcuts.map(({ icon, id }) => {
+      if (id === 'fullscreen') {
+        return html`${icon}`;
+      }
+
+      return html`
         <button class="shortcut ${id}" @click="${() => this.openShortcut(id)}">
           ${icon}
         </button>
-      `
-    );
+      `;
+    });
     return html`<div class="shortcuts">${shortcuts}</div>`;
   }
   /** End Menu Shortcuts */

@@ -6,29 +6,31 @@ import {
   customElement,
   property,
   query,
+  TemplateResult,
 } from 'lit-element';
 import '../src/item-inspector/item-inspector';
 import {
   MetadataResponse,
   SearchService,
 } from '@internetarchive/search-service';
+import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import '../src/item-navigator';
+// import { ItemNavigator } from '../src/item-navigator';
+
 import '@internetarchive/modal-manager';
-import {
-  SharedResizeObserver,
-  // SharedResizeObserverInterface,
-  // SharedResizeObserverResizeHandlerInterface,
-} from '@internetarchive/shared-resize-observer';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
+  /**
+   * Example controller to connect to `<ia-item-navigator>`
+   */
   @property({ type: Object }) itemMD: MetadataResponse | undefined = undefined;
 
   @property({ type: Object }) bookManifest = {};
 
   @property({ type: String }) encodedManifest = '';
 
-  @query('item-navigator') private itemNav!: any;
+  @query('ia-item-navigator') private itemNav!: any;
 
   @query('modal-manager') modalMgr!: any;
 
@@ -53,6 +55,9 @@ export class AppRoot extends LitElement {
     return this.modalMgr && this.sharedObserver && this.itemMD;
   }
 
+  /**
+   * toggles attr: `<ia-item-navigator viewportinfullscreen>`
+   */
   fullscreenCheck() {
     if (this.showFullscreen && this.itemNav) {
       this.itemNav.viewportInFullscreen = true;
@@ -61,7 +66,6 @@ export class AppRoot extends LitElement {
 
   async fetchItemMD() {
     const searchService = SearchService.default;
-
     const mdResponse = await searchService.fetchMetadata('ux-team-books');
 
     if (mdResponse.error) {
@@ -83,21 +87,10 @@ export class AppRoot extends LitElement {
     return this.urlParams.get('view') === 'theater';
   }
 
-  get renderMD() {
-    const x = [];
-    // eslint-disable-next-line guard-for-in, no-restricted-syntax
-    for (const md in this.itemMD) {
-      const val = (this.itemMD as any)[md];
-      x.push(
-        html`<dt>${md}</dt>
-          :
-          <dd>${val}</dd>`
-      );
-    }
-    return html`<dl>${[...x]}</dl>`;
-  }
-
-  toggleFS() {
+  /**
+   * sets url query param `view=theater` to toggle fullscreen
+   */
+  toggleFS(): void {
     if (this.urlParams.get('view')) {
       location.search = '';
     } else {
@@ -105,28 +98,27 @@ export class AppRoot extends LitElement {
     }
   }
 
-  get theaterBlock() {
+  get theaterBlock(): TemplateResult {
     return html`
-      <item-navigator
+      <ia-item-navigator
         baseHost="https://archive.org"
         .item=${this.itemMD}
         .modal=${this.modalMgr}
         .sharedObserver=${this.sharedObserver}
         @ViewportInFullScreen=${this.toggleFS}
-      ></item-navigator>
+      ></ia-item-navigator>
     `;
   }
 
-  get placeholder() {
+  get placeholder(): TemplateResult {
     return html`<h2>Please hold as we fetch an item for ya</h2>`;
   }
 
-  render() {
+  render(): TemplateResult {
     const theater = this.theaterReady ? this.theaterBlock : this.placeholder;
     return html`
       <h1>theater, in page</h1>
       ${theater}
-      <section>${this.renderMD}</section>
       <modal-manager></modal-manager>
     `;
   }
@@ -138,14 +130,14 @@ export class AppRoot extends LitElement {
     }
 
     :host,
-    item-navigator {
+    ia-item-navigator {
       display: block;
       position: relative;
       width: 100%;
       min-height: 64vh;
       height: 64vh;
     }
-    item-navigator {
+    ia-item-navigator {
       height: inherit;
       min-height: inherit;
     }
