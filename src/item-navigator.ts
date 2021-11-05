@@ -346,6 +346,7 @@ export class ItemNavigator
 
       #frame {
         background-color: ${theaterBg};
+        color-scheme: dark;
       }
 
       #frame.fullscreen {
