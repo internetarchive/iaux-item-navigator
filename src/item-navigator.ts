@@ -6,6 +6,7 @@ import {
   property,
   state,
   query,
+  PropertyValues,
 } from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
@@ -107,6 +108,14 @@ export class ItemNavigator
     this.startResizeObserver();
   }
 
+  updated(changed: PropertyValues) {
+    if (changed.has('modal')) {
+      if (!this.modal) {
+        this.createModal();
+      }
+    }
+  }
+
   handleResize(entry: ResizeObserverEntry): void {
     const { width } = entry.contentRect;
     if (width <= 600) {
@@ -158,6 +167,8 @@ export class ItemNavigator
   }
 
   get BooksViewer(): TemplateResult {
+    const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
+
     return html`
       <book-navigator
         .modal=${this.modal}
@@ -172,7 +183,7 @@ export class ItemNavigator
         @menuUpdated=${this.setMenuContents}
         @menuShortcutsUpdated=${this.setMenuShortcuts}
       >
-        <div slot="bookreader">
+        <div slot="bookreader" style=${slotVisibility}>
           <slot name="bookreader"></slot>
         </div>
       </book-navigator>
