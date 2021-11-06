@@ -1,3 +1,4 @@
+/* eslint-disable import/no-duplicates */
 import {
   css,
   html,
@@ -10,18 +11,20 @@ import {
 } from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
-import { PromisedSingleton } from '@internetarchive/promised-singleton';
 import {
   SharedResizeObserver,
-  SharedResizeObserverInterface,
+  // SharedResizeObserverInterface,
   SharedResizeObserverResizeHandlerInterface,
 } from '@internetarchive/shared-resize-observer';
 // @ts-ignore
 import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
+import '@internetarchive/ia-menu-slider';
 
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
+// import { IaItemInspector } from './item-inspector/item-inspector';
+import './item-inspector/item-inspector';
 
 import {
   IntManageSideMenuEvent,
@@ -87,9 +90,9 @@ export class ItemNavigator
 
   @property({ attribute: false }) sharedObserver?: any; // PromisedSingleton<SharedResizeObserverInterface>;
 
-  @state() private loaded: boolean = false;
+  @property({ type: Boolean, reflect: true }) loaded: boolean = false;
 
-  @state() private openMenuState: 'overlay' | 'shift' = 'shift';
+  @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
   @query('#frame') private frame!: HTMLDivElement;
 
@@ -115,6 +118,11 @@ export class ItemNavigator
         this.createModal();
       }
     }
+    if (changed.has('sharedObserver')) {
+      if (!this.sharedObserver) {
+        this.startResizeObserver();
+      }
+    }
   }
 
   handleResize(entry: ResizeObserverEntry): void {
@@ -126,15 +134,11 @@ export class ItemNavigator
     this.openMenuState = 'shift';
   }
 
-  private async startResizeObserver(): Promise<void> {
-    const ro = new PromisedSingleton<SharedResizeObserverInterface>({
-      generator: async (): Promise<SharedResizeObserverInterface> => {
-        return new SharedResizeObserver();
-      },
-    });
-
-    this.sharedObserver = await ro.get();
-    this.sharedObserver?.addObserver({
+  private startResizeObserver(): void {
+    if (!this.sharedObserver) {
+      this.sharedObserver = new SharedResizeObserver();
+    }
+    this.sharedObserver.addObserver({
       handler: this,
       target: this.frame,
     });
@@ -142,28 +146,22 @@ export class ItemNavigator
 
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hide';
-    console.log('item-nav -render', this.loaded, displayReaderClass);
     return html`
-      <div id="frame" class=${this.menuClass}>
+      <div id="frame" class=${`${this.menuClass}`}>
         <slot name="theater-header"></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
           <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
           </div>
-          <div class="loading-area">
-            <div class="loading-view">
-              <ia-itemnav-loader></ia-itemnav-loader>
-            </div>
-          </div>
+          ${!this.loaded
+            ? html` <div class="loading-area">
+                <div class="loading-view">
+                  <ia-itemnav-loader></ia-itemnav-loader>
+                </div>
+              </div>`
+            : nothing}
         </div>
-        ${!this.loaded
-          ? html` <div class="loading-area">
-              <div class="loading-view">
-                <ia-itemnav-loader></ia-itemnav-loader>
-              </div>
-            </div>`
-          : nothing}
       </div>
     `;
   }
@@ -200,19 +198,26 @@ export class ItemNavigator
       return this.BooksViewer;
     }
     return html` <ia-item-inspector
+      class="meow"
       .itemMD=${this.item}
       .modal=${this.modal}
       @updateSideMenu=${this.manageSideMenuEvents}
       @menuUpdated=${this.setMenuContents}
       @ViewportInFullScreen=${this.manageViewportFullscreen}
       @menuShortcutsUpdated=${this.setMenuShortcuts}
-      @loadingStateUpdated=${this.loadingStateUpdated}
+      @loadingStateUpdated=${(e: IntLoadingStateUpdatedEvent) => {
+        console.log(
+          'loadingStateUpdatedloadingStateUpdatedloadingStateUpdatedloadingStateUpdated'
+        );
+        this.loadingStateUpdated(e);
+      }}
     ></ia-item-inspector>`;
   }
 
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
     this.loaded = !!loaded;
+    console.log('******loadingStateUpdated', e.detail);
   }
 
   /** Creates modal DOM & attaches to `<body>` */
