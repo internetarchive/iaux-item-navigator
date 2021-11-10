@@ -144,6 +144,10 @@ export class ItemNavigator
     });
   }
 
+  get loaderTitle() {
+    return this.viewportInFullscreen ? 'Internet Archive' : '';
+  }
+
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hide';
     return html`
@@ -157,7 +161,9 @@ export class ItemNavigator
           ${!this.loaded
             ? html` <div class="loading-area">
                 <div class="loading-view">
-                  <ia-itemnav-loader></ia-itemnav-loader>
+                  <ia-itemnav-loader
+                    .title=${this.loaderTitle}
+                  ></ia-itemnav-loader>
                 </div>
               </div>`
             : nothing}
