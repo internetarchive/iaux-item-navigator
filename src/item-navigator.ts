@@ -13,7 +13,7 @@ import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
 import {
   SharedResizeObserver,
-  // SharedResizeObserverInterface,
+  SharedResizeObserverInterface,
   SharedResizeObserverResizeHandlerInterface,
 } from '@internetarchive/shared-resize-observer';
 // @ts-ignore
@@ -88,7 +88,8 @@ export class ItemNavigator
 
   @property({ attribute: false }) modal?: ModalManagerInterface;
 
-  @property({ attribute: false }) sharedObserver?: any; // PromisedSingleton<SharedResizeObserverInterface>;
+  @property({ attribute: false })
+  sharedObserver?: SharedResizeObserverInterface;
 
   @property({ type: Boolean, reflect: true }) loaded: boolean = false;
 
