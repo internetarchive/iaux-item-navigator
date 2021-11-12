@@ -23,8 +23,6 @@ import '@internetarchive/ia-menu-slider';
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
-// import { IaItemInspector } from './item-inspector/item-inspector';
-import './item-inspector/item-inspector';
 
 import {
   IntManageSideMenuEvent,
@@ -80,7 +78,9 @@ export class ItemNavigator
 
   @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
 
-  @property({ type: Boolean, reflect: true }) viewportInFullscreen = false;
+  @property({ type: Boolean, reflect: true }) viewportInFullscreen:
+    | boolean
+    | null = null;
 
   @property({ type: Boolean }) menuOpened = false;
 
@@ -159,15 +159,11 @@ export class ItemNavigator
           <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
           </div>
-          ${!this.loaded
-            ? html` <div class="loading-area">
-                <div class="loading-view">
-                  <ia-itemnav-loader
-                    .title=${this.loaderTitle}
-                  ></ia-itemnav-loader>
-                </div>
-              </div>`
-            : nothing}
+          <div class="loading-area">
+            <div class="loading-view">
+              <ia-itemnav-loader .title=${this.loaderTitle}></ia-itemnav-loader>
+            </div>
+          </div>
         </div>
       </div>
     `;
@@ -204,21 +200,7 @@ export class ItemNavigator
     if (this.itemType === 'bookreader') {
       return this.BooksViewer;
     }
-    return html` <ia-item-inspector
-      class="meow"
-      .itemMD=${this.item}
-      .modal=${this.modal}
-      @updateSideMenu=${this.manageSideMenuEvents}
-      @menuUpdated=${this.setMenuContents}
-      @ViewportInFullScreen=${this.manageViewportFullscreen}
-      @menuShortcutsUpdated=${this.setMenuShortcuts}
-      @loadingStateUpdated=${(e: IntLoadingStateUpdatedEvent) => {
-        console.log(
-          'loadingStateUpdatedloadingStateUpdatedloadingStateUpdatedloadingStateUpdated'
-        );
-        this.loadingStateUpdated(e);
-      }}
-    ></ia-item-inspector>`;
+    return nothing;
   }
 
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
@@ -238,7 +220,8 @@ export class ItemNavigator
 
   /** Fullscreen Management */
   manageViewportFullscreen(e: IntManageFullscreenEvent): void {
-    this.viewportInFullscreen = !!e.detail.isFullScreen;
+    const fullscreenStatus = !!e.detail.isFullScreen;
+    this.viewportInFullscreen = fullscreenStatus ?? null; // needs to be null for lit to reflect
     this.dispatchEvent(
       new CustomEvent('ViewportInFullScreen', {
         detail: e.detail,
