@@ -97,6 +97,8 @@ export class ItemNavigator
 
   @query('#frame') private frame!: HTMLDivElement;
 
+  @query('slot[name="theater-header"]') private headerSlot!: HTMLDivElement;
+
   disconnectedCallback() {
     this.sharedObserver?.removeObserver({
       handler: this,
@@ -149,14 +151,36 @@ export class ItemNavigator
     return this.viewportInFullscreen ? 'Internet Archive' : '';
   }
 
+  get readerHeightStyle(): string {
+    const readerHeight =
+      this.frame?.offsetHeight - this.headerSlot?.offsetHeight;
+    console.log(
+      'readerHeightStyle - this.frame?.offsetHeight, this.headerSlot?.offsetHeight',
+      this.frame?.offsetHeight,
+      this.headerSlot?.offsetHeight
+    );
+
+    return this.viewportInFullscreen ? `height: ${readerHeight}px;` : '';
+  }
+
+  handleHeaderSlotChange(e: Event) {
+    console.log('~~~~ handleHeaderSlotChange', e);
+  }
+
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hide';
     return html`
       <div id="frame" class=${`${this.menuClass}`}>
-        <slot name="theater-header"></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <div id="reader" class=${displayReaderClass}>
+          <slot name="theater-header" @slotchange=${this.handleHeaderSlotChange}
+            >></slot
+          >
+          <div
+            id="reader"
+            class=${displayReaderClass}
+            style=${this.readerHeightStyle}
+          >
             ${this.renderViewport}
           </div>
           <div class="loading-area">
@@ -166,6 +190,12 @@ export class ItemNavigator
           </div>
         </div>
       </div>
+    `;
+  }
+
+  get theaterSlot() {
+    return html`
+      <slot name="theater-main" style=${this.readerHeightStyle}></slot>
     `;
   }
 
@@ -187,7 +217,7 @@ export class ItemNavigator
         @menuShortcutsUpdated=${this.setMenuShortcuts}
       >
         <div slot="theater-main" style=${slotVisibility}>
-          <slot name="theater-main"></slot>
+          ${this.theaterSlot}
         </div>
       </book-navigator>
     `;
@@ -221,12 +251,13 @@ export class ItemNavigator
   /** Fullscreen Management */
   manageViewportFullscreen(e: IntManageFullscreenEvent): void {
     const fullscreenStatus = !!e.detail.isFullScreen;
-    this.viewportInFullscreen = fullscreenStatus ?? null; // needs to be null for lit to reflect
-    this.dispatchEvent(
-      new CustomEvent('ViewportInFullScreen', {
-        detail: e.detail,
-      }) as IntManageFullscreenEvent
-    );
+    this.viewportInFullscreen = !fullscreenStatus ? null : fullscreenStatus;
+
+    const event = new CustomEvent('ViewportInFullScreen', {
+      detail: e.detail,
+    }) as IntManageFullscreenEvent;
+
+    this.dispatchEvent(event);
   }
   /** End Fullscreen Management */
 
@@ -349,13 +380,17 @@ export class ItemNavigator
     return css`
       :host,
       #frame,
-      #reader,
       .menu-and-reader {
         min-height: inherit;
         height: inherit;
         position: relative;
         overflow: hidden;
         display: block;
+      }
+
+      slot {
+        display: block;
+        overflow: hidden;
       }
 
       #frame {
@@ -370,11 +405,6 @@ export class ItemNavigator
         left: 0;
         right: 0;
         z-index: 9;
-      }
-
-      #frame.fullscreen,
-      #frame.fullscreen #reader {
-        height: 100vh;
       }
 
       .loading-area {
@@ -493,6 +523,7 @@ export class ItemNavigator
         transition: ${transitionEffect};
       }
 
+      .open.shift slot[name='theater-header'],
       .open.shift #reader {
         width: calc(100% - var(--menuWidth));
         float: right;
