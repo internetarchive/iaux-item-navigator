@@ -8,6 +8,7 @@ import {
   state,
   query,
   PropertyValues,
+  CSSResult,
 } from 'lit-element';
 import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
@@ -34,7 +35,7 @@ import {
 } from './interfaces/event-interfaces';
 
 import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
-
+import './no-theater-available';
 @customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
@@ -106,8 +107,7 @@ export class ItemNavigator
     });
   }
 
-  firstUpdated(pp: any): void {
-    console.log('first updated item-nav', this.modal, pp);
+  firstUpdated(): void {
     if (!this.modal) {
       this.createModal();
     }
@@ -167,15 +167,26 @@ export class ItemNavigator
     console.log('~~~~ handleHeaderSlotChange', e);
   }
 
+  get loadingArea() {
+    return html`
+      <div class="loading-area">
+        <div class="loading-view">
+          <ia-itemnav-loader .title=${this.loaderTitle}></ia-itemnav-loader>
+        </div>
+      </div>
+    `;
+  }
+
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hide';
     return html`
       <div id="frame" class=${`${this.menuClass}`}>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <slot name="theater-header" @slotchange=${this.handleHeaderSlotChange}
-            >></slot
-          >
+          <slot
+            name="theater-header"
+            @slotchange=${this.handleHeaderSlotChange}
+          ></slot>
           <div
             id="reader"
             class=${displayReaderClass}
@@ -183,14 +194,17 @@ export class ItemNavigator
           >
             ${this.renderViewport}
           </div>
-          <div class="loading-area">
-            <div class="loading-view">
-              <ia-itemnav-loader .title=${this.loaderTitle}></ia-itemnav-loader>
-            </div>
-          </div>
+          ${!this.loaded ? this.loadingArea : nothing}
         </div>
       </div>
     `;
+  }
+
+  get noTheaterView() {
+    return html`<ia-no-theater-view
+      .identifier=${this.item?.metadata?.identifier}
+      @loadingStateUpdated=${this.loadingStateUpdated}
+    ></ia-no-theater-view>`;
   }
 
   get theaterSlot() {
@@ -230,7 +244,7 @@ export class ItemNavigator
     if (this.itemType === 'bookreader') {
       return this.BooksViewer;
     }
-    return nothing;
+    return this.noTheaterView;
   }
 
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
@@ -370,7 +384,7 @@ export class ItemNavigator
     return `${drawerState} ${fullscreenState} ${this.openMenuState}`;
   }
 
-  static get styles() {
+  static get styles(): CSSResult {
     const subnavWidth = css`var(--menuWidth, 320px)`;
     const transitionTiming = css`var(--animationTiming, 200ms)`;
     const transitionEffect = css`transform ${transitionTiming} ease-out`;
