@@ -150,9 +150,8 @@ export class ItemNavigator
   }
 
   get readerHeightStyle(): string {
-    const readerHeight =
-      this.frame?.offsetHeight - this.headerSlot?.offsetHeight;
-    return this.viewportInFullscreen ? `height: ${readerHeight}px;` : '';
+    const calcFSHeight = `calc(100vh - ${this.headerSlot?.offsetHeight}px)`;
+    return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
   }
 
   handleHeaderSlotChange(e: Event) {
@@ -255,7 +254,7 @@ export class ItemNavigator
     const fullscreenStatus = !!e.detail.isFullScreen;
     this.viewportInFullscreen = !fullscreenStatus ? null : fullscreenStatus;
 
-    const event = new CustomEvent('ViewportInFullScreen', {
+    const event = new CustomEvent('fullscreenToggled', {
       detail: e.detail,
     }) as IntManageFullscreenEvent;
 
