@@ -90,7 +90,7 @@ export class ItemNavigator
   @property({ attribute: false })
   sharedObserver?: SharedResizeObserver;
 
-  @property({ type: Boolean, reflect: true }) loaded: boolean = false;
+  @property({ reflect: true, attribute: true }) loaded: boolean | null = null;
 
   @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
@@ -229,7 +229,10 @@ export class ItemNavigator
   }
 
   get renderViewport(): TemplateResult | typeof nothing {
-    if (this.itemType === 'bookreader' && this.item) {
+    if (!this.item) {
+      return nothing;
+    }
+    if (this.itemType === 'bookreader') {
       return this.BooksViewer;
     }
     return this.noTheaterView;

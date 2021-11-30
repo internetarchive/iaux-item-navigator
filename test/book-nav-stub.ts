@@ -11,7 +11,7 @@ export class BookNavigator extends LitElement {
 
   @property({ type: Object }) book?: MetadataResponse;
 
-  @property({ type: Boolean }) signedIn?: boolean;
+  @property({ type: Boolean, reflect: true }) signedIn?: boolean | null = null;
 
   @property({ type: Boolean }) sideMenuOpen?: boolean;
 

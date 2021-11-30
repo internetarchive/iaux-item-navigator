@@ -23,21 +23,21 @@ describe('ItemNavigator', () => {
   describe('Theaters', () => {
     it('shows <ia-no-theater-available> by default', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
     });
 
     it('shows <book-navigator> if `this.itemType = "bookreader"`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator
+          .itemType=${`bookreader`}
+          .item=${new ItemStub()}
+        ></ia-item-navigator>`
       );
 
       await el.updateComplete;
 
-      el.itemType = 'bookreader';
-      el.item = new ItemStub();
-      el.signedIn = true;
       el.toggleMenu();
       await el.updateComplete;
 
@@ -53,8 +53,7 @@ describe('ItemNavigator', () => {
       expect(bookNavigator?.modal).to.exist;
       expect(bookNavigator?.baseHost).to.exist;
       expect(bookNavigator?.book).to.exist;
-      expect(bookNavigator?.signedIn).to.exist;
-      expect(bookNavigator.getAttribute('signedin')).to.exist;
+      expect(bookNavigator?.signedIn).to.be.null;
       expect(bookNavigator?.sharedObserver).to.exist;
       expect(bookNavigator?.sideMenuOpen).to.exist;
     });
@@ -64,37 +63,21 @@ describe('ItemNavigator', () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator></ia-item-navigator>`
       );
-      expect(el.loaded).to.be.true; // initial load
-      expect(el.shadowRoot?.querySelector('ia-itemnav-loader')).to.be.null;
-
-      el.loaded = false;
-      await el.updateComplete;
-
+      expect(el.loaded).to.be.null; // initial load
       expect(el.shadowRoot?.querySelector('ia-itemnav-loader')).to.exist;
-    });
-    it('sets `loaded` as attribute`', async () => {
-      const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
-      );
-
-      expect(el.getAttribute('loaded')).to.exist;
     });
     it('hides reader section if `!loaded`', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator></ia-item-navigator>`
       );
-      expect(el.loaded).to.be.true; // initial load
-
-      el.loaded = false;
-      await el.updateComplete;
 
       expect(
         el.shadowRoot?.querySelector('#reader')?.getAttribute('class')
       ).to.contain('hide');
     });
-    it('shows reader when `loaded`', async () => {
+    it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
 
       const mainTheaterSection = el.shadowRoot?.querySelector('#reader');
