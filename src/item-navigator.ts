@@ -1,4 +1,3 @@
-/* eslint-disable import/no-duplicates */
 import {
   css,
   html,
@@ -14,7 +13,6 @@ import { nothing, TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
 import {
   SharedResizeObserver,
-  SharedResizeObserverInterface,
   SharedResizeObserverResizeHandlerInterface,
 } from '@internetarchive/shared-resize-observer';
 // @ts-ignore
@@ -90,7 +88,7 @@ export class ItemNavigator
   @property({ attribute: false }) modal?: ModalManagerInterface;
 
   @property({ attribute: false })
-  sharedObserver?: SharedResizeObserverInterface;
+  sharedObserver?: SharedResizeObserver;
 
   @property({ type: Boolean, reflect: true }) loaded: boolean = false;
 
@@ -154,12 +152,6 @@ export class ItemNavigator
   get readerHeightStyle(): string {
     const readerHeight =
       this.frame?.offsetHeight - this.headerSlot?.offsetHeight;
-    console.log(
-      'readerHeightStyle - this.frame?.offsetHeight, this.headerSlot?.offsetHeight',
-      this.frame?.offsetHeight,
-      this.headerSlot?.offsetHeight
-    );
-
     return this.viewportInFullscreen ? `height: ${readerHeight}px;` : '';
   }
 
@@ -201,10 +193,10 @@ export class ItemNavigator
   }
 
   get noTheaterView() {
-    return html`<ia-no-theater-view
+    return html`<ia-no-theater-available
       .identifier=${this.item?.metadata?.identifier}
       @loadingStateUpdated=${this.loadingStateUpdated}
-    ></ia-no-theater-view>`;
+    ></ia-no-theater-available>`;
   }
 
   get theaterSlot() {
@@ -238,10 +230,7 @@ export class ItemNavigator
   }
 
   get renderViewport(): TemplateResult | typeof nothing {
-    if (!this.item) {
-      return nothing;
-    }
-    if (this.itemType === 'bookreader') {
+    if (this.itemType === 'bookreader' && this.item) {
       return this.BooksViewer;
     }
     return this.noTheaterView;
@@ -250,7 +239,6 @@ export class ItemNavigator
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
     this.loaded = !!loaded;
-    console.log('******loadingStateUpdated', e.detail);
   }
 
   /** Creates modal DOM & attaches to `<body>` */
@@ -318,7 +306,6 @@ export class ItemNavigator
   }
 
   get menuToggleButton() {
-    // <ia-icon icon="ellipses" style="width: var(--iconWidth); height: var(--iconHeight);"></ia-icon>
     return html`
       <button
         class="toggle-menu"
