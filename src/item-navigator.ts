@@ -154,9 +154,9 @@ export class ItemNavigator
     return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
   }
 
-  handleHeaderSlotChange(e: Event) {
-    console.log('~~~~ handleHeaderSlotChange', e);
-  }
+  // handleHeaderSlotChange(e: Event) {
+  //   console.log('~~~~ handleHeaderSlotChange', e);
+  // }
 
   get loadingArea() {
     return html`
