@@ -154,10 +154,6 @@ export class ItemNavigator
     return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
   }
 
-  // handleHeaderSlotChange(e: Event) {
-  //   console.log('~~~~ handleHeaderSlotChange', e);
-  // }
-
   get loadingArea() {
     return html`
       <div class="loading-area">
@@ -174,10 +170,7 @@ export class ItemNavigator
       <div id="frame" class=${`${this.menuClass}`}>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <slot
-            name="theater-header"
-            @slotchange=${this.handleHeaderSlotChange}
-          ></slot>
+          <slot name="theater-header"></slot>
           <div
             id="reader"
             class=${displayReaderClass}
