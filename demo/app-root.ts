@@ -38,7 +38,11 @@ export class AppRoot extends LitElement {
 
   firstUpdated() {
     this.fetchItemMD();
-    console.log('AP R', this.modalMgr, this.sharedObserver);
+    console.log(
+      '<app-root> component has loaded',
+      this.modalMgr,
+      this.sharedObserver
+    );
   }
 
   /**
@@ -76,6 +80,7 @@ export class AppRoot extends LitElement {
       return;
     }
 
+    console.log('mdResponse.success', JSON.stringify(mdResponse.success));
     this.itemMD = mdResponse.success;
   }
 
