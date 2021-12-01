@@ -3,6 +3,7 @@ import { html, fixture, expect } from '@open-wc/testing';
 import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
+import { ModalManager } from '@internetarchive/modal-manager';
 import { IntNavController } from '../src/interfaces/nav-controller-interface';
 import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
@@ -136,8 +137,8 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator></ia-item-navigator>`
       );
       await el.updateComplete;
-      expect(el.sharedObserver).to.not.be.null;
-      expect(el.sharedObserver).to.be.instanceOf(SharedResizeObserver);
+      expect(el.modal).to.not.be.null;
+      expect(el.modal).to.be.instanceOf(ModalManager);
     });
 
     it('can recieve one', async () => {
