@@ -8,7 +8,6 @@ import {
   query,
   TemplateResult,
 } from 'lit-element';
-import '../src/item-inspector/item-inspector';
 import {
   MetadataResponse,
   SearchService,
