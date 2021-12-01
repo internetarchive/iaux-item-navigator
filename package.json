@@ -78,7 +78,8 @@
           "js": "never",
           "ts": "never"
         }
-      ]
+      ],
+      "import/no-duplicates": "off"
     }
   },
   "prettier": {
