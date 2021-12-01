@@ -6,6 +6,11 @@ import {
   Review,
   SpeechMusicASREntry,
 } from '@internetarchive/search-service';
+import { html } from 'lit-html';
+import {
+  IntMenuShortcut,
+  IntMenuProvider,
+} from '../src/interfaces/menu-interfaces';
 
 export class ItemStub implements MetadataResponse {
   constructor() {
@@ -54,3 +59,21 @@ export class ItemStub implements MetadataResponse {
 
   reviews?: Review[] | undefined;
 }
+
+export const shortcut = {
+  id: 'fullscreen',
+  icon: html`<i class="fas fullscreen-test"></i>`,
+} as IntMenuShortcut;
+
+export const menuProvider = {
+  ...shortcut,
+  label: 'foo',
+  menuDetails: html`<div>foo</div>`,
+  selected: true,
+  followable: false,
+  href: 'https://archive.foo',
+  item: new ItemStub(),
+  baseHost: 'https://archive.foo',
+  subPrefix: 'bar',
+  updated: () => {},
+} as IntMenuProvider;

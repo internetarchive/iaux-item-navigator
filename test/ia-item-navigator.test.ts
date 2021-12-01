@@ -1,19 +1,15 @@
 /* eslint-disable camelcase */
 import { html, fixture, expect } from '@open-wc/testing';
 import Sinon from 'sinon';
+
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
-// import { ModalManager } from '@internetarchive/modal-manager';
-// import '@internetarchive/modal-manager';
-
-// import { IntLoadingStateUpdatedEvent } from '../src/interfaces/event-interfaces';
-import '../test/book-nav-stub';
-
 import { IntNavController } from '../src/interfaces/nav-controller-interface';
-
 import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 
-import { ItemStub } from '../test/ia-stub';
+import '../test/book-nav-stub';
+import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
+import { IntManageSideMenuEvent } from '../src/interfaces/event-interfaces';
 
 afterEach(() => {
   Sinon.restore();
@@ -174,11 +170,108 @@ describe('ItemNavigator', () => {
     });
   });
 
-  describe('Loads side menu contents', () => {
-    it('opens menu shortcut with `@manageSideMenuEvents`', async () => {});
+  /* Side menu & shortcuts tests */
+  describe('el.menuOpened', () => {
+    it('toggles side menu open', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+
+      el.menuContents = [menuProvider];
+      await el.updateComplete;
+
+      const nav = el.shadowRoot?.querySelector('nav');
+
+      expect(nav?.querySelector('#menu')).to.exist;
+      // side menu starts closed
+      expect(el.menuOpened).to.be.false;
+      expect(nav?.querySelector('#menu')?.getAttribute('class')).to.contain(
+        'hidden'
+      );
+
+      // let's open menu
+      el.toggleMenu();
+      await el.updateComplete;
+
+      expect(el.menuOpened).to.be.true;
+      expect(nav?.querySelector('#menu')?.getAttribute('class')).to.not.contain(
+        'hidden'
+      );
+    });
+
+    it('opens menu shortcut with `@manageSideMenuEvents`', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+      const detail = {
+        menuId: 'fullscreen',
+        action: 'open',
+      };
+
+      el.menuContents = [menuProvider];
+      await el.updateComplete;
+      const frame = el.shadowRoot?.querySelector('#frame');
+      // default menu open behavior is to side menu open, not overlay
+      expect(frame?.getAttribute('class')).to.contain('shift');
+
+      expect(el.menuOpened).to.be.false;
+      expect(el.openMenu).to.be.empty;
+      expect(frame?.getAttribute('class')).to.not.contain('open');
+
+      const event = new CustomEvent('updateSideMenu', {
+        detail,
+      }) as IntManageSideMenuEvent;
+      el.manageSideMenuEvents(event);
+      await el.updateComplete;
+
+      expect(el.shouldRenderMenu).to.be.true;
+      expect(el.menuOpened).to.be.true;
+      expect(el.openMenu).to.equal(detail.menuId);
+
+      expect(frame?.getAttribute('class')).to.contain('open');
+    });
   });
 
-  describe('Menu Shortcuts', () => {
-    it('shows `this.menuShortcuts`', async () => {});
+  describe('el.menuContents', () => {
+    it('draws side menu when populated', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+
+      el.menuContents = [menuProvider];
+      await el.updateComplete;
+      expect(el.menuContents.length).to.exist;
+      expect(el.shouldRenderMenu).to.be.true;
+
+      const nav = el.shadowRoot?.querySelector('nav');
+      expect(nav).to.exist;
+
+      const menuSlider = nav?.querySelector('ia-menu-slider');
+      expect(menuSlider).to.exist;
+      expect(menuSlider?.getAttribute('manuallyhandleclose')).to.exist;
+      expect(menuSlider?.getAttribute('open')).to.exist;
+    });
+  });
+
+  describe('`el.menuShortcuts`', () => {
+    it('displays shortcut & toggle side menu button', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+
+      el.menuContents = [menuProvider];
+      el.menuShortcuts = [shortcut];
+      await el.updateComplete;
+
+      const nav = el.shadowRoot?.querySelector('nav');
+
+      expect(el.menuShortcuts.length).to.exist;
+      expect(nav).to.exist;
+      expect(nav?.querySelector('.shortcuts')).to.exist;
+      expect(
+        nav?.querySelector('.shortcuts')?.querySelector('i.fullscreen-test')
+      ).to.exist;
+      expect(nav?.querySelector('.toggle-menu')).to.exist;
+    });
   });
 });
