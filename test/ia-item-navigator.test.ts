@@ -30,6 +30,8 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator
           .itemType=${`bookreader`}
           .item=${new ItemStub()}
+          .modal=${new ModalManager()}
+          .sharedObserver=${new SharedResizeObserver()}
         ></ia-item-navigator>`
       );
 
@@ -109,50 +111,58 @@ describe('ItemNavigator', () => {
   });
 
   describe('`el.sharedObserver`', () => {
-    it('can create one', async () => {
-      const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
-      );
-      await el.updateComplete;
-      expect(el.sharedObserver).to.not.be.null;
-      expect(el.sharedObserver).to.be.instanceOf(SharedResizeObserver);
-    });
-
-    it('can recieve one', async () => {
+    it('uses one', async () => {
       const sharedObserver = new SharedResizeObserver();
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator
+          .sharedObserver=${sharedObserver}
+        ></ia-item-navigator>`
+      );
+
+      expect(el.sharedObserver).to.equal(sharedObserver);
+    });
+    it('freshly registers handler', async () => {
+      const sharedObserver = new SharedResizeObserver();
+      const addObserverSpy = Sinon.spy(sharedObserver, 'addObserver');
+      const removeObserverSpy = Sinon.spy(sharedObserver, 'removeObserver');
+
+      await fixture<ItemNavigator>(
+        html`<ia-item-navigator
+          .sharedObserver=${sharedObserver}
+        ></ia-item-navigator>`
+      );
+
+      // always calls to remove first, for posterity
+      expect(removeObserverSpy.callCount).to.equal(1);
+      expect(addObserverSpy.callCount).to.equal(1);
+    });
+    it('removes handler when component disconnects', async () => {
+      const sharedObserver = new SharedResizeObserver();
+      const removeObserverSpy = Sinon.spy(sharedObserver, 'removeObserver');
 
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator
           .sharedObserver=${sharedObserver}
         ></ia-item-navigator>`
       );
+
+      // called during setup `setResizeObserver`
+      expect(removeObserverSpy.callCount).to.equal(1);
+
+      el.disconnectedCallback();
       await el.updateComplete;
-      expect(el.sharedObserver).to.be.instanceOf(SharedResizeObserver);
+
+      expect(removeObserverSpy.callCount).to.equal(2);
     });
   });
 
   describe('`el.modal`', () => {
-    it('can create one', async () => {
+    it('uses one', async () => {
+      const modal = new ModalManager();
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator .modal=${modal}></ia-item-navigator>`
       );
-      await el.updateComplete;
-      expect(el.modal).to.not.be.null;
-      expect(el.modal).to.be.instanceOf(ModalManager);
-    });
-
-    it('can recieve one', async () => {
-      const sharedObserver = new SharedResizeObserver();
-      const observerSpy = Sinon.stub(sharedObserver, 'addObserver');
-
-      const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator
-          .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`
-      );
-      await el.updateComplete;
-      expect(el.sharedObserver).to.be.instanceOf(SharedResizeObserver);
-      expect(observerSpy.called).to.equal(true);
+      expect(el.modal).to.equal(modal);
     });
   });
 

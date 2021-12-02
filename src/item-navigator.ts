@@ -100,20 +100,7 @@ export class ItemNavigator
     this.removeResizeObserver();
   }
 
-  firstUpdated(): void {
-    if (!this.modal) {
-      this.createModal();
-    }
-
-    this.setResizeObserver();
-  }
-
   updated(changed: PropertyValues) {
-    if (changed.has('modal')) {
-      if (!this.modal) {
-        this.createModal();
-      }
-    }
     if (changed.has('sharedObserver')) {
       this.setResizeObserver();
     }
@@ -131,11 +118,7 @@ export class ItemNavigator
 
   private setResizeObserver(): void {
     this.removeResizeObserver();
-
-    if (!this.sharedObserver) {
-      this.sharedObserver = new SharedResizeObserver();
-    }
-    this.sharedObserver.addObserver(this.resizeObserverConfig);
+    this.sharedObserver?.addObserver(this.resizeObserverConfig);
   }
 
   private removeResizeObserver(): void {
@@ -243,15 +226,6 @@ export class ItemNavigator
     const { loaded } = e.detail;
     this.loaded = loaded || null;
   }
-
-  /** Creates modal DOM & attaches to `<body>` */
-  private createModal(): void {
-    this.modal = document.createElement(
-      'modal-manager'
-    ) as ModalManagerInterface;
-    document.body.appendChild(this.modal);
-  }
-  /* End Modal management */
 
   /** Fullscreen Management */
   manageViewportFullscreen(e: IntManageFullscreenEvent): void {
