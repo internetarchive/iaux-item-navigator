@@ -97,10 +97,7 @@ export class ItemNavigator
   @query('slot[name="theater-header"]') private headerSlot!: HTMLDivElement;
 
   disconnectedCallback() {
-    this.sharedObserver?.removeObserver({
-      handler: this,
-      target: this.frame,
-    });
+    this.removeResizeObserver(this.sharedObserver);
   }
 
   firstUpdated(): void {
@@ -118,12 +115,17 @@ export class ItemNavigator
       }
     }
     if (changed.has('sharedObserver')) {
-      if (!this.sharedObserver) {
-        this.startResizeObserver();
+      if (this.sharedObserver) {
+        const oldObserver = changed.get(
+          'sharedObserver'
+        ) as SharedResizeObserver;
+        this.removeResizeObserver(oldObserver);
       }
+      this.startResizeObserver();
     }
   }
 
+  /** Shared observer */
   handleResize(entry: ResizeObserverEntry): void {
     const { width } = entry.contentRect;
     if (width <= 600) {
@@ -134,14 +136,26 @@ export class ItemNavigator
   }
 
   private startResizeObserver(): void {
-    if (!this.sharedObserver) {
-      this.sharedObserver = new SharedResizeObserver();
-    }
-    this.sharedObserver.addObserver({
+    this.sharedObserver = new SharedResizeObserver();
+    this.sharedObserver.addObserver(this.resizeObserverConfig);
+  }
+
+  private removeResizeObserver(
+    observer: SharedResizeObserver | undefined
+  ): void {
+    observer?.removeObserver(this.resizeObserverConfig);
+  }
+
+  get resizeObserverConfig(): {
+    handler: SharedResizeObserverResizeHandlerInterface;
+    target: Element;
+  } {
+    return {
       handler: this,
       target: this.frame,
-    });
+    };
   }
+  /** End shared observer */
 
   get loaderTitle() {
     return this.viewportInFullscreen ? 'Internet Archive' : '';
@@ -195,7 +209,7 @@ export class ItemNavigator
     `;
   }
 
-  get BooksViewer(): TemplateResult {
+  get booksViewer(): TemplateResult {
     const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
 
     return html`
@@ -224,7 +238,7 @@ export class ItemNavigator
       return nothing;
     }
     if (this.itemType === 'bookreader') {
-      return this.BooksViewer;
+      return this.booksViewer;
     }
     return this.noTheaterView;
   }
