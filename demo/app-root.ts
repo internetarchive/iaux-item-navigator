@@ -32,6 +32,10 @@ export class AppRoot extends LitElement {
 
   @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
 
+  @property({ type: Boolean, reflect: true, attribute: true }) fullscreen:
+    | boolean
+    | null = null;
+
   firstUpdated() {
     this.fetchItemMD();
     console.log(
@@ -41,26 +45,10 @@ export class AppRoot extends LitElement {
     );
   }
 
-  /**
-   * @inheritdoc
-   */
   updated(changed: any) {
     console.log('changed', changed);
     if (changed.has('itemMD')) {
       this.fullscreenCheck();
-    }
-  }
-
-  get theaterReady(): boolean {
-    return this.modalMgr && this.sharedObserver && !!this.itemMD;
-  }
-
-  /**
-   * toggles attr: `<ia-item-navigator viewportinfullscreen>`
-   */
-  fullscreenCheck() {
-    if (this.showFullscreen && this.itemNav) {
-      this.itemNav.viewportInFullscreen = true;
     }
   }
 
@@ -80,17 +68,20 @@ export class AppRoot extends LitElement {
     this.itemMD = mdResponse.success;
   }
 
+  get theaterReady(): boolean {
+    return this.modalMgr && this.sharedObserver && !!this.itemMD;
+  }
+
   get urlParams(): URLSearchParams {
     return new URLSearchParams(location.search.slice(1));
   }
 
+  /** Fullscreen */
   get showFullscreen(): boolean {
     return this.urlParams.get('view') === 'theater';
   }
 
-  /**
-   * sets url query param `view=theater` to toggle fullscreen
-   */
+  /** sets url query param `view=theater` to toggle fullscreen */
   toggleFS(): void {
     if (this.urlParams.get('view')) {
       location.search = '';
@@ -99,6 +90,16 @@ export class AppRoot extends LitElement {
     }
   }
 
+  /** toggles attr: `<ia-item-navigator viewportinfullscreen>` */
+  fullscreenCheck(): void {
+    if (this.showFullscreen && this.itemNav) {
+      this.fullscreen = true;
+      // this.itemNav.viewportInFullscreen = true;
+    }
+  }
+  /** End fullscreen */
+
+  /** Views */
   get theaterBlock(): TemplateResult {
     return html`
       <ia-item-navigator
@@ -107,6 +108,7 @@ export class AppRoot extends LitElement {
         .modal=${this.modalMgr}
         .sharedObserver=${this.sharedObserver}
         @ViewportInFullScreen=${this.toggleFS}
+        .viewportInFullscreen=${this.fullscreen}
       ></ia-item-navigator>
     `;
   }
@@ -128,6 +130,11 @@ export class AppRoot extends LitElement {
     :host {
       border: 1px solid pink;
       color: #222;
+    }
+
+    :host([fullscreen]) {
+      height: 100vh;
+      width: 100vw;
     }
 
     :host,
