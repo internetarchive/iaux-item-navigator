@@ -15,8 +15,6 @@ import {
   SharedResizeObserver,
   SharedResizeObserverResizeHandlerInterface,
 } from '@internetarchive/shared-resize-observer';
-// @ts-ignore
-import { IAMenuSlider } from '@internetarchive/ia-menu-slider';
 import '@internetarchive/ia-menu-slider';
 
 import { ModalManagerInterface } from '@internetarchive/modal-manager';
@@ -528,5 +526,3 @@ export class ItemNavigator
     `;
   }
 }
-
-customElements.define('ia-menu-slider', IAMenuSlider);
