@@ -92,10 +92,10 @@ describe('ItemNavigator', () => {
       await el.updateComplete;
       const spy = Sinon.spy();
       el.loadingStateUpdated = spy;
-      el.loaded = false;
+      el.loaded = null;
       await el.updateComplete;
       // check base properties
-      expect(el.loaded).to.equal(false);
+      expect(el.loaded).to.equal(null);
       expect(el.item).to.be.undefined;
 
       // hydrate item

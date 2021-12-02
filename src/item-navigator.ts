@@ -75,9 +75,8 @@ export class ItemNavigator
 
   @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
 
-  @property({ type: Boolean, reflect: true }) viewportInFullscreen:
-    | boolean
-    | null = null;
+  @property({ type: Boolean, reflect: true, attribute: true })
+  viewportInFullscreen: boolean | null = null;
 
   @property({ type: Boolean }) menuOpened = false;
 
