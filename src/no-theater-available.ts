@@ -9,17 +9,15 @@ import {
   css,
 } from 'lit-element';
 
-import { IntLoadingStateUpdatedEvent } from './interfaces/event-interfaces';
-
 @customElement('ia-no-theater-available')
 export class IANoTheaterAvailable extends LitElement {
   @property({ type: String }) identifier?: string = '';
 
   emitLoaded(): void {
     this.dispatchEvent(
-      new CustomEvent('loadingStateUpdated', {
+      new CustomEvent<{ loaded: boolean }>('loadingStateUpdated', {
         detail: { loaded: true },
-      }) as IntLoadingStateUpdatedEvent
+      })
     );
   }
 

@@ -13,11 +13,10 @@ import {
   SearchService,
 } from '@internetarchive/search-service';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
-import '../src/item-navigator';
-// import { ItemNavigator } from '../src/item-navigator';
-
+import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/modal-manager';
-
+import { ItemNavigator } from '../src/item-navigator';
+import '../src/item-navigator';
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
@@ -25,13 +24,11 @@ export class AppRoot extends LitElement {
    */
   @property({ type: Object }) itemMD: MetadataResponse | undefined = undefined;
 
-  @property({ type: Object }) bookManifest = {};
-
   @property({ type: String }) encodedManifest = '';
 
-  @query('ia-item-navigator') private itemNav!: any;
+  @query('ia-item-navigator') private itemNav!: ItemNavigator;
 
-  @query('modal-manager') modalMgr!: any;
+  @query('modal-manager') modalMgr!: ModalManager;
 
   @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
 
@@ -55,7 +52,7 @@ export class AppRoot extends LitElement {
   }
 
   get theaterReady(): boolean {
-    return this.modalMgr && this.sharedObserver && this.itemMD;
+    return this.modalMgr && this.sharedObserver && !!this.itemMD;
   }
 
   /**
