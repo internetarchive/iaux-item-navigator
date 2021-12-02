@@ -85,10 +85,11 @@ export class ItemNavigator
 
   @property({ attribute: false }) modal?: ModalManagerInterface;
 
-  @property({ attribute: false })
-  sharedObserver?: SharedResizeObserver;
+  @property({ attribute: false }) sharedObserver?: SharedResizeObserver;
 
-  @property({ reflect: true, attribute: true }) loaded: boolean | null = null;
+  @property({ type: Boolean, reflect: true, attribute: true }) loaded:
+    | true
+    | null = null;
 
   @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
@@ -97,7 +98,7 @@ export class ItemNavigator
   @query('slot[name="theater-header"]') private headerSlot!: HTMLDivElement;
 
   disconnectedCallback() {
-    this.removeResizeObserver(this.sharedObserver);
+    this.removeResizeObserver();
   }
 
   firstUpdated(): void {
@@ -105,7 +106,7 @@ export class ItemNavigator
       this.createModal();
     }
 
-    this.startResizeObserver();
+    this.setResizeObserver();
   }
 
   updated(changed: PropertyValues) {
@@ -115,13 +116,7 @@ export class ItemNavigator
       }
     }
     if (changed.has('sharedObserver')) {
-      if (this.sharedObserver) {
-        const oldObserver = changed.get(
-          'sharedObserver'
-        ) as SharedResizeObserver;
-        this.removeResizeObserver(oldObserver);
-      }
-      this.startResizeObserver();
+      this.setResizeObserver();
     }
   }
 
@@ -135,15 +130,17 @@ export class ItemNavigator
     this.openMenuState = 'shift';
   }
 
-  private startResizeObserver(): void {
-    this.sharedObserver = new SharedResizeObserver();
+  private setResizeObserver(): void {
+    this.removeResizeObserver();
+
+    if (!this.sharedObserver) {
+      this.sharedObserver = new SharedResizeObserver();
+    }
     this.sharedObserver.addObserver(this.resizeObserverConfig);
   }
 
-  private removeResizeObserver(
-    observer: SharedResizeObserver | undefined
-  ): void {
-    observer?.removeObserver(this.resizeObserverConfig);
+  private removeResizeObserver(): void {
+    this.sharedObserver?.removeObserver(this.resizeObserverConfig);
   }
 
   get resizeObserverConfig(): {
@@ -245,7 +242,7 @@ export class ItemNavigator
 
   loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
-    this.loaded = !!loaded;
+    this.loaded = loaded || null;
   }
 
   /** Creates modal DOM & attaches to `<body>` */
