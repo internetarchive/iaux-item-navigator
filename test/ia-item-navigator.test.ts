@@ -4,7 +4,7 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { IntNavController } from '../src/interfaces/nav-controller-interface';
+import { BookNavigator } from '../src/interfaces/nav-controller-interface';
 import { ItemNavigator, ItemType } from '../src/item-navigator';
 import '../src/item-navigator';
 
@@ -42,7 +42,7 @@ describe('ItemNavigator', () => {
 
       const bookNavigator = el.shadowRoot?.querySelector(
         'book-navigator'
-      ) as IntNavController;
+      ) as BookNavigator;
       await bookNavigator.updateComplete;
 
       console.log('132234234324324324');
