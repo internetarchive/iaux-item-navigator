@@ -30,7 +30,11 @@ import {
   IntManageFullscreenEvent,
 } from './interfaces/event-interfaces';
 
-import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
+import {
+  IntMenuProvider,
+  IntMenuShortcut,
+  MenuId,
+} from './interfaces/menu-interfaces';
 import './no-theater-available';
 
 export enum ItemType {
@@ -84,7 +88,7 @@ export class ItemNavigator
 
   @property({ type: Boolean }) menuOpened = false;
 
-  @property({ type: String }) openMenu = '';
+  @property({ type: String }) openMenu: MenuId | '' = '';
 
   @property({ attribute: false }) modal?: ModalManagerInterface;
 
@@ -324,7 +328,7 @@ export class ItemNavigator
   /** End Side menu */
 
   /** Menu Shortcuts */
-  openShortcut(selectedMenuId = ''): void {
+  openShortcut(selectedMenuId: MenuId = ''): void {
     this.openMenu = selectedMenuId;
     this.menuOpened = true;
   }

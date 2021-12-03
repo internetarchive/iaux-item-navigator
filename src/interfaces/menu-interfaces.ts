@@ -1,14 +1,15 @@
 import { TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
 
+export type MenuId = string;
 export interface IntMenuShortcut {
   icon: TemplateResult;
-  id: string;
+  id: MenuId;
 }
 
 export interface IntMenuIconAndDetails extends IntMenuShortcut {
   icon: TemplateResult;
-  id: string;
+  id: MenuId;
   label: string;
   menuDetails?: TemplateResult;
   selected?: boolean;
