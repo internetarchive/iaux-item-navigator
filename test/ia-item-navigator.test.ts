@@ -120,6 +120,7 @@ describe('ItemNavigator', () => {
       );
 
       expect(el.sharedObserver).to.equal(sharedObserver);
+      expect(typeof el.handleResize).to.equal('function');
     });
     it('freshly registers handler', async () => {
       const sharedObserver = new SharedResizeObserver();
@@ -240,6 +241,37 @@ describe('ItemNavigator', () => {
       expect(el.openMenu).to.equal(detail.menuId);
 
       expect(frame?.getAttribute('class')).to.contain('open');
+
+      // no menu provided
+      const openShortcutSpy = Sinon.spy(el, 'openShortcut');
+      const toggleMenuSpy = Sinon.spy(el, 'toggleMenu');
+
+      const noMenuProvidedEvent = new CustomEvent('updateSideMenu', {
+        detail: {},
+      }) as any;
+      el.manageSideMenuEvents(noMenuProvidedEvent);
+      await el.updateComplete;
+
+      expect(openShortcutSpy.called).to.be.false;
+      expect(toggleMenuSpy.called).to.be.false;
+
+      // toggle menu
+      const toggleMenuEvent = new CustomEvent('updateSideMenu', {
+        detail: { action: 'toggle', menuId: 'fullscreen' },
+      }) as any;
+      el.manageSideMenuEvents(toggleMenuEvent);
+      await el.updateComplete;
+
+      expect(toggleMenuSpy.callCount).to.equal(1);
+
+      // open menu
+      const openMenuEvent = new CustomEvent('updateSideMenu', {
+        detail: { action: 'open', menuId: 'fullscreen' },
+      }) as any;
+      el.manageSideMenuEvents(openMenuEvent);
+      await el.updateComplete;
+
+      expect(openShortcutSpy.callCount).to.equal(1);
     });
   });
 
