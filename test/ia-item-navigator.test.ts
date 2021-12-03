@@ -5,7 +5,7 @@ import Sinon from 'sinon';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
 import { IntNavController } from '../src/interfaces/nav-controller-interface';
-import { ItemNavigator } from '../src/item-navigator';
+import { ItemNavigator, ItemType } from '../src/item-navigator';
 import '../src/item-navigator';
 
 import '../test/book-nav-stub';
@@ -28,7 +28,7 @@ describe('ItemNavigator', () => {
     it('shows <book-navigator> if `this.itemType = "bookreader"`', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator
-          .itemType=${`bookreader`}
+          .itemType=${ItemType.BOOK}
           .item=${new ItemStub()}
           .modal=${new ModalManager()}
           .sharedObserver=${new SharedResizeObserver()}

@@ -32,6 +32,10 @@ import {
 
 import { IntMenuProvider, IntMenuShortcut } from './interfaces/menu-interfaces';
 import './no-theater-available';
+
+export enum ItemType {
+  BOOK = 'bookreader',
+}
 @customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
@@ -47,7 +51,7 @@ export class ItemNavigator
   })
   item: MetadataResponse | undefined = undefined;
 
-  @property({ type: String }) itemType = '';
+  @property({ type: String }) itemType?: ItemType;
 
   @property({ type: String }) baseHost = 'archive.org';
 
@@ -216,7 +220,7 @@ export class ItemNavigator
     if (!this.item) {
       return nothing;
     }
-    if (this.itemType === 'bookreader') {
+    if (this.itemType === ItemType.BOOK) {
       return this.booksViewer;
     }
     return this.noTheaterView;
