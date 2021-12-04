@@ -10,7 +10,13 @@ import '../src/item-navigator';
 
 import '../test/book-nav-stub';
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
-import { IntManageSideMenuEvent } from '../src/interfaces/event-interfaces';
+import {
+  IntManageFullscreenEvent,
+  IntManageSideMenuEvent,
+  IntSetMenuContentsEvent,
+  IntSetMenuShortcutsEvent,
+  IntSetOpenMenuEvent,
+} from '../src/interfaces/event-interfaces';
 
 afterEach(() => {
   Sinon.restore();
@@ -155,6 +161,7 @@ describe('ItemNavigator', () => {
 
       expect(removeObserverSpy.callCount).to.equal(2);
     });
+    it('updates `openMenuState`');
   });
 
   describe('`el.modal`', () => {
@@ -179,6 +186,30 @@ describe('ItemNavigator', () => {
       await el.updateComplete;
 
       expect(el.getAttribute('viewportinfullscreen')).to.exist;
+    });
+    it('@ViewportInFullScreen', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator></ia-item-navigator>`
+      );
+      expect(el.viewportInFullscreen).to.be.null;
+
+      const yesFullscreenEvent = {
+        detail: {
+          isFullScreen: true,
+        },
+      } as IntManageFullscreenEvent;
+      el.manageViewportFullscreen(yesFullscreenEvent);
+      await el.updateComplete;
+      expect(el.viewportInFullscreen).to.be.true;
+
+      const noFullscreenEvent = {
+        detail: {
+          isFullScreen: false,
+        },
+      } as IntManageFullscreenEvent;
+      el.manageViewportFullscreen(noFullscreenEvent);
+      await el.updateComplete;
+      expect(el.viewportInFullscreen).to.be.null;
     });
   });
 
@@ -302,19 +333,89 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
 
+      const anotherShortcut = {
+        id: 'foo',
+        icon: html`<i class="foo-shortcut"></i>`,
+      };
       el.menuContents = [menuProvider];
-      el.menuShortcuts = [shortcut];
+      el.menuShortcuts = [shortcut, anotherShortcut];
       await el.updateComplete;
 
       const nav = el.shadowRoot?.querySelector('nav');
 
+      const shortcutsContainer = nav?.querySelector('.shortcuts');
       expect(el.menuShortcuts.length).to.exist;
       expect(nav).to.exist;
-      expect(nav?.querySelector('.shortcuts')).to.exist;
-      expect(
-        nav?.querySelector('.shortcuts')?.querySelector('i.fullscreen-test')
-      ).to.exist;
+      expect(shortcutsContainer).to.exist;
+      expect(shortcutsContainer?.querySelector('i.fullscreen-test')).to.exist;
+      expect(shortcutsContainer?.querySelector('button.shortcut.foo')).to.exist;
       expect(nav?.querySelector('.toggle-menu')).to.exist;
+    });
+  });
+
+  describe('Menu events', () => {
+    it('`el.setMenuShortcuts`', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+      expect(el.menuShortcuts.length).to.equal(0);
+
+      const menuShortcuts = [shortcut];
+
+      el.setMenuShortcuts({
+        detail: menuShortcuts,
+      } as IntSetMenuShortcutsEvent);
+      await el.updateComplete;
+
+      expect(el.menuShortcuts.length).to.equal(1);
+    });
+    it('`el.setMenuContents`', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+      expect(el.menuContents.length).to.equal(0);
+
+      el.setMenuShortcuts({
+        detail: [menuProvider],
+      } as IntSetMenuContentsEvent);
+      await el.updateComplete;
+
+      expect(el.menuShortcuts.length).to.equal(1);
+    });
+    it('`el.setOpenMenu`', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+
+      el.setOpenMenu({
+        detail: { id: 'foo' },
+      } as IntSetOpenMenuEvent);
+      await el.updateComplete;
+
+      expect(el.openMenu).to.equal('foo');
+
+      // toggles it off
+      el.setOpenMenu({
+        detail: { id: 'foo' },
+      } as IntSetOpenMenuEvent);
+      await el.updateComplete;
+
+      expect(el.openMenu).to.equal('');
+    });
+    it('`el.closeMenu`', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+
+      el.menuOpened = true;
+      await el.updateComplete;
+
+      expect(el.menuOpened).to.be.true;
+
+      el.closeMenu();
+      await el.updateComplete;
+
+      expect(el.menuOpened).to.be.false;
     });
   });
 });
