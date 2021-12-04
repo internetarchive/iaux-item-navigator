@@ -161,7 +161,29 @@ describe('ItemNavigator', () => {
 
       expect(removeObserverSpy.callCount).to.equal(2);
     });
-    it('updates `openMenuState`');
+    it('sets menu to overlay if container width is <= 600px', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator></ia-item-navigator>`
+      );
+
+      expect(el.openMenuState).to.equal('shift'); // as starting point
+
+      const overlaySize = {
+        contentRect: { width: 600 },
+      } as ResizeObserverEntry;
+      el.handleResize(overlaySize);
+      await el.updateComplete;
+
+      expect(el.openMenuState).to.equal('overlay'); // changes open menu display to an overlay
+
+      const shiftSize = {
+        contentRect: { width: 601 },
+      } as ResizeObserverEntry;
+      el.handleResize(shiftSize);
+      await el.updateComplete;
+
+      expect(el.openMenuState).to.equal('shift');
+    });
   });
 
   describe('`el.modal`', () => {
