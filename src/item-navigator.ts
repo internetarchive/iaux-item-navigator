@@ -53,7 +53,7 @@ export class ItemNavigator
       return value as MetadataResponse;
     },
   })
-  item: MetadataResponse | undefined = undefined;
+  item?: MetadataResponse;
 
   @property({ type: String }) itemType?: ItemType;
 
@@ -69,17 +69,7 @@ export class ItemNavigator
   })
   signedIn = false;
 
-  @property({
-    type: Array,
-    hasChanged: (newVal: Array<object>, oldVal: Array<object>) => {
-      if (newVal !== oldVal) {
-        return true;
-      }
-      return false;
-    },
-  })
-  @property({ type: Array })
-  menuContents: IntMenuProvider[] = [];
+  @property({ type: Array }) menuContents: IntMenuProvider[] = [];
 
   @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
 
