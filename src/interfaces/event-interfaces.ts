@@ -1,10 +1,10 @@
-import { IntMenuProvider, IntMenuShortcut } from './menu-interfaces';
+import { IntMenuProvider, IntMenuShortcut, MenuId } from './menu-interfaces';
 
 /** Toggles Menu && Sets open panel */
 export interface IntManageSideMenuEvent extends CustomEvent {
   type: 'updateSideMenu';
   detail: {
-    menuId: string | undefined | '';
+    menuId: MenuId | undefined | '';
     action: 'open' | 'toggle' | '';
   };
 }
@@ -13,7 +13,7 @@ export interface IntManageSideMenuEvent extends CustomEvent {
 export interface IntSetOpenMenuEvent extends CustomEvent {
   type: 'menuTypeSelected';
   detail: {
-    id: string /** name of menu to open */;
+    id: MenuId | '';
   };
 }
 
