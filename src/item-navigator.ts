@@ -17,22 +17,22 @@ import {
 } from '@internetarchive/shared-resize-observer';
 import '@internetarchive/ia-menu-slider';
 
-import { ModalManagerInterface } from '@internetarchive/modal-manager';
+import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses/icon-ellipses';
 import './loader';
 
 import {
-  IntManageSideMenuEvent,
-  IntSetOpenMenuEvent,
-  IntSetMenuContentsEvent,
-  IntSetMenuShortcutsEvent,
-  IntLoadingStateUpdatedEvent,
-  IntManageFullscreenEvent,
+  ToggleSideMenuOpenEvent,
+  ToggleSidePanelOpenEvent,
+  SetSideMenuContentsEvent,
+  SetSideMenuShortcutsEvent,
+  loadingStateUpdatedEvent,
+  ManageFullscreenEvent,
 } from './interfaces/event-interfaces';
 
 import {
-  IntMenuProvider,
-  IntMenuShortcut,
+  MenuProviderInterface,
+  MenuShortcutInterface,
   MenuId,
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
@@ -69,18 +69,18 @@ export class ItemNavigator
   })
   signedIn = false;
 
-  @property({ type: Array }) menuContents: IntMenuProvider[] = [];
+  @property({ type: Array }) menuContents: MenuProviderInterface[] = [];
 
-  @property({ type: Array }) menuShortcuts: IntMenuShortcut[] = [];
+  @property({ type: Array }) menuShortcuts: MenuShortcutInterface[] = [];
 
   @property({ type: Boolean, reflect: true, attribute: true })
   viewportInFullscreen: boolean | null = null;
 
   @property({ type: Boolean }) menuOpened = false;
 
-  @property({ type: String }) openMenu: MenuId | '' = '';
+  @property({ type: String }) openMenu?: MenuId;
 
-  @property({ attribute: false }) modal?: ModalManagerInterface;
+  @property({ attribute: false }) modal?: ModalManager;
 
   @property({ attribute: false }) sharedObserver?: SharedResizeObserver;
 
@@ -100,6 +100,8 @@ export class ItemNavigator
 
   updated(changed: PropertyValues) {
     if (changed.has('sharedObserver')) {
+      const oldObserver = changed.get('sharedObserver') as SharedResizeObserver;
+      oldObserver?.removeObserver(this.resizeObserverConfig);
       this.setResizeObserver();
     }
   }
@@ -115,7 +117,6 @@ export class ItemNavigator
   }
 
   private setResizeObserver(): void {
-    this.removeResizeObserver();
     this.sharedObserver?.addObserver(this.resizeObserverConfig);
   }
 
@@ -193,7 +194,7 @@ export class ItemNavigator
       <book-navigator
         .modal=${this.modal}
         .baseHost=${this.baseHost}
-        .book=${this.item}
+        .itemMD=${this.item}
         ?signedIn=${this.signedIn}
         ?sideMenuOpen=${this.menuOpened}
         .sharedObserver=${this.sharedObserver}
@@ -220,19 +221,19 @@ export class ItemNavigator
     return this.noTheaterView;
   }
 
-  loadingStateUpdated(e: IntLoadingStateUpdatedEvent): void {
+  loadingStateUpdated(e: loadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
     this.loaded = loaded || null;
   }
 
   /** Fullscreen Management */
-  manageViewportFullscreen(e: IntManageFullscreenEvent): void {
+  manageViewportFullscreen(e: ManageFullscreenEvent): void {
     const fullscreenStatus = !!e.detail.isFullScreen;
     this.viewportInFullscreen = !fullscreenStatus ? null : fullscreenStatus;
 
     const event = new CustomEvent('fullscreenToggled', {
       detail: e.detail,
-    }) as IntManageFullscreenEvent;
+    }) as ManageFullscreenEvent;
 
     this.dispatchEvent(event);
   }
@@ -251,22 +252,22 @@ export class ItemNavigator
     this.menuOpened = false;
   }
 
-  setOpenMenu(e: IntSetOpenMenuEvent): void {
+  setOpenMenu(e: ToggleSidePanelOpenEvent): void {
     const { id } = e.detail;
-    this.openMenu = id === this.openMenu ? '' : id;
+    this.openMenu = id !== this.openMenu ? id : undefined;
   }
 
-  setMenuContents(e: IntSetMenuContentsEvent): void {
+  setMenuContents(e: SetSideMenuContentsEvent): void {
     const updatedContents = [...e.detail];
     this.menuContents = updatedContents;
   }
 
-  setMenuShortcuts(e: IntSetMenuShortcutsEvent) {
+  setMenuShortcuts(e: SetSideMenuShortcutsEvent) {
     this.menuShortcuts = [...e.detail];
   }
 
   /** Toggles Side Menu & Sets viewable subpanel  */
-  manageSideMenuEvents(e: IntManageSideMenuEvent): void {
+  manageSideMenuEvents(e: ToggleSideMenuOpenEvent): void {
     const { menuId, action } = e.detail;
     if (!menuId) {
       return;
@@ -296,16 +297,19 @@ export class ItemNavigator
     `;
   }
 
+  get selectedMenuId(): MenuId | '' {
+    return this.openMenu || '';
+  }
+
   get renderSideMenu(): TemplateResult {
     const drawerState = this.menuOpened ? '' : 'hidden';
-
     return html`
       <nav>
         <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
         <div id="menu" class=${drawerState}>
           <ia-menu-slider
             .menus=${this.menuContents}
-            .selectedMenu=${this.openMenu}
+            .selectedMenu=${this.selectedMenuId}
             @menuTypeSelected=${this.setOpenMenu}
             @menuSliderClosed=${this.closeMenu}
             manuallyHandleClose

@@ -4,18 +4,18 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { BookNavigator } from '../src/interfaces/nav-controller-interface';
+import { CustomTheaterInterface } from '../src/interfaces/custom-theater-interface';
 import { ItemNavigator, ItemType } from '../src/item-navigator';
 import '../src/item-navigator';
 
 import '../test/book-nav-stub';
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
 import {
-  IntManageFullscreenEvent,
-  IntManageSideMenuEvent,
-  IntSetMenuContentsEvent,
-  IntSetMenuShortcutsEvent,
-  IntSetOpenMenuEvent,
+  ManageFullscreenEvent,
+  ToggleSideMenuOpenEvent,
+  SetSideMenuContentsEvent,
+  SetSideMenuShortcutsEvent,
+  ToggleSidePanelOpenEvent,
 } from '../src/interfaces/event-interfaces';
 
 afterEach(() => {
@@ -48,7 +48,7 @@ describe('ItemNavigator', () => {
 
       const bookNavigator = el.shadowRoot?.querySelector(
         'book-navigator'
-      ) as BookNavigator;
+      ) as CustomTheaterInterface;
       await bookNavigator.updateComplete;
 
       console.log('132234234324324324');
@@ -57,7 +57,6 @@ describe('ItemNavigator', () => {
       expect(bookNavigator).to.exist;
       expect(bookNavigator?.modal).to.exist;
       expect(bookNavigator?.baseHost).to.exist;
-      expect(bookNavigator?.book).to.exist;
       expect(bookNavigator?.signedIn).to.be.null;
       expect(bookNavigator?.sharedObserver).to.exist;
       expect(bookNavigator?.sideMenuOpen).to.exist;
@@ -131,7 +130,6 @@ describe('ItemNavigator', () => {
     it('freshly registers handler', async () => {
       const sharedObserver = new SharedResizeObserver();
       const addObserverSpy = Sinon.spy(sharedObserver, 'addObserver');
-      const removeObserverSpy = Sinon.spy(sharedObserver, 'removeObserver');
 
       await fixture<ItemNavigator>(
         html`<ia-item-navigator
@@ -139,8 +137,6 @@ describe('ItemNavigator', () => {
         ></ia-item-navigator>`
       );
 
-      // always calls to remove first, for posterity
-      expect(removeObserverSpy.callCount).to.equal(1);
       expect(addObserverSpy.callCount).to.equal(1);
     });
     it('removes handler when component disconnects', async () => {
@@ -153,13 +149,10 @@ describe('ItemNavigator', () => {
         ></ia-item-navigator>`
       );
 
-      // called during setup `setResizeObserver`
-      expect(removeObserverSpy.callCount).to.equal(1);
-
       el.disconnectedCallback();
       await el.updateComplete;
 
-      expect(removeObserverSpy.callCount).to.equal(2);
+      expect(removeObserverSpy.callCount).to.equal(1);
     });
     it('sets menu to overlay if container width is <= 600px', async () => {
       const el = await fixture<ItemNavigator>(
@@ -219,7 +212,7 @@ describe('ItemNavigator', () => {
         detail: {
           isFullScreen: true,
         },
-      } as IntManageFullscreenEvent;
+      } as ManageFullscreenEvent;
       el.manageViewportFullscreen(yesFullscreenEvent);
       await el.updateComplete;
       expect(el.viewportInFullscreen).to.be.true;
@@ -228,7 +221,7 @@ describe('ItemNavigator', () => {
         detail: {
           isFullScreen: false,
         },
-      } as IntManageFullscreenEvent;
+      } as ManageFullscreenEvent;
       el.manageViewportFullscreen(noFullscreenEvent);
       await el.updateComplete;
       expect(el.viewportInFullscreen).to.be.null;
@@ -280,12 +273,12 @@ describe('ItemNavigator', () => {
       expect(frame?.getAttribute('class')).to.contain('shift');
 
       expect(el.menuOpened).to.be.false;
-      expect(el.openMenu).to.be.empty;
+      expect(el.openMenu).to.be.undefined;
       expect(frame?.getAttribute('class')).to.not.contain('open');
 
       const event = new CustomEvent('updateSideMenu', {
         detail,
-      }) as IntManageSideMenuEvent;
+      }) as ToggleSideMenuOpenEvent;
       el.manageSideMenuEvents(event);
       await el.updateComplete;
 
@@ -386,7 +379,7 @@ describe('ItemNavigator', () => {
 
       el.setMenuShortcuts({
         detail: menuShortcuts,
-      } as IntSetMenuShortcutsEvent);
+      } as SetSideMenuShortcutsEvent);
       await el.updateComplete;
 
       expect(el.menuShortcuts.length).to.equal(1);
@@ -399,7 +392,7 @@ describe('ItemNavigator', () => {
 
       el.setMenuShortcuts({
         detail: [menuProvider],
-      } as IntSetMenuContentsEvent);
+      } as SetSideMenuContentsEvent);
       await el.updateComplete;
 
       expect(el.menuShortcuts.length).to.equal(1);
@@ -411,18 +404,20 @@ describe('ItemNavigator', () => {
 
       el.setOpenMenu({
         detail: { id: 'foo' },
-      } as IntSetOpenMenuEvent);
+      } as ToggleSidePanelOpenEvent);
       await el.updateComplete;
 
       expect(el.openMenu).to.equal('foo');
+      expect(el.selectedMenuId).to.equal('foo');
 
       // toggles it off
       el.setOpenMenu({
         detail: { id: 'foo' },
-      } as IntSetOpenMenuEvent);
+      } as ToggleSidePanelOpenEvent);
       await el.updateComplete;
 
-      expect(el.openMenu).to.equal('');
+      expect(el.openMenu).to.be.undefined;
+      expect(el.selectedMenuId).to.equal('');
     });
     it('`el.closeMenu`', async () => {
       const el = await fixture<ItemNavigator>(

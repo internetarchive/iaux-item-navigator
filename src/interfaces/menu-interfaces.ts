@@ -2,14 +2,12 @@ import { TemplateResult } from 'lit-html';
 import { MetadataResponse } from '@internetarchive/search-service';
 
 export type MenuId = string;
-export interface IntMenuShortcut {
+export interface MenuShortcutInterface {
   icon: TemplateResult;
   id: MenuId;
 }
 
-export interface IntMenuIconAndDetails extends IntMenuShortcut {
-  icon: TemplateResult;
-  id: MenuId;
+export interface MenuDetailsInterface extends MenuShortcutInterface {
   label: string;
   menuDetails?: TemplateResult;
   selected?: boolean;
@@ -17,13 +15,13 @@ export interface IntMenuIconAndDetails extends IntMenuShortcut {
   href?: string;
 }
 
-export interface IntProviderArgs {
+export interface MenuProviderBaseConfigInterface {
   item: MetadataResponse;
   baseHost: string;
   subPrefix: string;
   updated?: any;
 }
-export interface IntMenuProvider
-  extends IntProviderArgs,
-    IntMenuIconAndDetails,
-    IntMenuShortcut {}
+export interface MenuProviderInterface
+  extends MenuProviderBaseConfigInterface,
+    MenuDetailsInterface,
+    MenuShortcutInterface {}

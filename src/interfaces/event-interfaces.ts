@@ -1,7 +1,11 @@
-import { IntMenuProvider, IntMenuShortcut, MenuId } from './menu-interfaces';
+import {
+  MenuProviderInterface,
+  MenuShortcutInterface,
+  MenuId,
+} from './menu-interfaces';
 
 /** Toggles Menu && Sets open panel */
-export interface IntManageSideMenuEvent extends CustomEvent {
+export interface ToggleSideMenuOpenEvent extends CustomEvent {
   type: 'updateSideMenu';
   detail: {
     menuId: MenuId | undefined | '';
@@ -10,7 +14,7 @@ export interface IntManageSideMenuEvent extends CustomEvent {
 }
 
 /** Sets open panel */
-export interface IntSetOpenMenuEvent extends CustomEvent {
+export interface ToggleSidePanelOpenEvent extends CustomEvent {
   type: 'menuTypeSelected';
   detail: {
     id: MenuId | '';
@@ -18,19 +22,19 @@ export interface IntSetOpenMenuEvent extends CustomEvent {
 }
 
 /** Sets menu order that is displayed */
-export interface IntSetMenuContentsEvent extends CustomEvent {
+export interface SetSideMenuContentsEvent extends CustomEvent {
   type: 'menuUpdated';
-  detail: IntMenuProvider[];
+  detail: MenuProviderInterface[];
 }
 
 /** Sets menu shortcuts that is displayed */
-export interface IntSetMenuShortcutsEvent extends CustomEvent {
+export interface SetSideMenuShortcutsEvent extends CustomEvent {
   type: 'menuUpdated';
-  detail: IntMenuShortcut[];
+  detail: MenuShortcutInterface[];
 }
 
 /** Toggles fullscreen mode */
-export interface IntManageFullscreenEvent extends CustomEvent {
+export interface ManageFullscreenEvent extends CustomEvent {
   type: 'ViewportInFullScreen';
   detail: {
     isFullScreen: boolean;
@@ -38,7 +42,7 @@ export interface IntManageFullscreenEvent extends CustomEvent {
 }
 
 /** Toggles loading view */
-export interface IntLoadingStateUpdatedEvent extends CustomEvent {
+export interface loadingStateUpdatedEvent extends CustomEvent {
   type: 'loadingStateUpdated';
   detail: {
     loaded: boolean;

@@ -8,8 +8,8 @@ import {
 } from '@internetarchive/search-service';
 import { html } from 'lit-html';
 import {
-  IntMenuShortcut,
-  IntMenuProvider,
+  MenuShortcutInterface,
+  MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
 
 export class ItemStub implements MetadataResponse {
@@ -63,7 +63,7 @@ export class ItemStub implements MetadataResponse {
 export const shortcut = {
   id: 'fullscreen',
   icon: html`<i class="fas fullscreen-test"></i>`,
-} as IntMenuShortcut;
+} as MenuShortcutInterface;
 
 export const menuProvider = {
   ...shortcut,
@@ -76,4 +76,4 @@ export const menuProvider = {
   baseHost: 'https://archive.foo',
   subPrefix: 'bar',
   updated: () => {},
-} as IntMenuProvider;
+} as MenuProviderInterface;
