@@ -1,21 +1,37 @@
-[![Build Status](https://travis-ci.com/internetarchive/iaux-your-webcomponent.svg?branch=master)](https://travis-ci.com/internetarchive/iaux-your-webcomponent) [![codecov](https://codecov.io/gh/internetarchive/iaux-your-webcomponent/branch/master/graph/badge.svg)](https://codecov.io/gh/internetarchive/iaux-your-webcomponent)
+[![Build Status](https://travis-ci.com/internetarchive/iaux-item-navigator.svg?branch=master)](https://travis-ci.com/internetarchive/iaux-item-navigator) [![codecov](https://codecov.io/gh/internetarchive/iaux-item-navigator/branch/master/graph/badge.svg)](https://codecov.io/gh/internetarchive/iaux-item-navigator)
 
-# Internet Archive Typescript WebComponent Template
+# Internet Archive Item Navigator - theater menu manager
 
-This is a base template for creating Typescript WebComponents. It is based off of the [Open WebComponents generator](https://open-wc.org/docs/development/generator/) with some IA-specific customizations and some development niceities.
+`<ia-item-navigator>` is a custom web component that makes an item's details theater.
+The Item Navigator helps instantiate all of the components one needs to create an item theater:
+- side menu
+- menu shortcuts
+- fullscreen management
+- receives/creates a shared resize observer
+- receives/shares a `<modal-manager>`
+- slots for custom theater & header loads
+
+The Item Navigator's primary responsibility is to display the side menus, shortcuts, and the theater in browser window immersion "fullscreen".
+
+The only business logic that is housed is determining which theater navigator to use given an `itemType`.
+Currently supported:
+- bookreader's `<book-navigator>`
+- no theater available
 
 ## Usage
-
-1. Click the "Use this Template" button in GitHub to create a new repository based on this one.
-2. Clone your new repo and update the things below:
-
-### Things to update in your copy
-1. Remove this section
-2. Search for the strings `your-webcomponent` and `YourWebComponent` and those are most of the spots that need to be updated.
-3. `README.md` (this file). Update the readme in general, but also the badge URLs
-4. `package.json` Update the name and description
-5. Rename the `your-webcomponent.ts` and its associated `.test` file
-6. Update `.travis.yml` with the proper secure key. See the [Travis docs](https://blog.travis-ci.com/2014-03-13-slack-notifications/) for more information.
+Generic:
+```
+const iaItem = <MetadataResponse>;
+<ia-item-navigator .item=${iaItem}></ia-item-navigator>
+```
+For `<book-navigator>`:
+```
+const iaItem = <MetadataResponse>;
+<ia-item-navigator .item=${iaItem} .itemType="bookreader">
+  <div slot="theater-header"><p>foo header</p></div>
+  <div slot="theater-main"><div id="BookReader"></div></div>
+</ia-item-navigator>
+```
 
 ## Local Demo with `web-dev-server`
 ```bash
@@ -61,9 +77,3 @@ yarn run format:eslint
 ```bash
 yarn run format:prettier
 ```
-
-## Tooling configs
-
-For most of the tools, the configuration is in the `package.json` to reduce the amount of files in your project.
-
-If you customize the configuration a lot, you can consider moving them to individual files.

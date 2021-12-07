@@ -3,18 +3,68 @@
 <head>
   <meta charset="utf-8">
   <style>
-    html {
+    html, app-root {
       font-size: 10px; /* This is to match petabox's base font size */
+      font-family: sans-serif;
+      --primaryBGColor: black;
+      --secondaryBGColor: #222;
+      --tertiaryBGColor: #333;
+      --primaryTextColor: white;
+      --primaryCTAFill: #194880;
+      --primaryCTABorder: #c5d1df;
+      --secondaryCTAFill: #333;
+      --secondaryCTABorder: #999;
+      --primaryErrorCTAFill: #e51c26;
+      --primaryErrorCTABorder: #f8c6c8;
+      --defaultBookmarkColor: #eb3223;
+      --redBookmarkColor: #eb3223;
+      --blueBookmarkColor: #0023f5;
+      --greenBookmarkColor: #75ef4c;
+
+      --menuButtonLabelDisplay: block;
+      --menuWidth: 320px;
+      --menuSliderBg: var(--secondaryBGColor);
+      --activeButtonBg: var(--tertiaryBGColor);
+      --animationTiming: 100ms;
+      --iconFillColor: var(--primaryTextColor);
+      --iconStrokeColor: var(--primaryTextColor);
+      --subpanelRightBorderColor: var(--secondaryCTABorder);
+      --menuSliderHeaderIconHeight: 2rem;
+      --menuSliderHeaderIconWidth: 2rem;
+      --iconWidth: 2.4rem;
+      --iconHeight: 2.4rem;
+      --shareLinkColor: var(--primaryTextColor);
+      --shareIconBorder: var(--primaryTextColor);
+      --shareIconBg: var(--secondaryBGColor);
+      --activityIndicatorLoadingDotColor: var(--primaryTextColor);
+      --activityIndicatorLoadingRingColor: var(--primaryTextColor);
     }
 
     body {
-      background: #fafafa;
+      color: #fff;
+      margin: 0;
     }
+
+    modal-manager {
+      display: none
+    }
+
+    .fullscreen {
+      position: fixed;
+    }
+
   </style>
 </head>
 <body>
   <app-root></app-root>
-
+  <script type="module">
+    /* eslint-disable no-restricted-globals */
+    const params = new URLSearchParams(location.search.slice(1));
+    if (params.get('view') === 'theater') {
+      const body = document.querySelector('body');
+      body.classList.toggle('fullscreen');
+    }
+  </script>
   <script type="module" src="../dist/demo/app-root.js">
   </script>
 </body>

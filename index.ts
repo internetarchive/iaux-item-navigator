@@ -1,1 +1,1 @@
-export { YourWebComponent } from './src/your-webcomponent';
+export { ItemNavigator } from './src/item-navigator';
