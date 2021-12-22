@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-item-navigator",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Internet Archive's Item Navigator, visually eplore an item's contents.",
   "author": "Internet Archive",
   "license": "AGPL-3.0-only",
