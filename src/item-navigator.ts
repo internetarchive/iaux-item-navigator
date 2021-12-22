@@ -155,7 +155,7 @@ export class ItemNavigator
   }
 
   render(): TemplateResult {
-    const displayReaderClass = this.loaded ? '' : 'hide';
+    const displayReaderClass = this.loaded ? '' : 'hidden';
     return html`
       <div id="frame" class=${`${this.menuClass}`}>
         <div class="menu-and-reader">
@@ -368,6 +368,15 @@ export class ItemNavigator
         display: block;
       }
 
+      :host,
+      #frame,
+      .menu-and-reader,
+      .loading-area,
+      .loading-view {
+        min-height: inherit;
+        height: inherit;
+      }
+
       slot {
         display: block;
         overflow: hidden;
@@ -387,22 +396,10 @@ export class ItemNavigator
         z-index: 9;
       }
 
-      .loading-area {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: inherit;
-        min-height: inherit;
-      }
-
       .loading-view {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: inherit;
-        height: inherit;
       }
 
       ia-itemnav-loader {
@@ -411,8 +408,7 @@ export class ItemNavigator
       }
 
       .hidden {
-        height: 1px;
-        width: 1px;
+        display: none;
       }
 
       button {
