@@ -107,8 +107,7 @@ export class AppRoot extends LitElement {
         .item=${this.itemMD}
         .modal=${this.modalMgr}
         .sharedObserver=${this.sharedObserver}
-        @ViewportInFullScreen=${this.toggleFS}
-        .viewportInFullscreen=${this.fullscreen}
+        @fullscreenToggled=${this.toggleFS}
       ></ia-item-navigator>
     `;
   }
