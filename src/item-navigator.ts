@@ -154,13 +154,20 @@ export class ItemNavigator
     `;
   }
 
+  headerSlotChange() {
+    this.requestUpdate();
+  }
+
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hidden';
     return html`
       <div id="frame" class=${`${this.menuClass}`}>
+        <slot
+          name="theater-header"
+          @slotchange=${() => this.headerSlotChange()}
+        ></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <slot name="theater-header"></slot>
           <div
             id="reader"
             class=${displayReaderClass}
@@ -484,7 +491,6 @@ export class ItemNavigator
       #reader {
         position: relative;
         z-index: 1;
-        /* transition: ${transitionEffect}; */
         transform: translateX(0);
         width: 100%;
       }
@@ -499,7 +505,6 @@ export class ItemNavigator
         transition: ${transitionEffect};
       }
 
-      .open.shift slot[name='theater-header'],
       .open.shift #reader {
         width: calc(100% - var(--menuWidth));
         float: right;
