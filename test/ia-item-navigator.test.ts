@@ -4,8 +4,7 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { CustomTheaterInterface } from '../src/interfaces/custom-theater-interface';
-import { ItemNavigator, ItemType } from '../src/item-navigator';
+import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 
 import '../test/book-nav-stub';
@@ -29,37 +28,6 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
-    });
-
-    it('shows <book-navigator> if `this.itemType = "bookreader"`', async () => {
-      const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator
-          .itemType=${ItemType.BOOK}
-          .item=${new ItemStub()}
-          .modal=${new ModalManager()}
-          .sharedObserver=${new SharedResizeObserver()}
-        ></ia-item-navigator>`
-      );
-
-      await el.updateComplete;
-
-      el.toggleMenu();
-      await el.updateComplete;
-
-      const bookNavigator = el.shadowRoot?.querySelector(
-        'book-navigator'
-      ) as CustomTheaterInterface;
-      await bookNavigator.updateComplete;
-
-      console.log('132234234324324324');
-      // TODO: add BookNavigator type & import via @internetarchive/bookreader
-      // For now, let's check that the BookNavigator element and its properties exist w/ stub
-      expect(bookNavigator).to.exist;
-      expect(bookNavigator?.modal).to.exist;
-      expect(bookNavigator?.baseHost).to.exist;
-      expect(bookNavigator?.signedIn).to.be.null;
-      expect(bookNavigator?.sharedObserver).to.exist;
-      expect(bookNavigator?.sideMenuOpen).to.exist;
     });
   });
   describe('`el.loaded`', () => {

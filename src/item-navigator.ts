@@ -38,7 +38,7 @@ import {
 import './no-theater-available';
 
 export enum ItemType {
-  BOOK = 'bookreader',
+  OPEN = 'open',
 }
 @customElement('ia-item-navigator')
 export class ItemNavigator
@@ -92,7 +92,9 @@ export class ItemNavigator
 
   @query('#frame') private frame!: HTMLDivElement;
 
-  @query('slot[name="theater-header"]') private headerSlot!: HTMLDivElement;
+  @query('slot[name="theater-header"]') private headerSlot!: HTMLSlotElement;
+
+  @query('slot[name="theater-main"]') private mainSlot!: HTMLSlotElement;
 
   disconnectedCallback() {
     this.removeResizeObserver();
@@ -140,7 +142,9 @@ export class ItemNavigator
   }
 
   get readerHeightStyle(): string {
-    const calcFSHeight = `calc(100vh - ${this.headerSlot?.offsetHeight}px)`;
+    const calcFSHeight = `calc(100vh - ${
+      this.headerSlot?.offsetHeight || 0
+    }px)`;
     return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
   }
 
@@ -154,7 +158,32 @@ export class ItemNavigator
     `;
   }
 
-  headerSlotChange() {
+  slotChange(e: Event, type: 'header' | 'main'): void {
+    const slottedContent = (e.target as HTMLSlotElement).assignedNodes()?.[0] as HTMLElement;
+
+    if (!slottedContent) {
+      return;
+    }
+    if (type === 'header') {
+      this.sharedObserver?.addObserver({
+        target: slottedContent,
+        handler: {
+          handleResize: ({ contentRect, target }) => {
+            const headerContents =
+              this.headerSlot.assignedNodes()[0] === target;
+            if (headerContents && contentRect.height) {
+              this.requestUpdate();
+            }
+          },
+        },
+      });
+    }
+
+    this.dispatchEvent(
+      new CustomEvent('slotChange', {
+        detail: { slot: slottedContent, type },
+      })
+    );
     this.requestUpdate();
   }
 
@@ -164,7 +193,7 @@ export class ItemNavigator
       <div id="frame" class=${`${this.menuClass}`}>
         <slot
           name="theater-header"
-          @slotchange=${() => this.headerSlotChange()}
+          @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
         <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
@@ -188,44 +217,24 @@ export class ItemNavigator
     ></ia-no-theater-available>`;
   }
 
-  get theaterSlot() {
-    return html`
-      <slot name="theater-main" style=${this.readerHeightStyle}></slot>
-    `;
-  }
-
-  get booksViewer(): TemplateResult {
-    const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
-
-    return html`
-      <book-navigator
-        .modal=${this.modal}
-        .baseHost=${this.baseHost}
-        .itemMD=${this.item}
-        ?signedIn=${this.signedIn}
-        ?sideMenuOpen=${this.menuOpened}
-        .sharedObserver=${this.sharedObserver}
-        @ViewportInFullScreen=${this.manageViewportFullscreen}
-        @loadingStateUpdated=${this.loadingStateUpdated}
-        @updateSideMenu=${this.manageSideMenuEvents}
-        @menuUpdated=${this.setMenuContents}
-        @menuShortcutsUpdated=${this.setMenuShortcuts}
-      >
-        <div slot="theater-main" style=${slotVisibility}>
-          ${this.theaterSlot}
-        </div>
-      </book-navigator>
-    `;
-  }
-
   get renderViewport(): TemplateResult | typeof nothing {
     if (!this.item) {
       return nothing;
     }
-    if (this.itemType === ItemType.BOOK) {
-      return this.booksViewer;
+    if (this.itemType !== ItemType.OPEN) {
+      return this.noTheaterView;
     }
-    return this.noTheaterView;
+
+    const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
+    return html`
+      <div slot="theater-main" style=${slotVisibility}>
+        <slot
+          name="theater-main"
+          style=${this.readerHeightStyle}
+          @slotchange=${(e: Event) => this.slotChange(e, 'main')}
+        ></slot>
+      </div>
+    `;
   }
 
   loadingStateUpdated(e: loadingStateUpdatedEvent): void {
@@ -387,6 +396,11 @@ export class ItemNavigator
       slot {
         display: block;
         overflow: hidden;
+      }
+
+      slot * {
+        display: block;
+        height: inherit;
       }
 
       #frame {
