@@ -45,7 +45,7 @@ describe('ItemNavigator', () => {
 
       expect(
         el.shadowRoot?.querySelector('#reader')?.getAttribute('class')
-      ).to.contain('hide');
+      ).to.contain('hidden');
     });
     it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
@@ -95,7 +95,7 @@ describe('ItemNavigator', () => {
       expect(el.sharedObserver).to.equal(sharedObserver);
       expect(typeof el.handleResize).to.equal('function');
     });
-    it('freshly registers handler', async () => {
+    it('freshly registers handlers', async () => {
       const sharedObserver = new SharedResizeObserver();
       const addObserverSpy = Sinon.spy(sharedObserver, 'addObserver');
 
@@ -105,7 +105,7 @@ describe('ItemNavigator', () => {
         ></ia-item-navigator>`
       );
 
-      expect(addObserverSpy.callCount).to.equal(1);
+      expect(addObserverSpy.callCount).to.equal(2);
     });
     it('removes handler when component disconnects', async () => {
       const sharedObserver = new SharedResizeObserver();
