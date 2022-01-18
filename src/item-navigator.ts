@@ -120,6 +120,16 @@ export class ItemNavigator
 
   private setResizeObserver(): void {
     this.sharedObserver?.addObserver(this.resizeObserverConfig);
+    this.sharedObserver?.addObserver({
+      target: this.headerSlot,
+      handler: {
+        handleResize: ({ contentRect }) => {
+          if (contentRect.height) {
+            this.requestUpdate();
+          }
+        },
+      },
+    });
   }
 
   private removeResizeObserver(): void {
@@ -160,24 +170,6 @@ export class ItemNavigator
 
   slotChange(e: Event, type: 'header' | 'main'): void {
     const slottedContent = (e.target as HTMLSlotElement).assignedNodes()?.[0] as HTMLElement;
-
-    if (!slottedContent) {
-      return;
-    }
-    if (type === 'header') {
-      this.sharedObserver?.addObserver({
-        target: slottedContent,
-        handler: {
-          handleResize: ({ contentRect, target }) => {
-            const headerContents =
-              this.headerSlot.assignedNodes()[0] === target;
-            if (headerContents && contentRect.height) {
-              this.requestUpdate();
-            }
-          },
-        },
-      });
-    }
 
     this.dispatchEvent(
       new CustomEvent('slotChange', {
@@ -257,7 +249,7 @@ export class ItemNavigator
 
   /** Side menu */
   get shouldRenderMenu(): boolean {
-    return !!this.menuContents.length;
+    return !!this.menuContents?.length;
   }
 
   toggleMenu(): void {
