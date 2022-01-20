@@ -4,7 +4,7 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { ItemNavigator } from '../src/item-navigator';
+import { ItemNavigator, ItemType } from '../src/item-navigator';
 import '../src/item-navigator';
 
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
@@ -27,6 +27,20 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
+      expect(el.itemType).to.not.equal(ItemType.OPEN);
+    });
+    it('opens main slot when itemType = open', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
+      el.itemType = ItemType.OPEN;
+      await el.updateComplete;
+
+      expect(el.itemType).to.equal(ItemType.OPEN);
+      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.be
+        .null;
+      expect(el.shadowRoot?.querySelector('slot[name="theater-main"]')).to
+        .exist;
     });
   });
   describe('`el.loaded`', () => {
