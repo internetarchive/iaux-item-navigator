@@ -7,7 +7,6 @@ import { ModalManager } from '@internetarchive/modal-manager';
 import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 
-import '../test/book-nav-stub';
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
 import {
   ManageFullscreenEvent,
