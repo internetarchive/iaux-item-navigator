@@ -152,10 +152,9 @@ export class ItemNavigator
   }
 
   get readerHeightStyle(): string {
-    const calcFSHeight = `calc(100vh - ${
-      this.headerSlot?.offsetHeight || 0
-    }px)`;
-    return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
+    const calcFSHeight = `calc(100% - ${this.headerSlot?.offsetHeight || 0}px)`;
+
+    return this.headerSlot?.offsetHeight > 0 ? `height: ${calcFSHeight}` : '';
   }
 
   get loadingArea() {
@@ -182,18 +181,14 @@ export class ItemNavigator
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hidden';
     return html`
-      <div id="frame" class=${`${this.menuClass}`}>
+      <div id="frame" class=${this.menuClass}>
         <slot
           name="theater-header"
           @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
-        <div class="menu-and-reader">
+        <div class="menu-and-reader" style=${this.readerHeightStyle}>
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <div
-            id="reader"
-            class=${displayReaderClass}
-            style=${this.readerHeightStyle}
-          >
+          <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
           </div>
           ${!this.loaded ? this.loadingArea : nothing}
@@ -388,6 +383,7 @@ export class ItemNavigator
       slot {
         display: block;
         overflow: hidden;
+        width: 100%;
       }
 
       slot * {
@@ -499,6 +495,13 @@ export class ItemNavigator
         z-index: 1;
         transform: translateX(0);
         width: 100%;
+        height: 100%;
+      }
+
+      #reader > * {
+        width: 100%;
+        display: flex;
+        height: 100%;
       }
 
       .open.overlay #reader {

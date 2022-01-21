@@ -53,7 +53,8 @@ export class IANoTheaterAvailable extends LitElement {
         text-align: center;
       }
       section {
-        margin: 10% auto 0;
+        width: 100%;
+        margin: 5%;
         padding: 0 5%;
       }
       p {
