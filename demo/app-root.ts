@@ -109,16 +109,16 @@ export class AppRoot extends LitElement {
   /** Views */
   get headerExample(): TemplateResult {
     return html`
-      <div slot="theater-header">
+      <div slot="header">
         <div class="embed-link">
           <img
             src="https://archive.org/images/glogo-jw.png"
             alt="glowing ia logo"
           />
-          <a href="/details/goody"
-            >The history of Little Goody Two-Shoes : otherwise called Mrs.
-            Margery Two-Shoes ... [1766 edition]</a
-          >
+          <a href="/details/goody">
+            The history of Little Goody Two-Shoes : otherwise called Mrs.
+            Margery Two-Shoes ... [1766 edition]
+          </a>
         </div>
       </div>
     `;
