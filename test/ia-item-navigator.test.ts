@@ -90,10 +90,6 @@ describe('ItemNavigator', () => {
       expect(el.loaded).to.equal(null);
       expect(el.item).to.be.undefined;
 
-      // hydrate item
-      el.item = new ItemStub();
-      await el.updateComplete;
-
       // spy fires
       expect(spy.called).to.equal(true);
       expect(spy.callCount).to.equal(1);
