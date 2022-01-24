@@ -45,6 +45,8 @@ export class AppRoot extends LitElement {
       this.modalMgr,
       this.sharedObserver
     );
+
+    this.itemNav.viewAvailable = false;
   }
 
   updated(changed: any) {
@@ -131,6 +133,7 @@ export class AppRoot extends LitElement {
           .item=${this.itemMD}
           .modal=${this.modalMgr}
           .sharedObserver=${this.sharedObserver}
+          .loaded=${true}
           @fullscreenToggled=${this.toggleFS}
         >
           ${this.headerOn ? this.headerExample : ''}
