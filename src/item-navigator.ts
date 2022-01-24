@@ -37,9 +37,6 @@ import {
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
 
-export enum ItemType {
-  OPEN = 'open',
-}
 @customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
@@ -55,7 +52,7 @@ export class ItemNavigator
   })
   item?: MetadataResponse;
 
-  @property({ type: String }) itemType?: ItemType;
+  @property({ type: Boolean }) viewAvailable: Boolean = true;
 
   @property({ type: String }) baseHost = 'archive.org';
 
@@ -205,10 +202,7 @@ export class ItemNavigator
   }
 
   get renderViewport(): TemplateResult | typeof nothing {
-    if (!this.item) {
-      return nothing;
-    }
-    if (this.itemType !== ItemType.OPEN) {
+    if (!this.viewAvailable) {
       return this.noTheaterView;
     }
 

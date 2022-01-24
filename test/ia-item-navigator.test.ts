@@ -4,7 +4,7 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { ItemNavigator, ItemType } from '../src/item-navigator';
+import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
@@ -22,21 +22,21 @@ afterEach(() => {
 
 describe('ItemNavigator', () => {
   describe('Theaters', () => {
-    it('shows <ia-no-theater-available> by default', async () => {
+    it('shows <ia-no-theater-available> if told', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
-      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
-      expect(el.itemType).to.not.equal(ItemType.OPEN);
-    });
-    it('opens main slot when itemType = open', async () => {
-      const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
-      );
-      el.itemType = ItemType.OPEN;
+      el.viewAvailable = false;
       await el.updateComplete;
+      expect(el.viewAvailable).to.be.false;
+      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
+    });
+    it('opens main slot by default', async () => {
+      const el = await fixture<ItemNavigator>(
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+      );
 
-      expect(el.itemType).to.equal(ItemType.OPEN);
+      expect(el.viewAvailable).to.be.true;
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.be
         .null;
       expect(el.shadowRoot?.querySelector('slot[name="theater-main"]')).to
@@ -65,14 +65,17 @@ describe('ItemNavigator', () => {
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
 
+      el.loaded = true;
+      await el.updateComplete;
       const mainTheaterSection = el.shadowRoot?.querySelector('#reader');
       expect(mainTheaterSection?.classList.contains('hide')).to.be.false;
       expect(el.loaded).to.be.true;
       // `loaded` property is reflected as DOM attribute
       expect(el.hasAttribute('loaded')).to.equal(true);
-      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
+      expect(el.shadowRoot?.querySelector('slot[name="theater-main"]')).to
+        .exist;
     });
-    it('listens to `@loadingStateUpdated` to update `loaded`', async () => {
+    it('listens to `@loadingStateUpdated` to update `loaded` for <no-theater-available>', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator></ia-item-navigator>`
       );
@@ -81,6 +84,7 @@ describe('ItemNavigator', () => {
       const spy = Sinon.spy();
       el.loadingStateUpdated = spy;
       el.loaded = null;
+      el.viewAvailable = false;
       await el.updateComplete;
       // check base properties
       expect(el.loaded).to.equal(null);
