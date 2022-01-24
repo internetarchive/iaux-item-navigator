@@ -39,8 +39,7 @@ describe('ItemNavigator', () => {
       expect(el.viewAvailable).to.be.true;
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.be
         .null;
-      expect(el.shadowRoot?.querySelector('slot[name="theater-main"]')).to
-        .exist;
+      expect(el.shadowRoot?.querySelector('slot[name="main"]')).to.exist;
     });
   });
   describe('`el.loaded`', () => {
@@ -72,8 +71,7 @@ describe('ItemNavigator', () => {
       expect(el.loaded).to.be.true;
       // `loaded` property is reflected as DOM attribute
       expect(el.hasAttribute('loaded')).to.equal(true);
-      expect(el.shadowRoot?.querySelector('slot[name="theater-main"]')).to
-        .exist;
+      expect(el.shadowRoot?.querySelector('slot[name="main"]')).to.exist;
     });
     it('listens to `@loadingStateUpdated` to update `loaded` for <no-theater-available>', async () => {
       const el = await fixture<ItemNavigator>(

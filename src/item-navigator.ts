@@ -89,9 +89,9 @@ export class ItemNavigator
 
   @query('#frame') private frame!: HTMLDivElement;
 
-  @query('slot[name="theater-header"]') private headerSlot!: HTMLSlotElement;
+  @query('slot[name="header"]') private headerSlot!: HTMLSlotElement;
 
-  @query('slot[name="theater-main"]') private mainSlot!: HTMLSlotElement;
+  @query('slot[name="main"]') private mainSlot!: HTMLSlotElement;
 
   disconnectedCallback() {
     this.removeResizeObserver();
@@ -180,7 +180,7 @@ export class ItemNavigator
     return html`
       <div id="frame" class=${this.menuClass}>
         <slot
-          name="theater-header"
+          name="header"
           @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
         <div class="menu-and-reader" style=${this.readerHeightStyle}>
@@ -208,9 +208,9 @@ export class ItemNavigator
 
     const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
     return html`
-      <div slot="theater-main" style=${slotVisibility}>
+      <div slot="main" style=${slotVisibility}>
         <slot
-          name="theater-main"
+          name="main"
           style=${this.readerHeightStyle}
           @slotchange=${(e: Event) => this.slotChange(e, 'main')}
         ></slot>
