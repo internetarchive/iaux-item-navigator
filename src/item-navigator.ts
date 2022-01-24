@@ -37,9 +37,6 @@ import {
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
 
-export enum ItemType {
-  BOOK = 'bookreader',
-}
 @customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
@@ -55,7 +52,7 @@ export class ItemNavigator
   })
   item?: MetadataResponse;
 
-  @property({ type: String }) itemType?: ItemType;
+  @property({ type: Boolean }) viewAvailable: Boolean = true;
 
   @property({ type: String }) baseHost = 'archive.org';
 
@@ -92,7 +89,9 @@ export class ItemNavigator
 
   @query('#frame') private frame!: HTMLDivElement;
 
-  @query('slot[name="theater-header"]') private headerSlot!: HTMLDivElement;
+  @query('slot[name="header"]') private headerSlot!: HTMLSlotElement;
+
+  @query('slot[name="main"]') private mainSlot!: HTMLSlotElement;
 
   disconnectedCallback() {
     this.removeResizeObserver();
@@ -118,6 +117,16 @@ export class ItemNavigator
 
   private setResizeObserver(): void {
     this.sharedObserver?.addObserver(this.resizeObserverConfig);
+    this.sharedObserver?.addObserver({
+      target: this.headerSlot,
+      handler: {
+        handleResize: ({ contentRect }) => {
+          if (contentRect.height) {
+            this.requestUpdate();
+          }
+        },
+      },
+    });
   }
 
   private removeResizeObserver(): void {
@@ -140,8 +149,9 @@ export class ItemNavigator
   }
 
   get readerHeightStyle(): string {
-    const calcFSHeight = `calc(100vh - ${this.headerSlot?.offsetHeight}px)`;
-    return this.viewportInFullscreen ? `height: ${calcFSHeight}` : '';
+    const calcFSHeight = `calc(100% - ${this.headerSlot?.offsetHeight || 0}px)`;
+
+    return this.headerSlot?.offsetHeight > 0 ? `height: ${calcFSHeight}` : '';
   }
 
   get loadingArea() {
@@ -154,18 +164,28 @@ export class ItemNavigator
     `;
   }
 
+  slotChange(e: Event, type: 'header' | 'main'): void {
+    const slottedContent = (e.target as HTMLSlotElement).assignedNodes()?.[0] as HTMLElement;
+
+    this.dispatchEvent(
+      new CustomEvent('slotChange', {
+        detail: { slot: slottedContent, type },
+      })
+    );
+    this.requestUpdate();
+  }
+
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hidden';
     return html`
-      <div id="frame" class=${`${this.menuClass}`}>
-        <div class="menu-and-reader">
+      <div id="frame" class=${this.menuClass}>
+        <slot
+          name="header"
+          @slotchange=${(e: Event) => this.slotChange(e, 'header')}
+        ></slot>
+        <div class="menu-and-reader" style=${this.readerHeightStyle}>
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
-          <slot name="theater-header"></slot>
-          <div
-            id="reader"
-            class=${displayReaderClass}
-            style=${this.readerHeightStyle}
-          >
+          <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
           </div>
           ${!this.loaded ? this.loadingArea : nothing}
@@ -181,44 +201,21 @@ export class ItemNavigator
     ></ia-no-theater-available>`;
   }
 
-  get theaterSlot() {
-    return html`
-      <slot name="theater-main" style=${this.readerHeightStyle}></slot>
-    `;
-  }
-
-  get booksViewer(): TemplateResult {
-    const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
-
-    return html`
-      <book-navigator
-        .modal=${this.modal}
-        .baseHost=${this.baseHost}
-        .itemMD=${this.item}
-        ?signedIn=${this.signedIn}
-        ?sideMenuOpen=${this.menuOpened}
-        .sharedObserver=${this.sharedObserver}
-        @ViewportInFullScreen=${this.manageViewportFullscreen}
-        @loadingStateUpdated=${this.loadingStateUpdated}
-        @updateSideMenu=${this.manageSideMenuEvents}
-        @menuUpdated=${this.setMenuContents}
-        @menuShortcutsUpdated=${this.setMenuShortcuts}
-      >
-        <div slot="theater-main" style=${slotVisibility}>
-          ${this.theaterSlot}
-        </div>
-      </book-navigator>
-    `;
-  }
-
   get renderViewport(): TemplateResult | typeof nothing {
-    if (!this.item) {
-      return nothing;
+    if (!this.viewAvailable) {
+      return this.noTheaterView;
     }
-    if (this.itemType === ItemType.BOOK) {
-      return this.booksViewer;
-    }
-    return this.noTheaterView;
+
+    const slotVisibility = !this.loaded ? 'opacity: 0;' : 'opacity: 1;';
+    return html`
+      <div slot="main" style=${slotVisibility}>
+        <slot
+          name="main"
+          style=${this.readerHeightStyle}
+          @slotchange=${(e: Event) => this.slotChange(e, 'main')}
+        ></slot>
+      </div>
+    `;
   }
 
   loadingStateUpdated(e: loadingStateUpdatedEvent): void {
@@ -241,7 +238,7 @@ export class ItemNavigator
 
   /** Side menu */
   get shouldRenderMenu(): boolean {
-    return !!this.menuContents.length;
+    return !!this.menuContents?.length;
   }
 
   toggleMenu(): void {
@@ -380,6 +377,12 @@ export class ItemNavigator
       slot {
         display: block;
         overflow: hidden;
+        width: 100%;
+      }
+
+      slot * {
+        display: block;
+        height: inherit;
       }
 
       #frame {
@@ -484,9 +487,15 @@ export class ItemNavigator
       #reader {
         position: relative;
         z-index: 1;
-        /* transition: ${transitionEffect}; */
         transform: translateX(0);
         width: 100%;
+        height: 100%;
+      }
+
+      #reader > * {
+        width: 100%;
+        display: flex;
+        height: 100%;
       }
 
       .open.overlay #reader {
@@ -499,7 +508,6 @@ export class ItemNavigator
         transition: ${transitionEffect};
       }
 
-      .open.shift slot[name='theater-header'],
       .open.shift #reader {
         width: calc(100% - var(--menuWidth));
         float: right;

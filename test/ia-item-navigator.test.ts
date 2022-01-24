@@ -4,11 +4,9 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { CustomTheaterInterface } from '../src/interfaces/custom-theater-interface';
-import { ItemNavigator, ItemType } from '../src/item-navigator';
+import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 
-import '../test/book-nav-stub';
 import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
 import {
   ManageFullscreenEvent,
@@ -24,42 +22,24 @@ afterEach(() => {
 
 describe('ItemNavigator', () => {
   describe('Theaters', () => {
-    it('shows <ia-no-theater-available> by default', async () => {
+    it('shows <ia-no-theater-available> if told', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
+      el.viewAvailable = false;
+      await el.updateComplete;
+      expect(el.viewAvailable).to.be.false;
       expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
     });
-
-    it('shows <book-navigator> if `this.itemType = "bookreader"`', async () => {
+    it('opens main slot by default', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator
-          .itemType=${ItemType.BOOK}
-          .item=${new ItemStub()}
-          .modal=${new ModalManager()}
-          .sharedObserver=${new SharedResizeObserver()}
-        ></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
 
-      await el.updateComplete;
-
-      el.toggleMenu();
-      await el.updateComplete;
-
-      const bookNavigator = el.shadowRoot?.querySelector(
-        'book-navigator'
-      ) as CustomTheaterInterface;
-      await bookNavigator.updateComplete;
-
-      console.log('132234234324324324');
-      // TODO: add BookNavigator type & import via @internetarchive/bookreader
-      // For now, let's check that the BookNavigator element and its properties exist w/ stub
-      expect(bookNavigator).to.exist;
-      expect(bookNavigator?.modal).to.exist;
-      expect(bookNavigator?.baseHost).to.exist;
-      expect(bookNavigator?.signedIn).to.be.null;
-      expect(bookNavigator?.sharedObserver).to.exist;
-      expect(bookNavigator?.sideMenuOpen).to.exist;
+      expect(el.viewAvailable).to.be.true;
+      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.be
+        .null;
+      expect(el.shadowRoot?.querySelector('slot[name="main"]')).to.exist;
     });
   });
   describe('`el.loaded`', () => {
@@ -77,21 +57,23 @@ describe('ItemNavigator', () => {
 
       expect(
         el.shadowRoot?.querySelector('#reader')?.getAttribute('class')
-      ).to.contain('hide');
+      ).to.contain('hidden');
     });
     it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
       );
 
+      el.loaded = true;
+      await el.updateComplete;
       const mainTheaterSection = el.shadowRoot?.querySelector('#reader');
       expect(mainTheaterSection?.classList.contains('hide')).to.be.false;
       expect(el.loaded).to.be.true;
       // `loaded` property is reflected as DOM attribute
       expect(el.hasAttribute('loaded')).to.equal(true);
-      expect(el.shadowRoot?.querySelector('ia-no-theater-available')).to.exist;
+      expect(el.shadowRoot?.querySelector('slot[name="main"]')).to.exist;
     });
-    it('listens to `@loadingStateUpdated` to update `loaded`', async () => {
+    it('listens to `@loadingStateUpdated` to update `loaded` for <no-theater-available>', async () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator></ia-item-navigator>`
       );
@@ -100,14 +82,11 @@ describe('ItemNavigator', () => {
       const spy = Sinon.spy();
       el.loadingStateUpdated = spy;
       el.loaded = null;
+      el.viewAvailable = false;
       await el.updateComplete;
       // check base properties
       expect(el.loaded).to.equal(null);
       expect(el.item).to.be.undefined;
-
-      // hydrate item
-      el.item = new ItemStub();
-      await el.updateComplete;
 
       // spy fires
       expect(spy.called).to.equal(true);
@@ -127,7 +106,7 @@ describe('ItemNavigator', () => {
       expect(el.sharedObserver).to.equal(sharedObserver);
       expect(typeof el.handleResize).to.equal('function');
     });
-    it('freshly registers handler', async () => {
+    it('freshly registers handlers', async () => {
       const sharedObserver = new SharedResizeObserver();
       const addObserverSpy = Sinon.spy(sharedObserver, 'addObserver');
 
@@ -137,7 +116,7 @@ describe('ItemNavigator', () => {
         ></ia-item-navigator>`
       );
 
-      expect(addObserverSpy.callCount).to.equal(1);
+      expect(addObserverSpy.callCount).to.equal(2);
     });
     it('removes handler when component disconnects', async () => {
       const sharedObserver = new SharedResizeObserver();

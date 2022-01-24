@@ -36,6 +36,8 @@ export class AppRoot extends LitElement {
     | boolean
     | null = null;
 
+  @property({ type: Boolean, reflect: true, attribute: true }) headerOn = false;
+
   firstUpdated() {
     this.fetchItemMD();
     console.log(
@@ -43,6 +45,8 @@ export class AppRoot extends LitElement {
       this.modalMgr,
       this.sharedObserver
     );
+
+    this.itemNav.viewAvailable = false;
   }
 
   updated(changed: any) {
@@ -94,47 +98,73 @@ export class AppRoot extends LitElement {
   fullscreenCheck(): void {
     if (this.showFullscreen && this.itemNav) {
       this.fullscreen = true;
-      // this.itemNav.viewportInFullscreen = true;
     }
   }
   /** End fullscreen */
 
+  toggleHeader() {
+    this.headerOn = !this.headerOn;
+  }
+
   /** Views */
-  get theaterBlock(): TemplateResult {
+  get headerExample(): TemplateResult {
     return html`
-      <ia-item-navigator
-        baseHost="https://archive.org"
-        .item=${this.itemMD}
-        .modal=${this.modalMgr}
-        .sharedObserver=${this.sharedObserver}
-        @ViewportInFullScreen=${this.toggleFS}
-        .viewportInFullscreen=${this.fullscreen}
-      ></ia-item-navigator>
+      <div slot="header">
+        <div class="embed-link">
+          <img
+            src="https://archive.org/images/glogo-jw.png"
+            alt="glowing ia logo"
+          />
+          <a href="/details/goody">
+            The history of Little Goody Two-Shoes : otherwise called Mrs.
+            Margery Two-Shoes ... [1766 edition]
+          </a>
+        </div>
+      </div>
     `;
   }
 
-  get placeholder(): TemplateResult {
-    return html`<h2>Please hold as we fetch an item for ya</h2>`;
-  }
-
   render(): TemplateResult {
-    const theater = this.theaterReady ? this.theaterBlock : this.placeholder;
     return html`
       <h1>theater, in page</h1>
-      ${theater}
+      <section>
+        <ia-item-navigator
+          baseHost="https://archive.org"
+          .item=${this.itemMD}
+          .modal=${this.modalMgr}
+          .sharedObserver=${this.sharedObserver}
+          .loaded=${true}
+          @fullscreenToggled=${this.toggleFS}
+        >
+          ${this.headerOn ? this.headerExample : ''}
+        </ia-item-navigator>
+      </section>
+      <div>
+        <button @click=${this.toggleHeader}>toggle header</button>
+      </div>
       <modal-manager></modal-manager>
     `;
   }
 
   static styles = css`
-    :host {
-      border: 1px solid pink;
-      color: #222;
-    }
-
-    :host([fullscreen]) {
+    :host([fullscreen]),
+    :host([fullscreen]) section {
       height: 100vh;
       width: 100vw;
+    }
+
+    :host([fullscreen]) h1 {
+      display: none;
+    }
+
+    h1 {
+      color: black;
+    }
+
+    section {
+      border: 1px solid pink;
+      color: #222;
+      height: calc(100vh - 200px);
     }
 
     :host,
@@ -142,8 +172,7 @@ export class AppRoot extends LitElement {
       display: block;
       position: relative;
       width: 100%;
-      min-height: 64vh;
-      height: 64vh;
+      height: inherit;
     }
     ia-item-navigator {
       height: inherit;
@@ -154,6 +183,11 @@ export class AppRoot extends LitElement {
       overflow: hidden;
       height: 100%;
       min-height: inherit;
+    }
+
+    .embed-link {
+      height: 55px;
+      border: 1px solid yellow;
     }
 
     modal-manager[mode='closed'] {

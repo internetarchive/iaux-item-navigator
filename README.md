@@ -13,24 +13,13 @@ The Item Navigator helps instantiate all of the components one needs to create a
 
 The Item Navigator's primary responsibility is to display the side menus, shortcuts, and the theater in browser window immersion "fullscreen".
 
-The only business logic that is housed is determining which theater navigator to use given an `itemType`.
-Currently supported:
-- bookreader's `<book-navigator>`
-- no theater available
+The main slot is shown by default.  If item has no theater, add `viewAvailable = false` property to show placeholder.
 
 ## Usage
 Generic:
 ```
 const iaItem = <MetadataResponse>;
 <ia-item-navigator .item=${iaItem}></ia-item-navigator>
-```
-For `<book-navigator>`:
-```
-const iaItem = <MetadataResponse>;
-<ia-item-navigator .item=${iaItem} .itemType="bookreader">
-  <div slot="theater-header"><p>foo header</p></div>
-  <div slot="theater-main"><div id="BookReader"></div></div>
-</ia-item-navigator>
 ```
 
 ## Local Demo with `web-dev-server`

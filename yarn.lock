@@ -205,11 +205,6 @@
     "lit-html" "^1.1.2"
     "throttle-debounce" "^2.2.1"
 
-"@internetarchive/promised-singleton@^0.3.0-alpha.1":
-  "integrity" "sha512-o4cUSkTDrWXn7lP1tuMrJ8xxCoD8pCKVgdvv7gtlnCJsCpsFcBr3aTFkMF3O0G+Dm5VZ/Jmsw7pINKRXm226Lg=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/promised-singleton/-/promised-singleton-0.3.0-alpha.1.tgz"
-  "version" "0.3.0-alpha.1"
-
 "@internetarchive/result-type@^0.0.1":
   "integrity" "sha512-sWahff5oP1xAK1CwAu1/5GTG2RXsdx/sQKn4SSOWH0r0vU2QoX9kAom/jSXeBsmgK0IjTc+9Ty9407SMORi+nQ=="
   "resolved" "https://registry.npmjs.org/@internetarchive/result-type/-/result-type-0.0.1.tgz"
