@@ -17,26 +17,46 @@ import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/modal-manager';
 import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
+import {
+  MenuShortcutInterface,
+  MenuDetailsInterface,
+} from '../src/interfaces/menu-interfaces';
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
    * Example controller to connect to `<ia-item-navigator>`
    */
-  @property({ type: Object }) itemMD: MetadataResponse | undefined = undefined;
+  @property({ type: Object }) itemMD?: MetadataResponse;
 
   @property({ type: String }) encodedManifest = '';
+
+  @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
+
+  @property({ type: Array, attribute: false })
+  menuContents: MenuDetailsInterface[] = [];
+
+  @property({ type: Array, attribute: false })
+  menuShortcuts: MenuShortcutInterface[] = [];
+
+  @property({ reflect: true, attribute: true }) fullscreen:
+    | boolean
+    | null = null;
+
+  @property({ reflect: true, attribute: true }) headerOn: true | null = null;
+
+  @property({ reflect: true, attribute: true }) loaded = true;
+
+  @property({ reflect: true, attribute: true }) showPlaceholder:
+    | true
+    | null = null;
+
+  @property({ reflect: true, attribute: true }) showTheaterExample:
+    | true
+    | null = true;
 
   @query('ia-item-navigator') private itemNav!: ItemNavigator;
 
   @query('modal-manager') modalMgr!: ModalManager;
-
-  @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
-
-  @property({ type: Boolean, reflect: true, attribute: true }) fullscreen:
-    | boolean
-    | null = null;
-
-  @property({ type: Boolean, reflect: true, attribute: true }) headerOn = false;
 
   firstUpdated() {
     this.fetchItemMD();
@@ -103,10 +123,98 @@ export class AppRoot extends LitElement {
   /** End fullscreen */
 
   toggleHeader() {
-    this.headerOn = !this.headerOn;
+    this.headerOn = this.headerOn ? null : true;
+  }
+
+  toggleLoader() {
+    this.loaded = !this.loaded;
+  }
+
+  togglePlaceholder() {
+    this.toggleLoader();
+    const show = this.showPlaceholder ? null : true;
+    this.showPlaceholder = show;
+  }
+
+  toggleImmersion() {
+    const nextState = this.fullscreen ? null : true;
+    if (!nextState) {
+      this.menuShortcuts = [];
+      return;
+    }
+    this.menuShortcuts = [
+      {
+        icon: html`<button
+          @click=${() => {
+            this.fullscreen = null;
+            this.menuContents = [];
+            this.menuShortcuts = [];
+          }}
+        >
+          Exit
+        </button>`,
+        id: 'exit',
+      },
+    ];
+    this.menuContents = [
+      {
+        icon: html`<button
+          @click=${() => {
+            this.fullscreen = null;
+          }}
+        >
+          Exit
+        </button>`,
+        id: 'exit',
+        label: 'Exit',
+        selected: false,
+      },
+    ];
+
+    this.fullscreen = nextState;
+  }
+
+  toggleTheaterExample() {
+    if (this.showTheaterExample) {
+      // turn on placeholder
+      this.showPlaceholder = true;
+      // turn off example
+      this.showTheaterExample = null;
+
+      this.menuContents = [];
+      this.menuShortcuts = [];
+      return;
+    }
+
+    // turn off placeholder
+    this.showPlaceholder = null;
+    this.showTheaterExample = true;
+
+    const x = {
+      icon: html`<p style="color: red">Allo</p>`,
+      id: 'a',
+      label: 'Hello world',
+      menuDetails: html`<h3>Wheee!</h3>`,
+    } as any;
+    this.menuContents = [x];
+    this.menuShortcuts = [x];
   }
 
   /** Views */
+  get theaterExample(): TemplateResult {
+    return html`
+      <div slot="main">
+        <div class="theater-example">
+          <img
+            alt="cat theater"
+            src="https://archive.org/download/encyclopediaofca0000poll_t2e2/__ia_thumb.jpg"
+          />
+          <h3>Welcome to Cat Theater</h3>
+        </div>
+      </div>
+    `;
+  }
+
   get headerExample(): TemplateResult {
     return html`
       <div slot="header">
@@ -124,7 +232,34 @@ export class AppRoot extends LitElement {
     `;
   }
 
+  get isViewAvailable(): boolean {
+    if (this.showTheaterExample) {
+      return true;
+    }
+    return false;
+  }
+
   render(): TemplateResult {
+    const {
+      isViewAvailable,
+      loaded,
+      showPlaceholder,
+      headerOn,
+      fullscreen,
+      menuContents,
+      menuShortcuts,
+      showTheaterExample,
+    } = this;
+    console.log('&&&& item nav properties', {
+      loaded,
+      headerOn,
+      isViewAvailable,
+      showTheaterExample,
+      showPlaceholder,
+      fullscreen,
+      menuContents,
+      menuShortcuts,
+    });
     return html`
       <h1>theater, in page</h1>
       <section>
@@ -133,14 +268,22 @@ export class AppRoot extends LitElement {
           .item=${this.itemMD}
           .modal=${this.modalMgr}
           .sharedObserver=${this.sharedObserver}
-          .loaded=${true}
-          @fullscreenToggled=${this.toggleFS}
+          .loaded=${this.loaded}
+          ?viewAvailable=${!!this.showTheaterExample}
+          .menuContents=${this.menuContents}
+          .menuShortcuts=${this.menuShortcuts}
+          .viewportInFullscreen=${this.fullscreen}
         >
           ${this.headerOn ? this.headerExample : ''}
+          ${this.showTheaterExample ? this.theaterExample : ''}
         </ia-item-navigator>
       </section>
       <div>
         <button @click=${this.toggleHeader}>toggle header</button>
+        <button @click=${this.toggleLoader}>toggle loader</button>
+        <button @click=${this.togglePlaceholder}>toggle placeholder</button>
+        <button @click=${this.toggleTheaterExample}>toggle new theater</button>
+        <button @click=${this.toggleImmersion}>toggle immersion</button>
       </div>
       <modal-manager></modal-manager>
     `;
@@ -172,22 +315,33 @@ export class AppRoot extends LitElement {
       display: block;
       position: relative;
       width: 100%;
-      height: inherit;
-    }
-    ia-item-navigator {
-      height: inherit;
-      min-height: inherit;
-    }
-    div {
-      position: relative;
-      overflow: hidden;
       height: 100%;
-      min-height: inherit;
     }
 
     .embed-link {
       height: 55px;
       border: 1px solid yellow;
+    }
+
+    .theater-example {
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin: 10px;
+      border: 5px dotted yellow;
+      flex: 1;
+    }
+
+    div[slot='main'] {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    div[slot='main'] > * {
+      flex: 1;
     }
 
     modal-manager[mode='closed'] {
