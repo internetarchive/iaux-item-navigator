@@ -148,12 +148,6 @@ export class ItemNavigator
     return this.viewportInFullscreen ? 'Internet Archive' : '';
   }
 
-  get readerHeightStyle(): string {
-    const calcFSHeight = `calc(100% - ${this.headerSlot?.offsetHeight || 0}px)`;
-
-    return this.headerSlot?.offsetHeight > 0 ? `height: ${calcFSHeight}` : '';
-  }
-
   get loadingArea() {
     return html`
       <div class="loading-area">
@@ -183,7 +177,7 @@ export class ItemNavigator
           name="header"
           @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
-        <div class="menu-and-reader" style=${this.readerHeightStyle}>
+        <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
           <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
@@ -211,7 +205,6 @@ export class ItemNavigator
       <div slot="main" style=${slotVisibility}>
         <slot
           name="main"
-          style=${this.readerHeightStyle}
           @slotchange=${(e: Event) => this.slotChange(e, 'main')}
         ></slot>
       </div>
@@ -388,6 +381,8 @@ export class ItemNavigator
       #frame {
         background-color: ${theaterBg};
         color-scheme: dark;
+        display: flex;
+        flex-direction: column;
       }
 
       #frame.fullscreen {
@@ -405,13 +400,17 @@ export class ItemNavigator
         justify-content: center;
       }
 
+      .loading-area {
+        width: 100%;
+      }
+
       ia-itemnav-loader {
         display: block;
         width: 100%;
       }
 
       .hidden {
-        display: none;
+        display: none !important;
       }
 
       button {
@@ -427,6 +426,7 @@ export class ItemNavigator
 
       .menu-and-reader {
         position: relative;
+        display: flex;
       }
 
       nav button {
@@ -489,13 +489,14 @@ export class ItemNavigator
         z-index: 1;
         transform: translateX(0);
         width: 100%;
-        height: 100%;
+        flex: 1;
+        display: flex;
       }
 
       #reader > * {
         width: 100%;
         display: flex;
-        height: 100%;
+        flex: 1;
       }
 
       .open.overlay #reader {
