@@ -171,10 +171,13 @@ export class ItemNavigator
 
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hidden';
+    const headerHeight =
+      (this.headerSlot?.assignedNodes()[0] as HTMLElement)?.offsetHeight || 0;
     return html`
       <div id="frame" class=${this.menuClass}>
         <slot
           name="header"
+          style=${`height: ${headerHeight}px`}
           @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
         <div class="menu-and-reader">
@@ -335,7 +338,9 @@ export class ItemNavigator
 
   /** Misc Render */
   get menuClass(): string {
-    const drawerState = this.menuOpened ? 'open' : '';
+    const hasMenuOrShortcuts =
+      this.menuContents?.length || this.menuShortcuts?.length;
+    const drawerState = this.menuOpened && hasMenuOrShortcuts ? 'open' : '';
     const fullscreenState = this.viewportInFullscreen ? 'fullscreen' : '';
     return `${drawerState} ${fullscreenState} ${this.openMenuState}`;
   }
@@ -351,8 +356,6 @@ export class ItemNavigator
       :host,
       #frame,
       .menu-and-reader {
-        min-height: inherit;
-        height: inherit;
         position: relative;
         overflow: hidden;
         display: block;
@@ -360,7 +363,6 @@ export class ItemNavigator
 
       :host,
       #frame,
-      .menu-and-reader,
       .loading-area,
       .loading-view {
         min-height: inherit;
@@ -395,6 +397,7 @@ export class ItemNavigator
       }
 
       .loading-view {
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -427,6 +430,7 @@ export class ItemNavigator
       .menu-and-reader {
         position: relative;
         display: flex;
+        flex: 1;
       }
 
       nav button {
@@ -489,7 +493,6 @@ export class ItemNavigator
         z-index: 1;
         transform: translateX(0);
         width: 100%;
-        flex: 1;
         display: flex;
       }
 
@@ -510,8 +513,8 @@ export class ItemNavigator
       }
 
       .open.shift #reader {
-        width: calc(100% - var(--menuWidth));
-        float: right;
+        width: calc(100% - ${subnavWidth});
+        margin-left: ${subnavWidth};
         transition: ${transitionEffect};
       }
     `;
