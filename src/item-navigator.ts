@@ -148,12 +148,6 @@ export class ItemNavigator
     return this.viewportInFullscreen ? 'Internet Archive' : '';
   }
 
-  get readerHeightStyle(): string {
-    const calcFSHeight = `calc(100% - ${this.headerSlot?.offsetHeight || 0}px)`;
-
-    return this.headerSlot?.offsetHeight > 0 ? `height: ${calcFSHeight}` : '';
-  }
-
   get loadingArea() {
     return html`
       <div class="loading-area">
@@ -177,13 +171,16 @@ export class ItemNavigator
 
   render(): TemplateResult {
     const displayReaderClass = this.loaded ? '' : 'hidden';
+    const headerHeight =
+      (this.headerSlot?.assignedNodes()[0] as HTMLElement)?.offsetHeight || 0;
     return html`
       <div id="frame" class=${this.menuClass}>
         <slot
           name="header"
+          style=${`height: ${headerHeight}px`}
           @slotchange=${(e: Event) => this.slotChange(e, 'header')}
         ></slot>
-        <div class="menu-and-reader" style=${this.readerHeightStyle}>
+        <div class="menu-and-reader">
           ${this.shouldRenderMenu ? this.renderSideMenu : nothing}
           <div id="reader" class=${displayReaderClass}>
             ${this.renderViewport}
@@ -211,7 +208,6 @@ export class ItemNavigator
       <div slot="main" style=${slotVisibility}>
         <slot
           name="main"
-          style=${this.readerHeightStyle}
           @slotchange=${(e: Event) => this.slotChange(e, 'main')}
         ></slot>
       </div>
@@ -342,7 +338,9 @@ export class ItemNavigator
 
   /** Misc Render */
   get menuClass(): string {
-    const drawerState = this.menuOpened ? 'open' : '';
+    const hasMenuOrShortcuts =
+      this.menuContents?.length || this.menuShortcuts?.length;
+    const drawerState = this.menuOpened && hasMenuOrShortcuts ? 'open' : '';
     const fullscreenState = this.viewportInFullscreen ? 'fullscreen' : '';
     return `${drawerState} ${fullscreenState} ${this.openMenuState}`;
   }
@@ -358,8 +356,6 @@ export class ItemNavigator
       :host,
       #frame,
       .menu-and-reader {
-        min-height: inherit;
-        height: inherit;
         position: relative;
         overflow: hidden;
         display: block;
@@ -367,7 +363,6 @@ export class ItemNavigator
 
       :host,
       #frame,
-      .menu-and-reader,
       .loading-area,
       .loading-view {
         min-height: inherit;
@@ -376,7 +371,6 @@ export class ItemNavigator
 
       slot {
         display: block;
-        overflow: hidden;
         width: 100%;
       }
 
@@ -388,6 +382,8 @@ export class ItemNavigator
       #frame {
         background-color: ${theaterBg};
         color-scheme: dark;
+        display: flex;
+        flex-direction: column;
       }
 
       #frame.fullscreen {
@@ -400,9 +396,14 @@ export class ItemNavigator
       }
 
       .loading-view {
+        height: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
+      }
+
+      .loading-area {
+        width: 100%;
       }
 
       ia-itemnav-loader {
@@ -411,7 +412,7 @@ export class ItemNavigator
       }
 
       .hidden {
-        display: none;
+        display: none !important;
       }
 
       button {
@@ -427,6 +428,8 @@ export class ItemNavigator
 
       .menu-and-reader {
         position: relative;
+        display: flex;
+        flex: 1;
       }
 
       nav button {
@@ -489,13 +492,13 @@ export class ItemNavigator
         z-index: 1;
         transform: translateX(0);
         width: 100%;
-        height: 100%;
+        display: flex;
       }
 
       #reader > * {
         width: 100%;
         display: flex;
-        height: 100%;
+        flex: 1;
       }
 
       .open.overlay #reader {
@@ -509,8 +512,8 @@ export class ItemNavigator
       }
 
       .open.shift #reader {
-        width: calc(100% - var(--menuWidth));
-        float: right;
+        width: calc(100% - ${subnavWidth});
+        margin-left: ${subnavWidth};
         transition: ${transitionEffect};
       }
     `;
