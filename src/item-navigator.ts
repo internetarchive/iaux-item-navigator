@@ -371,7 +371,6 @@ export class ItemNavigator
 
       slot {
         display: block;
-        overflow: hidden;
         width: 100%;
       }
 
