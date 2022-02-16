@@ -2,14 +2,12 @@ import {
   css,
   html,
   LitElement,
-  customElement,
-  property,
-  state,
-  query,
   PropertyValues,
   CSSResult,
-} from 'lit-element';
-import { nothing, TemplateResult } from 'lit-html';
+  TemplateResult,
+  nothing,
+} from 'lit';
+import { customElement, property, state, query } from 'lit/decorators.js';
 import { MetadataResponse } from '@internetarchive/search-service';
 import {
   SharedResizeObserver,

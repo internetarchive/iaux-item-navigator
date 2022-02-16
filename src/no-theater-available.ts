@@ -1,13 +1,12 @@
 import {
   LitElement,
-  customElement,
-  property,
   html,
   TemplateResult,
   PropertyValues,
   CSSResult,
   css,
-} from 'lit-element';
+} from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('ia-no-theater-available')
 export class IANoTheaterAvailable extends LitElement {

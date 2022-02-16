@@ -1,4 +1,4 @@
-import { TemplateResult } from 'lit-html';
+import { TemplateResult } from 'lit';
 import { MetadataResponse } from '@internetarchive/search-service';
 
 export type MenuId = string;
