@@ -1,7 +1,11 @@
 {
   "name": "@internetarchive/ia-item-navigator",
   "version": "0.0.5",
-  "description": "Internet Archive's Item Navigator, visually eplore an item's contents.",
+  "description": "Internet Archive's Item Navigator, visually explore an item's contents.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internetarchive/iaux-item-navigator.git"
+  },
   "author": "Internet Archive",
   "license": "AGPL-3.0-only",
   "main": "dist/index.js",
