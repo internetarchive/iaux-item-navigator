@@ -1,13 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import {
-  html,
-  css,
-  LitElement,
-  customElement,
-  property,
-  query,
-  TemplateResult,
-} from 'lit-element';
+import { html, css, LitElement, TemplateResult } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 import {
   MetadataResponse,
   SearchService,

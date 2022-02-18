@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
-import { css, html, LitElement, customElement } from 'lit-element';
-import { svg, nothing } from 'lit-html';
+import { css, html, LitElement, svg, nothing } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 @customElement('ia-itemnav-loader')
 export class IAItemNavLoader extends LitElement {

@@ -6,7 +6,7 @@ import {
   Review,
   SpeechMusicASREntry,
 } from '@internetarchive/search-service';
-import { html } from 'lit-html';
+import { html } from 'lit';
 import {
   MenuShortcutInterface,
   MenuProviderInterface,
