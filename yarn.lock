@@ -559,6 +559,11 @@
   "resolved" "https://registry.npmjs.org/@types/mocha/-/mocha-8.2.1.tgz"
   "version" "8.2.1"
 
+"@types/mocha@^9.1.0":
+  "integrity" "sha512-QCWHkbMv4Y5U9oW10Uxbr45qMMSzl4OzijsozynUAgx3kEHUdXB00udx2dWDQ7f2TU2a2uuiFaRZjCe3unPpeg=="
+  "resolved" "https://registry.npmjs.org/@types/mocha/-/mocha-9.1.0.tgz"
+  "version" "9.1.0"
+
 "@types/node@*":
   "integrity" "sha512-vFHy/ezP5qI0rFgJ7aQnjDXwAMrG0KqqIH7tQG5PPv3BWBayOPIQNBjVc/P6hhdZfMx51REc6tfDNXHUio893g=="
   "resolved" "https://registry.npmjs.org/@types/node/-/node-14.14.31.tgz"
