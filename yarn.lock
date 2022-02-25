@@ -93,19 +93,18 @@
     "@internetarchive/icon-collapse-sidebar" "^1.3.2"
     "lit" "^2.1.4"
 
-"@internetarchive/ia-sharing-options@^0.1.4":
-  "integrity" "sha512-/6LdxkeLkjtbWFp6F+AhLSqILlotmKjjoSdunwm+Es5SGUjjc7nJTSN9oXbye7/g6YIiry94NJc7xXmpjjwUWg=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/ia-sharing-options/-/ia-sharing-options-0.1.4.tgz"
-  "version" "0.1.4"
+"@internetarchive/ia-sharing-options@^1.0.0":
+  "integrity" "sha512-v1SX7AHqqJ8jgpGrYdsFFdcbnxl7ywyP65o2MO5SfRxmGw5NBR28NV5QHPSqr2JJ/i1r8DC9b9BdemjZRpknfA=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/ia-sharing-options/-/ia-sharing-options-1.0.0.tgz"
+  "version" "1.0.0"
   dependencies:
-    "@internetarchive/icon-email" "^1.1.1"
-    "@internetarchive/icon-facebook" "^1.1.1"
-    "@internetarchive/icon-link" "^1.1.1"
-    "@internetarchive/icon-pinterest" "^1.1.1"
-    "@internetarchive/icon-tumblr" "^1.1.1"
-    "@internetarchive/icon-twitter" "^1.1.1"
-    "lit-element" "^2.2.1"
-    "lit-html" "^1.1.2"
+    "@internetarchive/icon-email" "^1.3.1"
+    "@internetarchive/icon-facebook" "^1.3.1"
+    "@internetarchive/icon-link" "^1.3.1"
+    "@internetarchive/icon-pinterest" "^1.3.1"
+    "@internetarchive/icon-tumblr" "^1.3.1"
+    "@internetarchive/icon-twitter" "^1.3.1"
+    "lit" "^2.2.0"
 
 "@internetarchive/icon-close@^0.4.0":
   "integrity" "sha512-HYEtptGAcIic4/m1T4Xx+qR/FPLdl4nP1/xGmrnrCXDQhBq25bmFPaZvGRu4vKq2ghlMchD0nhVDYJNoRIPFsQ=="
@@ -121,26 +120,26 @@
   dependencies:
     "lit" "^2.0.2"
 
-"@internetarchive/icon-ellipses@^1.1.3":
-  "integrity" "sha512-p+W3x5fK5O+kLbhEpG8SlB8FWt4j/ijBELkdrx1C7wpqlShEyHAh3a4RuB+D7ClxE5ZWrT3ZodVNHRtUBU34nA=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-ellipses/-/icon-ellipses-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-ellipses@^1.3.2":
+  "integrity" "sha512-VcNbuWBqqRChVzjLb1qTwZdzVyN9fZF/kRcrR+f+mTzdbRUqyTwkN89//q+je+enHapNelAYwkX9tFr+GhnO8g=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-ellipses/-/icon-ellipses-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-email@^1.1.1":
-  "integrity" "sha512-HSJEsUBQu6Qzpfsvyt+D0odC/m+d5zv03u243hqcYLfCEpYZwmWWvguvP54eQjDkfEEAbgRwDSVO1EGiQ9JP5w=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-email/-/icon-email-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-email@^1.3.1":
+  "integrity" "sha512-VzJ1Qsoal19+rZqEcwbsSzhFpV1Fn51hw2Qiq4pa7KAU6QzDMzJVkcvCK7bBOxLoVe3HwaeSMzKEXxr5h+VBfw=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-email/-/icon-email-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-facebook@^1.1.1":
-  "integrity" "sha512-VstoluPJVFxAT8rmSwn4HQC9y71ihqutxSsTr7InXPeO7+I+8e3MV9CEHM7TTNIyqVErMesaCcEuADk0MoypQg=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-facebook/-/icon-facebook-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-facebook@^1.3.1":
+  "integrity" "sha512-sTBbBlya8jApRxhfFiNWKXmOiVQ6xCzz00tSJ5Puh7EIRQQhOEFgxmn8sCAIqmEN0fSnuFRElbERqsGrLBoxtw=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-facebook/-/icon-facebook-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
 "@internetarchive/icon-ia-logo@^0.4.0":
   "integrity" "sha512-teHOXsIa/tHaSwlwqjfpmxSXUfF23/iggT86J8fJiCfHALCQlk2/zh2n46ynn2vS7jAWfo/QDWcli56AdR4LEA=="
@@ -149,40 +148,40 @@
   dependencies:
     "lit-html" "^1.2.1"
 
-"@internetarchive/icon-link@^1.1.1":
-  "integrity" "sha512-FltTrFY9qpU69Mry8EeVgJ7MQpHpFKX3g9jXM44a7+CvuFNKzSnJ2ker7SXzk94C89cwah2ZtmIjKShCQzaJig=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-link/-/icon-link-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-link@^1.3.1":
+  "integrity" "sha512-NOZBXX1bXrAcNnBEPG0bdh8JcsQFdR3xf2VYJ9FeXLkCiJFXI3NaB/LG7ggkx2P4V10kC67hr52DX8MIDvZbtg=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-link/-/icon-link-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-pinterest@^1.1.1":
-  "integrity" "sha512-uILcuQ1D0xuckbjm4c4QxeozhkTUOLDZRDQW2dYICP6tQOG9xWq4pVyv1IbINBhhcrA/T4tB4jL3Zq/cbRf+wQ=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-pinterest/-/icon-pinterest-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-pinterest@^1.3.1":
+  "integrity" "sha512-UPmePtbTqqIK/uCqO5UZeFEgKOjKM6SxlUJCK6xAUAtUeSUv7dq4UywthNC8W5WfXvZGxGtAwioYt5Pddn43PQ=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-pinterest/-/icon-pinterest-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-share@^1.1.3":
-  "integrity" "sha512-xAt+K4A04uE7O2zghWiMDPSe2RkCx2ObKCk1vjAn1gk2CexwrcbIUdY2MMYUyvP3k3Lm5DHw5hLm5Aazv++8yQ=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-share/-/icon-share-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-share@^1.3.2":
+  "integrity" "sha512-XwMcznii1yW/f8lEHBQe974GKGsvgeter7AkXHPK3Fi2o2Jm7IDmT71zhb49mKKp66Vjr3lLgPWzPld+wZgnEA=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-share/-/icon-share-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-tumblr@^1.1.1":
-  "integrity" "sha512-hwG+XLPMqBFI0BTFbiP2ZUwv+gaArxaDQah8aHH+mfzXJXyC9ZYWZYAlCdnIhefesColQY+5IuwuHxvobyCeqg=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-tumblr/-/icon-tumblr-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-tumblr@^1.3.1":
+  "integrity" "sha512-IAFNpheZ2HujatnLC5Q70WdoIboJlMy8IkENOEZfTW/TfGiX0sdDkhEsOkI8wR5YDOX6C0R/LNPnUot5zjInaw=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-tumblr/-/icon-tumblr-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
-"@internetarchive/icon-twitter@^1.1.1":
-  "integrity" "sha512-9fT9Pd0Xr25wu/qX4aG003zk8jRK1J3DFQoeGIgtGv/gL40u6+qXlBGX5d4bIjxvylYUaJRNOQI+fVgYTZhKuQ=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-twitter/-/icon-twitter-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-twitter@^1.3.1":
+  "integrity" "sha512-aL1dizdh+LwOkE/6we7ZB/mXPN+4Hp/FsSDohI05X/NVu6c8nL5IeH2+BI6WS/knPUehBvh7lwGUzRFRwtqzCA=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-twitter/-/icon-twitter-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
 "@internetarchive/icon-user@^0.4.0":
   "integrity" "sha512-Fk+MJs2Da8uOlF6OQua54TmJrMHiwNo4imxrHcfIgD7lkqn8WscRsgasaSza2wohiq/4Jc181avPMXi6ZrakDg=="
@@ -191,12 +190,12 @@
   dependencies:
     "lit-html" "^1.2.1"
 
-"@internetarchive/icon-visual-adjustment@^1.1.3":
-  "integrity" "sha512-YvZAaFvT+LniFw5AKR589tz56nW6WA+EQjeLqE1HVdweugwdnWNR9tI6N3aR7f8Jz/s71xsacEwSv/jfcVmG5Q=="
-  "resolved" "https://registry.npmjs.org/@internetarchive/icon-visual-adjustment/-/icon-visual-adjustment-1.1.3.tgz"
-  "version" "1.1.3"
+"@internetarchive/icon-visual-adjustment@^1.3.2":
+  "integrity" "sha512-eqnHimIaDJ3SfFGChg+43H1jjW4XEsbMYHrgXOLFUR/0PtUIFkb0Mvv39YUD64B7uqQZTFbLvyabmxrQQYFQLg=="
+  "resolved" "https://registry.npmjs.org/@internetarchive/icon-visual-adjustment/-/icon-visual-adjustment-1.3.2.tgz"
+  "version" "1.3.2"
   dependencies:
-    "lit-html" "^1.2.1"
+    "lit" "^2.0.2"
 
 "@internetarchive/modal-manager@^0.1.0":
   "integrity" "sha512-udlvq8kzbxdPsZlN9P7Tgdj4LlGCR+6DL7EJr0EVM9BUPSY6AlB9Iase+UhUIDL3dfHxlWkiUN+lj/vaMDuIhA=="
@@ -236,10 +235,10 @@
   "resolved" "https://registry.npmjs.org/@juggle/resize-observer/-/resize-observer-3.3.1.tgz"
   "version" "3.3.1"
 
-"@lit/reactive-element@^1.0.0", "@lit/reactive-element@^1.1.0":
-  "integrity" "sha512-fu0HW3VpeQdTx2BxjcMD0pEXB6M3xYi7Cgmqr7+jtyN7hNZJGFWqqQFfyJRwP8cBGQz3WW1txBiPPf9dK2xdUg=="
-  "resolved" "https://registry.npmjs.org/@lit/reactive-element/-/reactive-element-1.2.3.tgz"
-  "version" "1.2.3"
+"@lit/reactive-element@^1.0.0", "@lit/reactive-element@^1.3.0":
+  "integrity" "sha512-0TKSIuJHXNLM0k98fi0AdMIdUoHIYlDHTP+0Vruc2SOs4T6vU1FinXgSvYd8mSrkt+8R+qdRAXvjpqrMXMyBgw=="
+  "resolved" "https://registry.npmjs.org/@lit/reactive-element/-/reactive-element-1.3.0.tgz"
+  "version" "1.3.0"
 
 "@nodelib/fs.scandir@2.1.4":
   "integrity" "sha512-33g3pMJk3bg5nXbL/+CY6I2eJDzZAni49PfJnL5fghPTggPvBd/pFNSgJsdAgWptuFu7qq/ERvOYFlhvsLTCKA=="
@@ -3292,13 +3291,13 @@
   dependencies:
     "lit-html" "^1.1.1"
 
-"lit-element@^3.1.0":
-  "integrity" "sha512-5VLn5a7anAFH7oz6d7TRG3KiTZQ5GEFsAgOKB8Yc+HDyuDUGOT2cL1CYTz/U4b/xlJxO+euP14pyji+z3Z3kOg=="
-  "resolved" "https://registry.npmjs.org/lit-element/-/lit-element-3.1.2.tgz"
-  "version" "3.1.2"
+"lit-element@^3.2.0":
+  "integrity" "sha512-HbE7yt2SnUtg5DCrWt028oaU4D5F4k/1cntAFHTkzY8ZIa8N0Wmu92PxSxucsQSOXlODFrICkQ5x/tEshKi13g=="
+  "resolved" "https://registry.npmjs.org/lit-element/-/lit-element-3.2.0.tgz"
+  "version" "3.2.0"
   dependencies:
-    "@lit/reactive-element" "^1.1.0"
-    "lit-html" "^2.1.0"
+    "@lit/reactive-element" "^1.3.0"
+    "lit-html" "^2.2.0"
 
 "lit-html@^1.1.1", "lit-html@^1.1.2", "lit-html@^1.2.1":
   "integrity" "sha512-0Q1bwmaFH9O14vycPHw8C/IeHMk/uSDldVLIefu/kfbTBGIc44KGH6A8p1bDfxUfHdc8q6Ct7kQklWoHgr4t1Q=="
@@ -3312,21 +3311,21 @@
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-"lit-html@^2.1.0":
-  "integrity" "sha512-WgvdwiNeuoT0mYEEJI+AAV2DEtlqzVM4lyDSaeQSg5ZwhS/CkGJBO/4n66alApEuSS9WXw9+ADBp8SPvtDEKSg=="
-  "resolved" "https://registry.npmjs.org/lit-html/-/lit-html-2.1.3.tgz"
-  "version" "2.1.3"
+"lit-html@^2.2.0":
+  "integrity" "sha512-dJnevgV8VkCuOXLWrjQopDE8nSy8CzipZ/ATfYQv7z7Dct4abblcKecf50gkIScuwCTzKvRLgvTgV0zzagW4gA=="
+  "resolved" "https://registry.npmjs.org/lit-html/-/lit-html-2.2.0.tgz"
+  "version" "2.2.0"
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-"lit@^2.0.0", "lit@^2.0.2", "lit@^2.1.4":
-  "integrity" "sha512-m1tHAZdXQhiBe0ReAjyVIUeKnHZpBfx+A5R5dkia8dtvIBwOR6KhD+RxaDnCwrEavRqkZAy5ntLv7chiOZCdNg=="
-  "resolved" "https://registry.npmjs.org/lit/-/lit-2.1.4.tgz"
-  "version" "2.1.4"
+"lit@^2.0.0", "lit@^2.0.2", "lit@^2.1.4", "lit@^2.2.0":
+  "integrity" "sha512-FDyxUuczo6cJJY/2Bkgfh1872U4ikUvmK1Cb6+lYC1CW+QOo8CaWXCpvPKFzYsz0ojUxoruBLVrECc7VI2f1dQ=="
+  "resolved" "https://registry.npmjs.org/lit/-/lit-2.2.0.tgz"
+  "version" "2.2.0"
   dependencies:
-    "@lit/reactive-element" "^1.1.0"
-    "lit-element" "^3.1.0"
-    "lit-html" "^2.1.0"
+    "@lit/reactive-element" "^1.3.0"
+    "lit-element" "^3.2.0"
+    "lit-html" "^2.2.0"
 
 "load-json-file@^1.0.0":
   "integrity" "sha1-lWkFcI1YtLq0wiYbBPWfMcmTdMA="
