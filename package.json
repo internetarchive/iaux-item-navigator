@@ -29,7 +29,7 @@
     "@internetarchive/icon-ellipses": "^1.4.0-alpha.0",
     "@internetarchive/icon-share": "^1.4.0-alpha.0",
     "@internetarchive/icon-visual-adjustment": "^1.4.0-alpha.0",
-    "@internetarchive/modal-manager": "^0.2.1",
+    "@internetarchive/modal-manager": "^0.2.7",
     "@internetarchive/search-service": "^0.1.2",
     "@internetarchive/shared-resize-observer": "^0.0.1",
     "@types/resize-observer-browser": "^0.1.6",
