@@ -75,7 +75,7 @@
       ],
       "import/no-unresolved": "off",
       "import/extensions": [
-        "warn",
+        "off",
         {
           "js": "never",
           "ts": "never"
