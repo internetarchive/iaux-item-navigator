@@ -13,10 +13,10 @@ import {
   SharedResizeObserver,
   SharedResizeObserverResizeHandlerInterface,
 } from '@internetarchive/shared-resize-observer';
-import '@internetarchive/ia-menu-slider';
-
 import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/icon-ellipses/icon-ellipses';
+
+import './menu-slider/ia-menu-slider';
 import './loader';
 
 import {

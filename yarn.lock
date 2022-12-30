@@ -84,14 +84,6 @@
   dependencies:
     lit "^2.2.2"
 
-"@internetarchive/ia-menu-slider@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/@internetarchive/ia-menu-slider/-/ia-menu-slider-2.0.1.tgz"
-  integrity sha512-vz0mDbnzn1hwOn6q20nvUKLs/bTgCkr3878StL3EJWLL6l2nXX80Ew/JwoFnpn5r7n1TrZijjIeQ4RUzkP2f1g==
-  dependencies:
-    "@internetarchive/icon-collapse-sidebar" "^1.3.4"
-    lit "^2.5.0"
-
 "@internetarchive/icon-close@^1.3.2":
   version "1.3.2"
   resolved "https://registry.npmjs.org/@internetarchive/icon-close/-/icon-close-1.3.2.tgz"
@@ -101,7 +93,7 @@
 
 "@internetarchive/icon-collapse-sidebar@^1.3.4":
   version "1.3.4"
-  resolved "https://registry.npmjs.org/@internetarchive/icon-collapse-sidebar/-/icon-collapse-sidebar-1.3.4.tgz"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-collapse-sidebar/-/icon-collapse-sidebar-1.3.4.tgz#0aa232b5a153333d53ee7b5e3d8f32259d75bf2a"
   integrity sha512-oxY3qvuaKzoMfw6xQhWTnzwgYZL1bBc7NdaQvBnBm5vddbqkw1hSxsixnh4r5LPXOY9HW5vibdW50Px0apGOrA==
   dependencies:
     lit "^2.0.2"
