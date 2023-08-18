@@ -150,9 +150,9 @@ export class IaMenuSlider extends LitElement {
             @menuTypeSelected=${this.setSelectedMenu}
           >
             ${this.renderMenuHeader}
-            <section>
+            <main>
               <div class="selected-menu">${this.selectedMenuComponent}</div>
-            </section>
+            </main>
           </div>
         </div>
       </div>
