@@ -112,7 +112,7 @@ export default css`
     margin-bottom: 0.2rem;
   }
 
-  .content > main {
+  .content > section {
     overflow: auto;
     overscroll-behavior: contain;
   }
