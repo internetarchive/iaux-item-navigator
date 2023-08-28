@@ -94,6 +94,8 @@ export default css`
     border-right: 0.2rem solid;
     border-color: var(--subpanelRightBorderColor);
     padding: 0.5rem 0 0 0.5rem;
+    display: flex;
+    flex-direction: column;
   }
 
   .open {
@@ -110,21 +112,8 @@ export default css`
     margin-bottom: 0.2rem;
   }
 
-  .content section {
-    height: 100%;
-    position: relative;
-    width: 100%;
-  }
-
-  .content .selected-menu {
+  .content > section {
     overflow: auto;
-    height: inherit;
-    position: relative;
-  }
-
-  .content .selected-menu > * {
-    display: block;
-    padding-bottom: 3rem;
-    position: relative;
+    overscroll-behavior: contain;
   }
 `;
