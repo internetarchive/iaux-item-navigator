@@ -14,7 +14,8 @@
     "sourceMap": true,
     "inlineSources": true,
     "rootDir": "./",
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true,
   },
   "include": ["**/*.ts"]
 }
