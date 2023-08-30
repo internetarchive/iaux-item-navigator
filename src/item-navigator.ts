@@ -150,7 +150,7 @@ export class ItemNavigator
     return html`
       <div class="loading-area">
         <div class="loading-view">
-          <ia-itemnav-loader .title=${this.loaderTitle}></ia-itemnav-loader>
+          <ia-itemnav-loader .loaderMessage=${this.loaderTitle}></ia-itemnav-loader>
         </div>
       </div>
     `;

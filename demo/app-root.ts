@@ -12,8 +12,9 @@ import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 import {
   MenuShortcutInterface,
-  MenuDetailsInterface,
+  MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
+
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
@@ -26,7 +27,7 @@ export class AppRoot extends LitElement {
   @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
 
   @property({ type: Array, attribute: false })
-  menuContents: MenuDetailsInterface[] = [];
+  menuContents: MenuProviderInterface[] = [];
 
   @property({ type: Array, attribute: false })
   menuShortcuts: MenuShortcutInterface[] = [];
@@ -37,7 +38,7 @@ export class AppRoot extends LitElement {
 
   @property({ reflect: true, attribute: true }) headerOn: true | null = null;
 
-  @property({ reflect: true, attribute: true }) loaded = true;
+  @property({ reflect: true, attribute: true }) loaded: true | null = true;
 
   @property({ reflect: true, attribute: true }) showPlaceholder:
     | true
@@ -120,7 +121,8 @@ export class AppRoot extends LitElement {
   }
 
   toggleLoader() {
-    this.loaded = !this.loaded;
+    const nextState = this.loaded === true ? null : true;
+    this.loaded = nextState;
   }
 
   togglePlaceholder() {
@@ -162,7 +164,7 @@ export class AppRoot extends LitElement {
         label: 'Exit',
         selected: false,
       },
-    ];
+    ] as any as MenuProviderInterface[];
 
     this.fullscreen = nextState;
   }

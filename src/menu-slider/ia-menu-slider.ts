@@ -3,6 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import menuSliderCSS from './styles/menu-slider';
 import '@internetarchive/icon-collapse-sidebar';
 import './menu-button';
+import { MenuProviderInterface } from '../interfaces/menu-interfaces';
 
 const sliderEvents = {
   closeDrawer: 'menuSliderClosed',
@@ -14,7 +15,7 @@ export class IaMenuSlider extends LitElement {
     return menuSliderCSS;
   }
 
-  @property({ type: Array }) menus = [];
+  @property({ type: Array }) menus: MenuProviderInterface[] = [];
 
   @property({ type: Boolean }) open = false;
 
