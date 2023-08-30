@@ -63,7 +63,7 @@ export class IaMenuSlider extends LitElement {
 
   get selectedMenuDetails() {
     const selectedMenu = this.menus.find(
-      menu => (menu as any).id === this.selectedMenu
+      menu => (menu as any).id === this.selectedMenu,
     );
     return selectedMenu;
   }
@@ -89,21 +89,20 @@ export class IaMenuSlider extends LitElement {
 
   get menuItems() {
     return this.menus.map(
-      (menu: Record<string, any>) =>
-        html`
-          <li>
-            <menu-button
-              @menuTypeSelected=${this.setSelectedMenu}
-              .icon=${menu.icon}
-              .label=${menu.label}
-              .menuDetails=${menu.menuDetails}
-              .id=${menu.id}
-              .selected=${menu.id === this.selectedMenu}
-              .followable=${menu.followable}
-              .href=${menu.href}
-            ></menu-button>
-          </li>
-        `
+      (menu: Record<string, any>) => html`
+        <li>
+          <menu-button
+            @menuTypeSelected=${this.setSelectedMenu}
+            .icon=${menu.icon}
+            .label=${menu.label}
+            .menuDetails=${menu.menuDetails}
+            .id=${menu.id}
+            .selected=${menu.id === this.selectedMenu}
+            .followable=${menu.followable}
+            .href=${menu.href}
+          ></menu-button>
+        </li>
+      `,
     );
   }
 

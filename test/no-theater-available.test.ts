@@ -7,7 +7,7 @@ describe('IANoTheaterAvailable', () => {
     const el = await fixture<IANoTheaterAvailable>(
       html`<ia-no-theater-available
         .identifier=${`foo`}
-      ></ia-no-theater-available>`
+      ></ia-no-theater-available>`,
     );
     let eventFired = false;
     el.addEventListener('loadingStateUpdated', () => {
@@ -24,7 +24,7 @@ describe('IANoTheaterAvailable', () => {
     const el = await fixture<IANoTheaterAvailable>(
       html`<ia-no-theater-available
         .identifier=${`foo`}
-      ></ia-no-theater-available>`
+      ></ia-no-theater-available>`,
     );
     expect(el.downloadUrl).to.equal('/download/foo');
     expect(el?.shadowRoot?.querySelector('a')?.href).to.contain(el.downloadUrl);

@@ -25,5 +25,5 @@ export interface MenuProviderInterface
   extends MenuProviderBaseConfigInterface,
     MenuDetailsInterface,
     MenuShortcutInterface {
-      actionButton: TemplateResult;
-    }
+  actionButton: TemplateResult;
+}

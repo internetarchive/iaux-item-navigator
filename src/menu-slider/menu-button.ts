@@ -35,7 +35,7 @@ export class MenuButton extends LitElement {
         detail: {
           id: this.buttonId,
         },
-      })
+      }),
     );
   }
 
