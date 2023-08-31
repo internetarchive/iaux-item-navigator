@@ -71,14 +71,13 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "extends": [
-      "@open-wc/eslint-config",
-      "eslint-config-prettier"
+      "@open-wc",
+      "prettier"
     ],
     "plugins": [
       "@typescript-eslint"
     ],
     "rules": {
-      "class-methods-use-this": "off",
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": [
         "error"
@@ -87,15 +86,16 @@
       "@typescript-eslint/no-shadow": [
         "error"
       ],
+      "class-methods-use-this": "off",
       "import/no-unresolved": "off",
       "import/extensions": [
         "off",
+        "ignorePackages",
         {
           "js": "never",
           "ts": "never"
         }
-      ],
-      "import/no-duplicates": "off"
+      ]
     }
   },
   "prettier": {
