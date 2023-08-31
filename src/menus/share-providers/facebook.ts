@@ -17,7 +17,7 @@ export default class extends Provider {
     this.class = 'facebook';
   }
 
-  get url(): string {
+  override get url(): string {
     return `https://www.facebook.com/sharer/sharer.php?u=https://${this.baseHost}/details/${this.itemPath}`;
   }
 }

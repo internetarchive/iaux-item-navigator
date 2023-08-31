@@ -17,7 +17,7 @@ export default class extends Provider {
     this.class = 'email';
   }
 
-  get url(): string {
+  override get url(): string {
     return `mailto:?body=https://${this.baseHost}/details/${this.itemPath}&subject=${this.description} : ${this.creator}${this.promoCopy}`;
   }
 }

@@ -17,7 +17,7 @@ export default class extends Provider {
     this.class = 'pinterest';
   }
 
-  get url(): string {
+  override get url(): string {
     return `http://www.pinterest.com/pin/create/button/?url=https://${this.baseHost}/details/${this.itemPath}&description=${this.encodedDescription}+%3A+${this.encodedCreator}${this.encodedPromoCopy}`;
   }
 }

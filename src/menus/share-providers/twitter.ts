@@ -17,7 +17,7 @@ export default class TwitterProvider extends Provider {
     this.class = 'twitter';
   }
 
-  get url(): string {
+  override get url(): string {
     return `https://twitter.com/intent/tweet?url=https://${this.baseHost}/details/${this.itemPath}&via=internetarchive&text=${this.encodedDescription}+%3A+${this.encodedCreator}${this.encodedPromoCopy}`;
   }
 }
