@@ -35,7 +35,7 @@ import {
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
 
-@customElement('ia-item-navigator')
+@customElement('iaux-item-navigator')
 export class ItemNavigator
   extends LitElement
   implements SharedResizeObserverResizeHandlerInterface
@@ -55,15 +55,7 @@ export class ItemNavigator
 
   @property({ type: String }) baseHost = 'archive.org';
 
-  @property({
-    converter: (arg: string | boolean | null) => {
-      if (typeof arg === 'boolean') {
-        return arg;
-      }
-      return arg === 'true';
-    },
-  })
-  signedIn = false;
+  @property({ type: Boolean }) signedIn = false;
 
   @property({ type: Array }) menuContents: MenuProviderInterface[] = [];
 
