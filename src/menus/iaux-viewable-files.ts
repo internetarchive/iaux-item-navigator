@@ -1,17 +1,18 @@
 /* eslint-disable lit-a11y/list */
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
-import { property } from 'lit/decorators';
+import { customElement, property } from 'lit/decorators';
 import { repeat } from 'lit/directives/repeat';
 
 type ItemInfo = {
-  url_path: string,
-  image: string,
-  title: string,
-  author: string,
-  file_subprefix: string,
+  url_path: string;
+  image: string;
+  title: string;
+  author: string;
+  file_subprefix: string;
 };
 
-export class Volumes extends LitElement {
+@customElement('iaux-viewable-files')
+export class ViewableFiles extends LitElement {
   @property({ type: String }) hostUrl: string = 'archive.org';
 
   @property({ type: String }) sortOrderBy: string = 'default';
@@ -37,16 +38,17 @@ export class Volumes extends LitElement {
   }
 
   volumeItemWithImageTitle(item: ItemInfo) {
-    const hrefUrl = this.sortOrderBy === 'default'
-      ? `${this.hostUrl}${item.url_path}`
-      : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+    const hrefUrl =
+      this.sortOrderBy === 'default'
+        ? `${this.hostUrl}${item.url_path}`
+        : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
 
     return html`
       <li class="content active">
         <div class="separator"></div>
         <a class="container" href="${hrefUrl}">
           <div class="image">
-            <img src="${item.image}" alt="preview">
+            <img src="${item.image}" alt="preview" />
           </div>
           <div class="text">
             <p class="item-title">${item.title}</p>
@@ -60,9 +62,10 @@ export class Volumes extends LitElement {
   volumeItem(item: ItemInfo) {
     const activeClass = this.subPrefix === item.file_subprefix ? ' active' : '';
 
-    const hrefUrl = this.sortOrderBy === 'default'
-      ? `${this.hostUrl}${item.url_path}`
-      : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+    const hrefUrl =
+      this.sortOrderBy === 'default'
+        ? `${this.hostUrl}${item.url_path}`
+        : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
 
     return html`
       <li>
@@ -77,19 +80,21 @@ export class Volumes extends LitElement {
   }
 
   get volumesList(): TemplateResult {
-    const volumes = repeat(this.viewableFiles, volume => volume?.file_prefix, this.volumeItem.bind(this));
+    const volumes = repeat(
+      this.viewableFiles,
+      volume => volume?.file_prefix,
+      this.volumeItem.bind(this),
+    );
     return html`
       <ul>
         ${volumes}
-        <div class="separator"></div> 
+        <div class="separator"></div>
       </ul>
     `;
   }
 
   render() {
-    return html`
-      ${this.viewableFiles.length ? this.volumesList : nothing}
-    `;
+    return html` ${this.viewableFiles.length ? this.volumesList : nothing} `;
   }
 
   static get styles() {
@@ -106,7 +111,7 @@ export class Volumes extends LitElement {
 
       a {
         color: #ffffff;
-        text-decoration: none
+        text-decoration: none;
       }
 
       img {
@@ -133,9 +138,9 @@ export class Volumes extends LitElement {
       li .content {
         padding: 2px 0 4px 2px;
         border: var(--activeBorderWidth) solid transparent;
-        padding: .2rem 0 .4rem .2rem;
+        padding: 0.2rem 0 0.4rem 0.2rem;
       }
-      
+
       li .content.active {
         border: var(--activeBorderWidth) solid #538bc5;
       }
@@ -148,7 +153,7 @@ export class Volumes extends LitElement {
       .container {
         display: flex;
         align-items: center;
-        justify-content: center
+        justify-content: center;
       }
 
       .item-title {
@@ -175,14 +180,11 @@ export class Volumes extends LitElement {
         display: inline-block;
         width: 14px;
         height: 14px;
-        margin-left: .7rem;
+        margin-left: 0.7rem;
         border: 1px solid var(--primaryTextColor);
         border-radius: 2px;
         background: var(--activeButtonBg) 50% 50% no-repeat;
       }
-
     `;
   }
 }
-
-customElements.define('viewable-files', Volumes);

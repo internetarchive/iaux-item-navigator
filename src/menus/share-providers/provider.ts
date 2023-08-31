@@ -21,8 +21,9 @@ export default class Provider {
   class: string | undefined;
 
   constructor(params: ProviderParams) {
-    this.promoCopy = ' : Free Download, Borrow, and Streaming : Internet Archive';
-    
+    this.promoCopy =
+      ' : Free Download, Borrow, and Streaming : Internet Archive';
+
     this.description = params?.description || '';
     this.creator = params?.creator || '';
     this.fileSubPrefix = params?.fileSubPrefix || '';
@@ -43,8 +44,16 @@ export default class Provider {
   }
 
   get itemPath(): string {
-    const encodedFileSubPrefix = this.fileSubPrefix ? encodeURIComponent(this.fileSubPrefix) : '';
-    return encodedFileSubPrefix ? `${this.identifier}/${encodedFileSubPrefix}` : this.identifier;
+    const encodedFileSubPrefix = this.fileSubPrefix
+      ? encodeURIComponent(this.fileSubPrefix)
+      : '';
+    return encodedFileSubPrefix
+      ? `${this.identifier}/${encodedFileSubPrefix}`
+      : this.identifier;
+  }
+
+  get url(): string {
+    return `https://${this.baseHost}/details/${this.itemPath}`;
   }
 
   encodeString(str: string): string {
