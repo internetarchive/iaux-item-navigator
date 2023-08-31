@@ -57,6 +57,7 @@ export default class Provider {
   }
 
   encodeString(str: string): string {
+    if (!str) return '';
     return encodeURIComponent(str.replace(/\s/g, '+')).replace(/%2B/g, '+');
   }
 }

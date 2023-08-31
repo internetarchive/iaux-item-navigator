@@ -1,10 +1,19 @@
 /* eslint-disable lit-a11y/click-events-have-key-events */
 /* eslint-disable lit-a11y/list */
-import { classMap } from 'lit/directives/class-map';
-import { ifDefined } from 'lit/directives/if-defined';
-import { css, CSSResult, html, LitElement, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators';
+import { classMap } from 'lit/directives/class-map.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
+import {
+  css,
+  CSSResult,
+  html,
+  LitElement,
+  nothing,
+  PropertyValues,
+  TemplateResult,
+} from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import '@internetarchive/icon-link/icon-link';
+import '@internetarchive/icon-share/icon-share';
 
 import EmailProvider from './share-providers/email';
 import FacebookProvider from './share-providers/facebook';
@@ -26,8 +35,12 @@ const copyToClipboard = (options: Record<any, any>) => {
   note.timeout = setTimeout(() => note.classList.remove('visible'), 4000);
 };
 
+export const iauxShareIcon: TemplateResult = html`<ia-icon-share
+  style="width: var(--iconWidth); height: var(--iconHeight);"
+></ia-icon-share>`;
+
 @customElement('iaux-sharing-options')
-export class IASharingOptions extends LitElement {
+export class IauxSharingOptions extends LitElement {
   @property({ type: String }) baseHost = 'archive.org';
 
   @property({ type: String }) creator = '';
@@ -46,7 +59,13 @@ export class IASharingOptions extends LitElement {
 
   @property({ type: String }) fileSubPrefix = '';
 
-  firstUpdated() {
+  updated(changed: PropertyValues) {
+    if (changed.has('sharingOptions') && !this.sharingOptions.length) {
+      this.loadProviders();
+    }
+  }
+
+  loadProviders() {
     const { baseHost, creator, description, identifier, type, fileSubPrefix } =
       this;
     const params = {
@@ -146,6 +165,12 @@ export class IASharingOptions extends LitElement {
         </div>
       </ul>
     `;
+  }
+
+  get providerIcon(): TemplateResult {
+    return html`<ia-icon-share
+      style="width: var(--iconWidth); height: var(--iconHeight);"
+    ></ia-icon-share>`;
   }
 
   static get styles(): CSSResult {

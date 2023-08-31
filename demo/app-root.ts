@@ -8,17 +8,19 @@ import {
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/modal-manager';
-import { ItemNavigator } from '../src/item-navigator';
-import '../src/item-navigator';
+import type { ItemNavigator } from '../src/iaux-item-navigator';
+import '../src/iaux-item-navigator';
+import '../src/menus/iaux-sharing-options';
 import {
   MenuShortcutInterface,
   MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
+import { iauxShareIcon } from '../src/menus/iaux-sharing-options';
 
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
-   * Example controller to connect to `<ia-item-navigator>`
+   * Example controller to connect to `<iaux-item-navigator>`
    */
   @property({ type: Object }) itemMD?: MetadataResponse;
 
@@ -46,7 +48,7 @@ export class AppRoot extends LitElement {
     | true
     | null = true;
 
-  @query('ia-item-navigator') private itemNav!: ItemNavigator;
+  @query('iaux-item-navigator') private itemNav!: ItemNavigator;
 
   @query('modal-manager') modalMgr!: ModalManager;
 
@@ -106,7 +108,7 @@ export class AppRoot extends LitElement {
     }
   }
 
-  /** toggles attr: `<ia-item-navigator viewportinfullscreen>` */
+  /** toggles attr: `<iaux-item-navigator viewportinfullscreen>` */
   fullscreenCheck(): void {
     if (this.showFullscreen && this.itemNav) {
       this.fullscreen = true;
@@ -183,14 +185,26 @@ export class AppRoot extends LitElement {
     this.showPlaceholder = null;
     this.showTheaterExample = true;
 
-    const x = {
-      icon: html`<p style="color: red">Allo</p>`,
-      id: 'a',
-      label: 'Hello world',
-      menuDetails: html`<h3>Wheee!</h3>`,
-    } as any;
-    this.menuContents = [x];
-    this.menuShortcuts = [x];
+    const shareMenu = {
+      icon: iauxShareIcon,
+      label: 'Share this item',
+      id: 'share',
+      component: html`<iaux-sharing-options
+        .identifier=${this.itemMD?.metadata.identifier || 'ux-team-books'}
+        .type=${`book`}
+        .creator=${`UX Team`}
+        .description=${'list of test books'}
+        .baseHost=${'archive.org'}
+        .fileSubPrefix=${''}
+      ></iaux-sharing-options>`,
+    } as unknown as MenuProviderInterface;
+
+    // const viewableFiles = {
+
+    // };
+
+    this.menuContents = [shareMenu];
+    this.menuShortcuts = [shareMenu];
   }
 
   /** Views */
@@ -256,7 +270,7 @@ export class AppRoot extends LitElement {
     return html`
       <h1>theater, in page</h1>
       <section>
-        <ia-item-navigator
+        <iaux-item-navigator
           baseHost="https://archive.org"
           .item=${this.itemMD}
           .modal=${this.modalMgr}
@@ -269,7 +283,7 @@ export class AppRoot extends LitElement {
         >
           ${this.headerOn ? this.headerExample : ''}
           ${this.showTheaterExample ? this.theaterExample : ''}
-        </ia-item-navigator>
+        </iaux-item-navigator>
       </section>
       <div>
         <button @click=${this.toggleHeader}>toggle header</button>
@@ -304,7 +318,7 @@ export class AppRoot extends LitElement {
     }
 
     :host,
-    ia-item-navigator {
+    iaux-item-navigator {
       display: block;
       position: relative;
       width: 100%;
