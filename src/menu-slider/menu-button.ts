@@ -16,7 +16,7 @@ export class MenuButton extends LitElement {
 
   @property({ type: String }) menuDetails = '';
 
-  @property({ type: String }) id = '';
+  @property({ type: String }) buttonId = '';
 
   @property({ type: Boolean }) selected = false;
 
@@ -33,9 +33,9 @@ export class MenuButton extends LitElement {
         bubbles: true,
         composed: true,
         detail: {
-          id: this.id,
+          id: this.buttonId,
         },
-      })
+      }),
     );
   }
 

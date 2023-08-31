@@ -16,7 +16,7 @@ export class IANoTheaterAvailable extends LitElement {
     this.dispatchEvent(
       new CustomEvent<{ loaded: boolean }>('loadingStateUpdated', {
         detail: { loaded: true },
-      })
+      }),
     );
   }
 

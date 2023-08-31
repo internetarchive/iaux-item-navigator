@@ -24,4 +24,6 @@ export interface MenuProviderBaseConfigInterface {
 export interface MenuProviderInterface
   extends MenuProviderBaseConfigInterface,
     MenuDetailsInterface,
-    MenuShortcutInterface {}
+    MenuShortcutInterface {
+  actionButton: TemplateResult;
+}

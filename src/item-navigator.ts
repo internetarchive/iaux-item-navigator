@@ -38,7 +38,8 @@ import './no-theater-available';
 @customElement('ia-item-navigator')
 export class ItemNavigator
   extends LitElement
-  implements SharedResizeObserverResizeHandlerInterface {
+  implements SharedResizeObserverResizeHandlerInterface
+{
   @property({
     type: Object,
     converter: (value: string | MetadataResponse | null): MetadataResponse => {
@@ -150,19 +151,23 @@ export class ItemNavigator
     return html`
       <div class="loading-area">
         <div class="loading-view">
-          <ia-itemnav-loader .title=${this.loaderTitle}></ia-itemnav-loader>
+          <ia-itemnav-loader
+            .loaderMessage=${this.loaderTitle}
+          ></ia-itemnav-loader>
         </div>
       </div>
     `;
   }
 
   slotChange(e: Event, type: 'header' | 'main'): void {
-    const slottedContent = (e.target as HTMLSlotElement).assignedNodes()?.[0] as HTMLElement;
+    const slottedContent = (
+      e.target as HTMLSlotElement
+    ).assignedNodes()?.[0] as HTMLElement;
 
     this.dispatchEvent(
       new CustomEvent('slotChange', {
         detail: { slot: slottedContent, type },
-      })
+      }),
     );
     this.requestUpdate();
   }

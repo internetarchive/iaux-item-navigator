@@ -24,7 +24,7 @@ describe('ItemNavigator', () => {
   describe('Theaters', () => {
     it('shows <ia-no-theater-available> if told', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
       el.viewAvailable = false;
       await el.updateComplete;
@@ -33,7 +33,7 @@ describe('ItemNavigator', () => {
     });
     it('opens main slot by default', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       expect(el.viewAvailable).to.be.true;
@@ -45,23 +45,23 @@ describe('ItemNavigator', () => {
   describe('`el.loaded`', () => {
     it('toggles the spinning loader', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
       expect(el.loaded).to.be.null; // initial load
       expect(el.shadowRoot?.querySelector('ia-itemnav-loader')).to.exist;
     });
     it('hides reader section if `!loaded`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
 
       expect(
-        el.shadowRoot?.querySelector('#reader')?.getAttribute('class')
+        el.shadowRoot?.querySelector('#reader')?.getAttribute('class'),
       ).to.contain('hidden');
     });
     it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       el.loaded = true;
@@ -75,7 +75,7 @@ describe('ItemNavigator', () => {
     });
     it('listens to `@loadingStateUpdated` to update `loaded` for <no-theater-available>', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
 
       await el.updateComplete;
@@ -100,7 +100,7 @@ describe('ItemNavigator', () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`
+        ></ia-item-navigator>`,
       );
 
       expect(el.sharedObserver).to.equal(sharedObserver);
@@ -113,7 +113,7 @@ describe('ItemNavigator', () => {
       await fixture<ItemNavigator>(
         html`<ia-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`
+        ></ia-item-navigator>`,
       );
 
       expect(addObserverSpy.callCount).to.equal(2);
@@ -125,7 +125,7 @@ describe('ItemNavigator', () => {
       const el = await fixture<ItemNavigator>(
         html`<ia-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`
+        ></ia-item-navigator>`,
       );
 
       el.disconnectedCallback();
@@ -135,7 +135,7 @@ describe('ItemNavigator', () => {
     });
     it('sets menu to overlay if container width is <= 600px', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
 
       expect(el.openMenuState).to.equal('shift'); // as starting point
@@ -162,7 +162,7 @@ describe('ItemNavigator', () => {
     it('uses one', async () => {
       const modal = new ModalManager();
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .modal=${modal}></ia-item-navigator>`
+        html`<ia-item-navigator .modal=${modal}></ia-item-navigator>`,
       );
       expect(el.modal).to.equal(modal);
     });
@@ -172,7 +172,7 @@ describe('ItemNavigator', () => {
     it('creates reflected attribute `viewportinfullscreen`', async () => {
       /** to help with external styling adjustmnents */
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
       expect(el.getAttribute('viewportinfullscreen')).to.be.null;
 
@@ -183,7 +183,7 @@ describe('ItemNavigator', () => {
     });
     it('@ViewportInFullScreen', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`
+        html`<ia-item-navigator></ia-item-navigator>`,
       );
       expect(el.viewportInFullscreen).to.be.null;
 
@@ -211,7 +211,7 @@ describe('ItemNavigator', () => {
   describe('el.menuOpened', () => {
     it('toggles side menu open', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -223,7 +223,7 @@ describe('ItemNavigator', () => {
       // side menu starts closed
       expect(el.menuOpened).to.be.false;
       expect(nav?.querySelector('#menu')?.getAttribute('class')).to.contain(
-        'hidden'
+        'hidden',
       );
 
       // let's open menu
@@ -232,13 +232,13 @@ describe('ItemNavigator', () => {
 
       expect(el.menuOpened).to.be.true;
       expect(nav?.querySelector('#menu')?.getAttribute('class')).to.not.contain(
-        'hidden'
+        'hidden',
       );
     });
 
     it('opens menu shortcut with `@manageSideMenuEvents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
       const detail = {
         menuId: 'fullscreen',
@@ -303,7 +303,7 @@ describe('ItemNavigator', () => {
   describe('el.menuContents', () => {
     it('draws side menu when populated', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -324,7 +324,7 @@ describe('ItemNavigator', () => {
   describe('`el.menuShortcuts`', () => {
     it('displays shortcut & toggle side menu button', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       const anotherShortcut = {
@@ -350,7 +350,7 @@ describe('ItemNavigator', () => {
   describe('Menu events', () => {
     it('`el.setMenuShortcuts`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
       expect(el.menuShortcuts.length).to.equal(0);
 
@@ -365,7 +365,7 @@ describe('ItemNavigator', () => {
     });
     it('`el.setMenuContents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
       expect(el.menuContents.length).to.equal(0);
 
@@ -378,7 +378,7 @@ describe('ItemNavigator', () => {
     });
     it('`el.setOpenMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       el.setOpenMenu({
@@ -400,7 +400,7 @@ describe('ItemNavigator', () => {
     });
     it('`el.closeMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`
+        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
       );
 
       el.menuOpened = true;

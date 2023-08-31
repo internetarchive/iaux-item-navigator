@@ -1,14 +1,10 @@
 /* eslint-disable class-methods-use-this */
 import { css, html, LitElement, svg, nothing } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('ia-itemnav-loader')
 export class IAItemNavLoader extends LitElement {
-  static get properties() {
-    return {
-      title: { type: String },
-    };
-  }
+  @property({ type: String }) loaderMessage = '';
 
   get bookIconSvg() {
     return svg`
@@ -48,7 +44,9 @@ export class IAItemNavLoader extends LitElement {
   }
 
   render() {
-    const title = this.title ? html`<h2>${this.title}</h2>` : nothing;
+    const title = this.loaderMessage
+      ? html`<h2>${this.loaderMessage}</h2>`
+      : nothing;
     return html`
       <div class="place-holder">
         ${title} ${this.loader}

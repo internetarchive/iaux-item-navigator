@@ -12,8 +12,9 @@ import { ItemNavigator } from '../src/item-navigator';
 import '../src/item-navigator';
 import {
   MenuShortcutInterface,
-  MenuDetailsInterface,
+  MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
+
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
@@ -26,22 +27,20 @@ export class AppRoot extends LitElement {
   @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
 
   @property({ type: Array, attribute: false })
-  menuContents: MenuDetailsInterface[] = [];
+  menuContents: MenuProviderInterface[] = [];
 
   @property({ type: Array, attribute: false })
   menuShortcuts: MenuShortcutInterface[] = [];
 
-  @property({ reflect: true, attribute: true }) fullscreen:
-    | boolean
-    | null = null;
+  @property({ reflect: true, attribute: true }) fullscreen: boolean | null =
+    null;
 
   @property({ reflect: true, attribute: true }) headerOn: true | null = null;
 
-  @property({ reflect: true, attribute: true }) loaded = true;
+  @property({ reflect: true, attribute: true }) loaded: true | null = true;
 
-  @property({ reflect: true, attribute: true }) showPlaceholder:
-    | true
-    | null = null;
+  @property({ reflect: true, attribute: true }) showPlaceholder: true | null =
+    null;
 
   @property({ reflect: true, attribute: true }) showTheaterExample:
     | true
@@ -56,7 +55,7 @@ export class AppRoot extends LitElement {
     console.log(
       '<app-root> component has loaded',
       this.modalMgr,
-      this.sharedObserver
+      this.sharedObserver,
     );
 
     this.itemNav.viewAvailable = false;
@@ -76,7 +75,7 @@ export class AppRoot extends LitElement {
     if (mdResponse.error) {
       console.log('MD Fetch error: ', mdResponse.error);
       (window as any).confirm(
-        'There was an error fetching response, please check dev console'
+        'There was an error fetching response, please check dev console',
       );
       return;
     }
@@ -120,7 +119,8 @@ export class AppRoot extends LitElement {
   }
 
   toggleLoader() {
-    this.loaded = !this.loaded;
+    const nextState = this.loaded === true ? null : true;
+    this.loaded = nextState;
   }
 
   togglePlaceholder() {
@@ -162,7 +162,7 @@ export class AppRoot extends LitElement {
         label: 'Exit',
         selected: false,
       },
-    ];
+    ] as any as MenuProviderInterface[];
 
     this.fullscreen = nextState;
   }
