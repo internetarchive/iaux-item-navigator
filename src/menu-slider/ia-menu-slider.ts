@@ -96,7 +96,7 @@ export class IaMenuSlider extends LitElement {
             .icon=${menu.icon}
             .label=${menu.label}
             .menuDetails=${menu.menuDetails}
-            .id=${menu.id}
+            .buttonId=${menu.id}
             .selected=${menu.id === this.selectedMenu}
             .followable=${menu.followable}
             .href=${menu.href}
