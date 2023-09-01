@@ -34,19 +34,24 @@ export class AppRoot extends LitElement {
   @property({ type: Array, attribute: false })
   menuShortcuts: MenuShortcutInterface[] = [];
 
-  @property({ reflect: true, attribute: true }) fullscreen: boolean | null =
-    null;
+  @property({ reflect: true, attribute: true, type: Boolean }) fullscreen:
+    | boolean
+    | null = null;
 
-  @property({ reflect: true, attribute: true }) headerOn: true | null = null;
-
-  @property({ reflect: true, attribute: true }) loaded: true | null = true;
-
-  @property({ reflect: true, attribute: true }) showPlaceholder: true | null =
-    null;
-
-  @property({ reflect: true, attribute: true }) showTheaterExample:
+  @property({ reflect: true, attribute: true, type: Boolean }) headerOn:
     | true
-    | null = true;
+    | null = null;
+
+  @property({ reflect: true, attribute: true, type: Boolean }) loaded:
+    | true
+    | null = null;
+
+  @property({ reflect: true, attribute: true, type: Boolean }) showPlaceholder:
+    | true
+    | null = null;
+
+  @property({ reflect: true, attribute: true, type: Boolean })
+  showTheaterExample: true | null = null;
 
   @query('iaux-item-navigator') private itemNav!: ItemNavigator;
 
@@ -84,6 +89,7 @@ export class AppRoot extends LitElement {
 
     console.log('mdResponse.success', JSON.stringify(mdResponse.success));
     this.itemMD = mdResponse.success;
+    this.toggleTheaterExample();
   }
 
   get theaterReady(): boolean {
