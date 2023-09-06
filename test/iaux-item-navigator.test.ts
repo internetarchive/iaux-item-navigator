@@ -24,7 +24,9 @@ describe('ItemNavigator', () => {
   describe('Theaters', () => {
     it('shows <ia-no-theater-available> if told', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       el.viewAvailable = false;
       await el.updateComplete;
@@ -33,7 +35,9 @@ describe('ItemNavigator', () => {
     });
     it('opens main slot by default', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       expect(el.viewAvailable).to.be.true;
@@ -61,7 +65,9 @@ describe('ItemNavigator', () => {
     });
     it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.loaded = true;
@@ -211,7 +217,9 @@ describe('ItemNavigator', () => {
   describe('el.menuOpened', () => {
     it('toggles side menu open', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -238,7 +246,9 @@ describe('ItemNavigator', () => {
 
     it('opens menu shortcut with `@manageSideMenuEvents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       const detail = {
         menuId: 'fullscreen',
@@ -303,7 +313,9 @@ describe('ItemNavigator', () => {
   describe('el.menuContents', () => {
     it('draws side menu when populated', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -324,7 +336,9 @@ describe('ItemNavigator', () => {
   describe('`el.menuShortcuts`', () => {
     it('displays shortcut & toggle side menu button', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       const anotherShortcut = {
@@ -350,7 +364,9 @@ describe('ItemNavigator', () => {
   describe('Menu events', () => {
     it('`el.setMenuShortcuts`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       expect(el.menuShortcuts.length).to.equal(0);
 
@@ -365,7 +381,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.setMenuContents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       expect(el.menuContents.length).to.equal(0);
 
@@ -378,7 +396,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.setOpenMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.setOpenMenu({
@@ -400,7 +420,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.closeMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<iaux-item-navigator .item=${new ItemStub()}></iaux-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuOpened = true;
