@@ -4,10 +4,10 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { ItemNavigator } from '../src/item-navigator';
-import '../src/item-navigator';
+import { ItemNavigator } from '../src/iaux-item-navigator';
+import '../src/iaux-item-navigator';
 
-import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
+import { ItemStub, menuProvider, shortcut } from './ia-stub';
 import {
   ManageFullscreenEvent,
   ToggleSideMenuOpenEvent,
