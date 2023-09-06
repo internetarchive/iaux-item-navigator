@@ -16,7 +16,111 @@ import {
   MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
 import { iauxShareIcon } from '../src/menus/iaux-sharing-options';
+import { viewableFilesIcon } from '../src/menus/iaux-viewable-files';
 
+const fileList = [
+  {
+    url_path: '/details/masterbookofamericanfolksong00shep',
+    file_subprefix: '01-The Master Book of American Folk Song',
+    title: 'The Master Book of American Folk Song',
+    file_source: '/01-The Master Book of American Folk Song_jp2.zip',
+    orig_sort: 0,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/02-Encyclopedia%20of%20the%20Traditional%20Music%20and%20Folk%20Songs%20of%20the%20United%20States%20Index%20A%20through%20M',
+    file_subprefix:
+      '02-Encyclopedia of the Traditional Music and Folk Songs of the United States Index A through M',
+    title:
+      'Encyclopedia of the Traditional Music and Folk Songs of the United States Index A through M',
+    file_source:
+      '/02-Encyclopedia of the Traditional Music and Folk Songs of the United States Index A through M_jp2.zip',
+    orig_sort: 1,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/03-Encyclopedia%20of%20the%20Traditional%20Music%20and%20Folk%20Songs%20of%20the%20United%20States%20Index%20N%20through%20Z',
+    file_subprefix:
+      '03-Encyclopedia of the Traditional Music and Folk Songs of the United States Index N through Z',
+    title:
+      'Encyclopedia of the Traditional Music and Folk Songs of the United States Index N through Z',
+    file_source:
+      '/03-Encyclopedia of the Traditional Music and Folk Songs of the United States Index N through Z_jp2.zip',
+    orig_sort: 2,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/04-Letters%20to%20Riley%20Shepard',
+    file_subprefix: '04-Letters to Riley Shepard',
+    title: 'Letters to Riley Shepard',
+    file_source: '/04-Letters to Riley Shepard_jp2.zip',
+    orig_sort: 3,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%201',
+    file_subprefix: 'Master Book of American Folk Song Vol. 1',
+    title: 'Master Book of American Folk Song Vol. 1.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 1_jp2.zip',
+    orig_sort: 4,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%202',
+    file_subprefix: 'Master Book of American Folk Song Vol. 2',
+    title: 'Master Book of American Folk Song Vol. 2.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 2_jp2.zip',
+    orig_sort: 5,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%203',
+    file_subprefix: 'Master Book of American Folk Song Vol. 3',
+    title: 'Master Book of American Folk Song Vol. 3.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 3_jp2.zip',
+    orig_sort: 6,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%204',
+    file_subprefix: 'Master Book of American Folk Song Vol. 4',
+    title: 'Master Book of American Folk Song Vol. 4.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 4_jp2.zip',
+    orig_sort: 7,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%205',
+    file_subprefix: 'Master Book of American Folk Song Vol. 5',
+    title: 'Master Book of American Folk Song Vol. 5',
+    file_source: '/Master Book of American Folk Song Vol. 5_jp2.zip',
+    orig_sort: 8,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%206',
+    file_subprefix: 'Master Book of American Folk Song Vol. 6',
+    title: 'Master Book of American Folk Song Vol. 6.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 6_jp2.zip',
+    orig_sort: 9,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%207',
+    file_subprefix: 'Master Book of American Folk Song Vol. 7',
+    title: 'Master Book of American Folk Song Vol. 7.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 7_jp2.zip',
+    orig_sort: 10,
+  },
+  {
+    url_path:
+      '/details/masterbookofamericanfolksong00shep/Master%20Book%20of%20American%20Folk%20Song%20Vol.%208',
+    file_subprefix: 'Master Book of American Folk Song Vol. 8',
+    title: 'Master Book of American Folk Song Vol. 8.pdf',
+    file_source: '/Master Book of American Folk Song Vol. 8_jp2.zip',
+    orig_sort: 11,
+  },
+];
 @customElement('app-root')
 export class AppRoot extends LitElement {
   /**
@@ -53,6 +157,8 @@ export class AppRoot extends LitElement {
   @property({ reflect: true, attribute: true, type: Boolean })
   showTheaterExample: true | null = null;
 
+  @property({ type: Array }) fileListToDisplay: any[] = fileList;
+
   @query('iaux-item-navigator') private itemNav!: ItemNavigator;
 
   @query('modal-manager') modalMgr!: ModalManager;
@@ -73,11 +179,20 @@ export class AppRoot extends LitElement {
     if (changed.has('itemMD')) {
       this.fullscreenCheck();
     }
+
+    if (changed.has('fileList')) {
+      this.drawMenus();
+    }
   }
 
   async fetchItemMD() {
     const searchService = SearchService.default;
-    const mdResponse = await searchService.fetchMetadata('ux-team-books');
+
+    // masterbookofamericanfolksong00shep => multiple files
+    // ux-team-books => item
+    const mdResponse = await searchService.fetchMetadata(
+      'masterbookofamericanfolksong00shep',
+    );
 
     if (mdResponse.error) {
       console.log('MD Fetch error: ', mdResponse.error);
@@ -190,7 +305,10 @@ export class AppRoot extends LitElement {
     // turn off placeholder
     this.showPlaceholder = null;
     this.showTheaterExample = true;
+    this.drawMenus();
+  }
 
+  drawMenus() {
     const shareMenu = {
       icon: iauxShareIcon,
       label: 'Share this item',
@@ -205,12 +323,36 @@ export class AppRoot extends LitElement {
       ></iaux-sharing-options>`,
     } as unknown as MenuProviderInterface;
 
-    // const viewableFiles = {
+    const filesNewArr = [...fileList];
+    const viewableFilesMenu = {
+      id: 'viewable-files',
+      icon: viewableFilesIcon,
+      label: `Viewable Files (${fileList.length})`,
+      baseHost: 'archive.org',
+      item: this.itemMD as MetadataResponse,
+      subPrefix: '',
+      // sorter
+      actionButton: html`<iaux-sort-viewable-files
+        @fileListSorted=${(e: CustomEvent) => this.sortFilesCallback(e)}
+        .fileListRaw=${fileList}
+      ></iaux-sort-viewable-files>`,
+      component: html`<iaux-viewable-files
+        .fileList=${filesNewArr}
+      ></iaux-viewable-files> `,
+    };
 
-    // };
+    this.menuContents = [viewableFilesMenu, shareMenu];
+    this.menuShortcuts = [viewableFilesMenu, shareMenu];
+  }
 
-    this.menuContents = [shareMenu];
-    this.menuShortcuts = [shareMenu];
+  async sortFilesCallback(e: CustomEvent) {
+    const { sortType, sortedFiles } = e.detail;
+    this.fileListToDisplay = sortedFiles;
+    console.log('fileListSorted', { sortType, sortedFiles });
+    await this.updateComplete;
+    console.log('fileListSortedasyncd', { sortType, sortedFiles });
+    this.drawMenus();
+    // debugger;
   }
 
   /** Views */
@@ -220,7 +362,7 @@ export class AppRoot extends LitElement {
         <div class="theater-example">
           <img
             alt="cat theater"
-            src="https://archive.org/download/encyclopediaofca0000poll_t2e2/__ia_thumb.jpg"
+            src="https://archive.org/download/masterbookofamericanfolksong00shep/__ia_thumb.jpg"
           />
           <h3>Welcome to Cat Theater</h3>
         </div>
