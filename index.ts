@@ -8,3 +8,4 @@ export {
   iauxShareIcon,
 } from './src/menus/iaux-sharing-options';
 export { IauxViewableFiles } from './src/menus/iaux-viewable-files';
+export { IauxSortFilesButton } from './src/menus/iaux-viewable-files';
