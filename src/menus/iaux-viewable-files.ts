@@ -390,13 +390,13 @@ export class IauxViewableFiles extends LitElement {
       }
 
       .pdf-label {
-        margin: 10px 0 5px;
+        margin: 5px 5px 5px 0;
         text-align: right;
       }
 
       .pdf-label span {
         border: 1px solid;
-        padding: 10px 5px 5px 0;
+        padding: 5px 10px;
         border-radius: 20px;
       }
     `;

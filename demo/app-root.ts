@@ -32,7 +32,7 @@ const fileList = [
     file_source: "onestrandriverpdf.pdf",
     file_subprefix: "onestrandriverpdf",
     orig_sort: 1,
-    title: "onestrandriverpdf.pdf",
+    title: "Very cool title that is extra long so it wraps for three rows and close to the right side of the pane",
     url_path: "/details/pdf_only_item/onestrandriverpdf.pdf",
   },
   {
