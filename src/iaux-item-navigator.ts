@@ -51,7 +51,7 @@ export class ItemNavigator
   })
   item?: MetadataResponse;
 
-  @property({ type: Boolean }) viewAvailable: Boolean = true;
+  @property({ type: Boolean, reflect: true }) viewAvailable: Boolean = true;
 
   @property({ type: String }) baseHost = 'archive.org';
 
@@ -64,9 +64,9 @@ export class ItemNavigator
   @property({ type: Boolean, reflect: true, attribute: true })
   viewportInFullscreen: boolean | null = null;
 
-  @property({ type: Boolean }) menuOpened = false;
+  @property({ type: Boolean, reflect: true }) menuOpened = false;
 
-  @property({ type: String }) openMenu?: MenuId;
+  @property({ type: String, reflect: true }) openMenu?: MenuId;
 
   @property({ attribute: false }) modal?: ModalManager;
 

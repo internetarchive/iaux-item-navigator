@@ -7,5 +7,6 @@ export {
   IauxSharingOptions,
   iauxShareIcon,
 } from './src/menus/iaux-sharing-options';
+export { viewableFilesIcon } from './src/menus/iaux-viewable-files';
 export { IauxViewableFiles } from './src/menus/iaux-viewable-files';
 export { IauxSortFilesButton } from './src/menus/iaux-viewable-files';

@@ -86,7 +86,19 @@ const sortNeutralIcon = html`
   </svg>
 `;
 
-// extra components
+type sortOptions = 'title_asc' | 'title_desc' | 'default';
+
+type ItemInfo = {
+  url_path: string;
+  image: string;
+  title: string;
+  author: string;
+  file_subprefix: string;
+  file_source: string;
+  file_origin?: string;
+};
+
+/* icon for menu shortcut & menu icon */
 export const viewableFilesIcon = html`
   <svg
     height="24"
@@ -105,16 +117,7 @@ export const viewableFilesIcon = html`
   </svg>
 `;
 
-type sortOptions = 'title_asc' | 'title_desc' | 'default';
-
-type ItemInfo = {
-  url_path: string;
-  image: string;
-  title: string;
-  author: string;
-  file_subprefix: string;
-};
-
+/* <iaux-sort-viewable-files> side panel header button */
 @customElement('iaux-sort-viewable-files')
 export class IauxSortFilesButton extends LitElement {
   @property({ type: Array }) fileListRaw: any[] = [];
@@ -197,9 +200,10 @@ export class IauxSortFilesButton extends LitElement {
   }
 }
 
+/* <iaux-viewable-files> side panel menu */
 @customElement('iaux-viewable-files')
 export class IauxViewableFiles extends LitElement {
-  @property({ type: String }) hostUrl: string = 'archive.org';
+  @property({ type: String }) baseHost: string = 'archive.org';
 
   @property({ type: String }) sortOrderBy:
     | 'default'
@@ -209,6 +213,8 @@ export class IauxViewableFiles extends LitElement {
   @property({ type: String }) subPrefix: string = '';
 
   @property({ type: Array }) fileList: any[] = [];
+
+  @property({ type: Boolean, reflect: true }) addSortToUrl = false;
 
   firstUpdated() {
     const activeFile = this.shadowRoot!.querySelector('.content.active') as any;
@@ -225,10 +231,7 @@ export class IauxViewableFiles extends LitElement {
   }
 
   volumeItemWithImageTitle(item: ItemInfo) {
-    const hrefUrl =
-      this.sortOrderBy === 'default'
-        ? `${this.hostUrl}${item.url_path}`
-        : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+    const hrefUrl = this.fileUrl(item);
 
     return html`
       <li class="content active">
@@ -246,20 +249,33 @@ export class IauxViewableFiles extends LitElement {
     `;
   }
 
+  fileUrl(item: ItemInfo) {
+    const baseUrl = `//${this.baseHost}${item.url_path}`;
+    let hrefUrl = baseUrl;
+    if (this.addSortToUrl) {
+      hrefUrl =
+        this.sortOrderBy === 'default'
+          ? `${baseUrl}${item.url_path}`
+          : `${baseUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+    }
+    return hrefUrl;
+  }
+
   fileLi(item: ItemInfo) {
     const activeClass = this.subPrefix === item.file_subprefix ? ' active' : '';
-
-    const hrefUrl =
-      this.sortOrderBy === 'default'
-        ? `${this.hostUrl}${item.url_path}`
-        : `${this.hostUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+    const hrefUrl = this.fileUrl(item);
+    const isPdf = (item.file_source ?? '').match(/^[^+]+\.pdf$/i);
 
     return html`
       <li>
         <div class="separator"></div>
         <div class="content${activeClass}">
-          <a href="https://${hrefUrl}">
+          <a href=${hrefUrl}>
             <p class="item-title">${item.title}</p>
+            ${isPdf
+              ? html`<p class="pdf-label"><span>PDF</span></p>
+                  <p></p>`
+              : nothing}
           </a>
         </div>
       </li>
@@ -371,6 +387,17 @@ export class IauxViewableFiles extends LitElement {
         border: 1px solid var(--primaryTextColor);
         border-radius: 2px;
         background: var(--activeButtonBg) 50% 50% no-repeat;
+      }
+
+      .pdf-label {
+        margin: 10px 0 5px;
+        text-align: right;
+      }
+
+      .pdf-label span {
+        border: 1px solid;
+        padding: 5px 10px;
+        border-radius: 20px;
       }
     `;
   }

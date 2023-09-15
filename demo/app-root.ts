@@ -20,6 +20,22 @@ import { viewableFilesIcon } from '../src/menus/iaux-viewable-files';
 
 const fileList = [
   {
+    file_origin: "",
+    file_source: "beyonce-cosmo-article.pdf",
+    file_subprefix: "beyonce-cosmo-article",
+    orig_sort: 0,
+    title: "beyonce-cosmo-article.pdf",
+    url_path: "/details/pdf_only_item/beyonce-cosmo-article.pdf",
+  },
+  {
+    file_origin: "",
+    file_source: "onestrandriverpdf.pdf",
+    file_subprefix: "onestrandriverpdf",
+    orig_sort: 1,
+    title: "onestrandriverpdf.pdf",
+    url_path: "/details/pdf_only_item/onestrandriverpdf.pdf",
+  },
+  {
     url_path: '/details/masterbookofamericanfolksong00shep',
     file_subprefix: '01-The Master Book of American Folk Song',
     title: 'The Master Book of American Folk Song',
