@@ -396,7 +396,7 @@ export class IauxViewableFiles extends LitElement {
 
       .pdf-label span {
         border: 1px solid;
-        padding: 5px 10px;
+        padding: 10px 5px 5px 0;
         border-radius: 20px;
       }
     `;
