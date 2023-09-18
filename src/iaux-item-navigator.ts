@@ -72,9 +72,7 @@ export class ItemNavigator
 
   @property({ attribute: false }) sharedObserver?: SharedResizeObserver;
 
-  @property({ type: Boolean, reflect: true, attribute: true }) loaded:
-    | true
-    | null = null;
+  @property({ type: Boolean, reflect: true, attribute: true }) loaded: boolean = false;
 
   @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
@@ -211,7 +209,7 @@ export class ItemNavigator
 
   loadingStateUpdated(e: loadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
-    this.loaded = loaded || null;
+    this.loaded = loaded ?? false;
   }
 
   /** Fullscreen Management */

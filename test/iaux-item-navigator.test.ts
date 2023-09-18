@@ -87,7 +87,7 @@ describe('ItemNavigator', () => {
       await el.updateComplete;
       const spy = Sinon.spy();
       el.loadingStateUpdated = spy;
-      el.loaded = null;
+      el.loaded = false;
       el.viewAvailable = false;
       await el.updateComplete;
       // check base properties
