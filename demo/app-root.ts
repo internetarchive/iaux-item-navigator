@@ -20,20 +20,21 @@ import { viewableFilesIcon } from '../src/menus/iaux-viewable-files';
 
 const fileList = [
   {
-    file_origin: "",
-    file_source: "beyonce-cosmo-article.pdf",
-    file_subprefix: "beyonce-cosmo-article",
+    file_origin: '',
+    file_source: 'beyonce-cosmo-article.pdf',
+    file_subprefix: 'beyonce-cosmo-article',
     orig_sort: 0,
-    title: "beyonce-cosmo-article.pdf",
-    url_path: "/details/pdf_only_item/beyonce-cosmo-article.pdf",
+    title: 'beyonce-cosmo-article.pdf',
+    url_path: '/details/pdf_only_item/beyonce-cosmo-article.pdf',
   },
   {
-    file_origin: "",
-    file_source: "onestrandriverpdf.pdf",
-    file_subprefix: "onestrandriverpdf",
+    file_origin: '',
+    file_source: 'onestrandriverpdf.pdf',
+    file_subprefix: 'onestrandriverpdf',
     orig_sort: 1,
-    title: "Very cool title that is extra long so it wraps for three rows and close to the right side of the pane",
-    url_path: "/details/pdf_only_item/onestrandriverpdf.pdf",
+    title:
+      'Very cool title that is extra long so it wraps for three rows and close to the right side of the pane',
+    url_path: '/details/pdf_only_item/onestrandriverpdf.pdf',
   },
   {
     url_path: '/details/masterbookofamericanfolksong00shep',
