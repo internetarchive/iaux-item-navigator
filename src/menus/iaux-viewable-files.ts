@@ -124,7 +124,8 @@ export class IauxSortFilesButton extends LitElement {
 
   @property({ type: Array }) fileListSorted: any[] = [];
 
-  @property({ type: String, reflect: true }) sortOrderBy: sortOptions = 'default';
+  @property({ type: String, reflect: true }) sortOrderBy: sortOptions =
+    'default';
 
   render() {
     return html`<div class="sort-multi-file-list">${this.sortButton}</div>`;

@@ -72,7 +72,8 @@ export class ItemNavigator
 
   @property({ attribute: false }) sharedObserver?: SharedResizeObserver;
 
-  @property({ type: Boolean, reflect: true, attribute: true }) loaded: boolean = false;
+  @property({ type: Boolean, reflect: true, attribute: true }) loaded: boolean =
+    false;
 
   @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
