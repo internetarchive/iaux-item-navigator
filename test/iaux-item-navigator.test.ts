@@ -51,7 +51,7 @@ describe('ItemNavigator', () => {
       const el = await fixture<ItemNavigator>(
         html`<iaux-item-navigator></iaux-item-navigator>`,
       );
-      expect(el.loaded).to.be.null; // initial load
+      expect(el.loaded).to.be.false; // initial load
       expect(el.shadowRoot?.querySelector('ia-itemnav-loader')).to.exist;
     });
     it('hides reader section if `!loaded`', async () => {
@@ -91,7 +91,7 @@ describe('ItemNavigator', () => {
       el.viewAvailable = false;
       await el.updateComplete;
       // check base properties
-      expect(el.loaded).to.equal(null);
+      expect(el.loaded).to.equal(false);
       expect(el.item).to.be.undefined;
 
       // spy fires
