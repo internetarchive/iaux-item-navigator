@@ -465,6 +465,20 @@
   dependencies:
     lit "^2.0.2"
 
+"@internetarchive/icon-email@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-email/-/icon-email-1.3.4.tgz#4bf72e0fac8a785a3fae781164b7ca7f162f723a"
+  integrity sha512-Pr6yYSVkgb+hmqhgYOXpcspPAuVDp1/9CIqXzcMDvWvehzQJRn5X8D+y19ddOukGSVz++cVfZH+c5q+RTuQWEQ==
+  dependencies:
+    lit "^2.0.2"
+
+"@internetarchive/icon-facebook@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-facebook/-/icon-facebook-1.3.4.tgz#2319dd039ceb02cc86754dc8996cc25fbd8eb105"
+  integrity sha512-oi4PT/d9qmfevDyqUddfFO/Al1t31ETMW7PIuJNUh/1c6yv9jy+xADLDCk8o0UBW66mlgKww52YULA30r6Rr9g==
+  dependencies:
+    lit "^2.0.2"
+
 "@internetarchive/icon-ia-logo@^1.3.2":
   version "1.3.2"
   resolved "https://registry.npmjs.org/@internetarchive/icon-ia-logo/-/icon-ia-logo-1.3.2.tgz"
@@ -472,10 +486,38 @@
   dependencies:
     lit "^2.0.2"
 
+"@internetarchive/icon-link@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-link/-/icon-link-1.3.4.tgz#8163e69daaa3063ed002085117f9e724f218f6ac"
+  integrity sha512-URnyyDfU1Rd8p8AgOsqXpUhMJ/Hl8cPNRchtxdCKcY8/9d0lPP89HIu1uLAW/j5ccTai1oCWgRFO/R/XyHw6Uw==
+  dependencies:
+    lit "^2.0.2"
+
+"@internetarchive/icon-pinterest@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-pinterest/-/icon-pinterest-1.3.4.tgz#14359583da89dcb06186143672609550c4615038"
+  integrity sha512-GwqOevdifnhTWY0/xbiTGlDeO3h3It23Oqq/8+rHvd2DUlj/VGwVr2RR0PflnSzfDPwKaf1O+ZsVxmo+G9UqlQ==
+  dependencies:
+    lit "^2.0.2"
+
 "@internetarchive/icon-share@^1.3.4":
   version "1.3.4"
   resolved "https://registry.npmjs.org/@internetarchive/icon-share/-/icon-share-1.3.4.tgz"
   integrity sha512-02xI0WYHtnD++uV4s4rtdgqiBZTN23gjvy6iDw9J23/wzVU4mkQDS6CYCyMVr5uU+5TYCA1k87Dj90TaQn1LsA==
+  dependencies:
+    lit "^2.0.2"
+
+"@internetarchive/icon-tumblr@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-tumblr/-/icon-tumblr-1.3.4.tgz#6f829071adb1380f331edcb85d8a744a77cf66de"
+  integrity sha512-OgGVM2IZjBvyU4Jy9zbAQhZnQZW2uKAtyQaBtfjDm8Owv4qxbeR31UVvEBqsL48bkYXeV3pntWfHAoBra/Z80A==
+  dependencies:
+    lit "^2.0.2"
+
+"@internetarchive/icon-twitter@^1.3.4":
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/@internetarchive/icon-twitter/-/icon-twitter-1.3.4.tgz#bada9a2ef30554d3c1904d868c2263747be960d3"
+  integrity sha512-lmnMD01Xvp1SeakAMBRDAROmcTZaw8HLBMeYysO3DLmW7gJxTkMA9QyKwbxHa/yD3NCAseHD3rENbt9UW2OVBw==
   dependencies:
     lit "^2.0.2"
 

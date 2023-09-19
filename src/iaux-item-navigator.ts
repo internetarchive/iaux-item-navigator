@@ -35,7 +35,7 @@ import {
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
 
-@customElement('ia-item-navigator')
+@customElement('iaux-item-navigator')
 export class ItemNavigator
   extends LitElement
   implements SharedResizeObserverResizeHandlerInterface
@@ -51,19 +51,11 @@ export class ItemNavigator
   })
   item?: MetadataResponse;
 
-  @property({ type: Boolean }) viewAvailable: Boolean = true;
+  @property({ type: Boolean, reflect: true }) viewAvailable: Boolean = true;
 
   @property({ type: String }) baseHost = 'archive.org';
 
-  @property({
-    converter: (arg: string | boolean | null) => {
-      if (typeof arg === 'boolean') {
-        return arg;
-      }
-      return arg === 'true';
-    },
-  })
-  signedIn = false;
+  @property({ type: Boolean }) signedIn = false;
 
   @property({ type: Array }) menuContents: MenuProviderInterface[] = [];
 
@@ -72,17 +64,16 @@ export class ItemNavigator
   @property({ type: Boolean, reflect: true, attribute: true })
   viewportInFullscreen: boolean | null = null;
 
-  @property({ type: Boolean }) menuOpened = false;
+  @property({ type: Boolean, reflect: true }) menuOpened = false;
 
-  @property({ type: String }) openMenu?: MenuId;
+  @property({ type: String, reflect: true }) openMenu?: MenuId;
 
   @property({ attribute: false }) modal?: ModalManager;
 
   @property({ attribute: false }) sharedObserver?: SharedResizeObserver;
 
-  @property({ type: Boolean, reflect: true, attribute: true }) loaded:
-    | true
-    | null = null;
+  @property({ type: Boolean, reflect: true, attribute: true }) loaded: boolean =
+    false;
 
   @state() openMenuState: 'overlay' | 'shift' = 'shift';
 
@@ -219,7 +210,7 @@ export class ItemNavigator
 
   loadingStateUpdated(e: loadingStateUpdatedEvent): void {
     const { loaded } = e.detail;
-    this.loaded = loaded || null;
+    this.loaded = loaded ?? false;
   }
 
   /** Fullscreen Management */

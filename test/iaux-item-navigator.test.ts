@@ -4,10 +4,10 @@ import Sinon from 'sinon';
 
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
-import { ItemNavigator } from '../src/item-navigator';
-import '../src/item-navigator';
+import { ItemNavigator } from '../src/iaux-item-navigator';
+import '../src/iaux-item-navigator';
 
-import { ItemStub, menuProvider, shortcut } from '../test/ia-stub';
+import { ItemStub, menuProvider, shortcut } from './ia-stub';
 import {
   ManageFullscreenEvent,
   ToggleSideMenuOpenEvent,
@@ -24,7 +24,9 @@ describe('ItemNavigator', () => {
   describe('Theaters', () => {
     it('shows <ia-no-theater-available> if told', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       el.viewAvailable = false;
       await el.updateComplete;
@@ -33,7 +35,9 @@ describe('ItemNavigator', () => {
     });
     it('opens main slot by default', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       expect(el.viewAvailable).to.be.true;
@@ -45,14 +49,14 @@ describe('ItemNavigator', () => {
   describe('`el.loaded`', () => {
     it('toggles the spinning loader', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
-      expect(el.loaded).to.be.null; // initial load
+      expect(el.loaded).to.be.false; // initial load
       expect(el.shadowRoot?.querySelector('ia-itemnav-loader')).to.exist;
     });
     it('hides reader section if `!loaded`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
 
       expect(
@@ -61,7 +65,9 @@ describe('ItemNavigator', () => {
     });
     it('shows reader when `loaded` ', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.loaded = true;
@@ -75,17 +81,17 @@ describe('ItemNavigator', () => {
     });
     it('listens to `@loadingStateUpdated` to update `loaded` for <no-theater-available>', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
 
       await el.updateComplete;
       const spy = Sinon.spy();
       el.loadingStateUpdated = spy;
-      el.loaded = null;
+      el.loaded = false;
       el.viewAvailable = false;
       await el.updateComplete;
       // check base properties
-      expect(el.loaded).to.equal(null);
+      expect(el.loaded).to.equal(false);
       expect(el.item).to.be.undefined;
 
       // spy fires
@@ -98,9 +104,9 @@ describe('ItemNavigator', () => {
     it('uses one', async () => {
       const sharedObserver = new SharedResizeObserver();
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator
+        html`<iaux-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`,
+        ></iaux-item-navigator>`,
       );
 
       expect(el.sharedObserver).to.equal(sharedObserver);
@@ -111,9 +117,9 @@ describe('ItemNavigator', () => {
       const addObserverSpy = Sinon.spy(sharedObserver, 'addObserver');
 
       await fixture<ItemNavigator>(
-        html`<ia-item-navigator
+        html`<iaux-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`,
+        ></iaux-item-navigator>`,
       );
 
       expect(addObserverSpy.callCount).to.equal(2);
@@ -123,9 +129,9 @@ describe('ItemNavigator', () => {
       const removeObserverSpy = Sinon.spy(sharedObserver, 'removeObserver');
 
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator
+        html`<iaux-item-navigator
           .sharedObserver=${sharedObserver}
-        ></ia-item-navigator>`,
+        ></iaux-item-navigator>`,
       );
 
       el.disconnectedCallback();
@@ -135,7 +141,7 @@ describe('ItemNavigator', () => {
     });
     it('sets menu to overlay if container width is <= 600px', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
 
       expect(el.openMenuState).to.equal('shift'); // as starting point
@@ -162,7 +168,7 @@ describe('ItemNavigator', () => {
     it('uses one', async () => {
       const modal = new ModalManager();
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .modal=${modal}></ia-item-navigator>`,
+        html`<iaux-item-navigator .modal=${modal}></iaux-item-navigator>`,
       );
       expect(el.modal).to.equal(modal);
     });
@@ -172,7 +178,7 @@ describe('ItemNavigator', () => {
     it('creates reflected attribute `viewportinfullscreen`', async () => {
       /** to help with external styling adjustmnents */
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
       expect(el.getAttribute('viewportinfullscreen')).to.be.null;
 
@@ -183,7 +189,7 @@ describe('ItemNavigator', () => {
     });
     it('@ViewportInFullScreen', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator></ia-item-navigator>`,
+        html`<iaux-item-navigator></iaux-item-navigator>`,
       );
       expect(el.viewportInFullscreen).to.be.null;
 
@@ -211,7 +217,9 @@ describe('ItemNavigator', () => {
   describe('el.menuOpened', () => {
     it('toggles side menu open', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -238,7 +246,9 @@ describe('ItemNavigator', () => {
 
     it('opens menu shortcut with `@manageSideMenuEvents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       const detail = {
         menuId: 'fullscreen',
@@ -303,7 +313,9 @@ describe('ItemNavigator', () => {
   describe('el.menuContents', () => {
     it('draws side menu when populated', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuContents = [menuProvider];
@@ -324,7 +336,9 @@ describe('ItemNavigator', () => {
   describe('`el.menuShortcuts`', () => {
     it('displays shortcut & toggle side menu button', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       const anotherShortcut = {
@@ -350,7 +364,9 @@ describe('ItemNavigator', () => {
   describe('Menu events', () => {
     it('`el.setMenuShortcuts`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       expect(el.menuShortcuts.length).to.equal(0);
 
@@ -365,7 +381,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.setMenuContents`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
       expect(el.menuContents.length).to.equal(0);
 
@@ -378,7 +396,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.setOpenMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.setOpenMenu({
@@ -400,7 +420,9 @@ describe('ItemNavigator', () => {
     });
     it('`el.closeMenu`', async () => {
       const el = await fixture<ItemNavigator>(
-        html`<ia-item-navigator .item=${new ItemStub()}></ia-item-navigator>`,
+        html`<iaux-item-navigator
+          .item=${new ItemStub()}
+        ></iaux-item-navigator>`,
       );
 
       el.menuOpened = true;
