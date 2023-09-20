@@ -262,7 +262,11 @@ export class IauxViewableFiles extends LitElement {
     return hrefUrl;
   }
 
-  fileLi(item: ItemInfo) {
+  get pdfLabel(): TemplateResult {
+    return html`<span class="pdf-label"><span class="sr-only">view this</span> PDF</span>`;
+  }
+
+  fileLi(item: ItemInfo): TemplateResult {
     const activeClass = this.subPrefix === item.file_subprefix ? ' active' : '';
     const hrefUrl = this.fileUrl(item);
     const isPdf = (item.file_source ?? '').match(/^[^+]+\.pdf$/i);
@@ -272,11 +276,7 @@ export class IauxViewableFiles extends LitElement {
         <div class="separator"></div>
         <div class="content${activeClass}">
           <a href=${hrefUrl}>
-            <p class="item-title">${item.title}</p>
-            ${isPdf
-              ? html`<p class="pdf-label"><span>PDF</span></p>
-                  <p></p>`
-              : nothing}
+            <p class="item-title">${item.title}${isPdf ? this.pdfLabel : nothing}</p>
           </a>
         </div>
       </li>
@@ -349,6 +349,10 @@ export class IauxViewableFiles extends LitElement {
         border: var(--activeBorderWidth) solid #538bc5;
       }
 
+      li.content a {
+        display: flex;
+      }
+
       small {
         font-style: italic;
         white-space: initial;
@@ -391,14 +395,22 @@ export class IauxViewableFiles extends LitElement {
       }
 
       .pdf-label {
-        margin: 5px 5px 5px 0;
-        text-align: right;
+        border: 1px solid;
+        padding: 2px 5px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 0.9rem;
       }
 
-      .pdf-label span {
-        border: 1px solid;
-        padding: 5px 10px;
-        border-radius: 20px;
+      .pdf-label .sr-only {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+        padding: 0;
+        border: 0;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
       }
     `;
   }
