@@ -256,8 +256,8 @@ export class IauxViewableFiles extends LitElement {
     if (this.addSortToUrl) {
       hrefUrl =
         this.sortOrderBy === 'default'
-          ? `${baseUrl}${item.url_path}`
-          : `${baseUrl}${item.url_path}?sort=${this.sortOrderBy}`;
+          ? `${baseUrl}`
+          : `${baseUrl}?sort=${this.sortOrderBy}`;
     }
     return hrefUrl;
   }
