@@ -437,7 +437,7 @@ export class AppRoot extends LitElement {
       <h1>theater, in page</h1>
       <section>
         <iaux-item-navigator
-          baseHost="https://archive.org"
+          baseHost="archive.org"
           .item=${this.itemMD}
           .modal=${this.modalMgr}
           .sharedObserver=${this.sharedObserver}
