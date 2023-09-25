@@ -354,6 +354,7 @@ export class AppRoot extends LitElement {
         .fileListRaw=${fileList}
       ></iaux-in-sort-files-button>`,
       component: html`<iaux-in-viewable-files-panel
+        .subPrefix=${'onestrandriverpdf'}
         .fileList=${filesNewArr}
       ></iaux-in-viewable-files-panel> `,
     };
