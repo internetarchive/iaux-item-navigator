@@ -10,13 +10,13 @@ import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/modal-manager';
 import type { ItemNavigator } from '../src/iaux-item-navigator';
 import '../src/iaux-item-navigator';
-import '../src/menus/iaux-sharing-options';
+import '../src/menus/share-panel';
 import {
   MenuShortcutInterface,
   MenuProviderInterface,
 } from '../src/interfaces/menu-interfaces';
-import { iauxShareIcon } from '../src/menus/iaux-sharing-options';
-import { viewableFilesIcon } from '../src/menus/iaux-viewable-files';
+import { iauxShareIcon } from '../src/menus/share-panel';
+import { viewableFilesIcon } from '../src/menus/viewable-files';
 
 const fileList = [
   {
@@ -330,14 +330,14 @@ export class AppRoot extends LitElement {
       icon: iauxShareIcon,
       label: 'Share this item',
       id: 'share',
-      component: html`<iaux-sharing-options
+      component: html`<iaux-in-share-panel
         .identifier=${this.itemMD?.metadata.identifier || 'ux-team-books'}
         .type=${`book`}
         .creator=${`UX Team`}
         .description=${'list of test books'}
         .baseHost=${'archive.org'}
         .fileSubPrefix=${''}
-      ></iaux-sharing-options>`,
+      ></iaux-in-share-panel>`,
     } as unknown as MenuProviderInterface;
 
     const filesNewArr = [...fileList];
@@ -349,13 +349,13 @@ export class AppRoot extends LitElement {
       item: this.itemMD as MetadataResponse,
       subPrefix: '',
       // sorter
-      actionButton: html`<iaux-sort-viewable-files
+      actionButton: html`<iaux-in-sort-files-button
         @fileListSorted=${(e: CustomEvent) => this.sortFilesCallback(e)}
         .fileListRaw=${fileList}
-      ></iaux-sort-viewable-files>`,
-      component: html`<iaux-viewable-files
+      ></iaux-in-sort-files-button>`,
+      component: html`<iaux-in-viewable-files-panel
         .fileList=${filesNewArr}
-      ></iaux-viewable-files> `,
+      ></iaux-in-viewable-files-panel> `,
     };
 
     this.menuContents = [viewableFilesMenu, shareMenu];

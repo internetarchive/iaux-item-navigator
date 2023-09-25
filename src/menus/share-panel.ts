@@ -39,7 +39,7 @@ export const iauxShareIcon: TemplateResult = html`<ia-icon-share
   style="width: var(--iconWidth); height: var(--iconHeight);"
 ></ia-icon-share>`;
 
-@customElement('iaux-sharing-options')
+@customElement('iaux-in-share-panel')
 export class IauxSharingOptions extends LitElement {
   @property({ type: String }) baseHost = 'archive.org';
 

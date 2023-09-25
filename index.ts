@@ -3,10 +3,7 @@ export { MenuButton } from './src/menu-slider/menu-button';
 export { IaMenuSlider } from './src/menu-slider/ia-menu-slider';
 
 // side menus
-export {
-  IauxSharingOptions,
-  iauxShareIcon,
-} from './src/menus/iaux-sharing-options';
-export { viewableFilesIcon } from './src/menus/iaux-viewable-files';
-export { IauxViewableFiles } from './src/menus/iaux-viewable-files';
-export { IauxSortFilesButton } from './src/menus/iaux-viewable-files';
+export { IauxSharingOptions, iauxShareIcon } from './src/menus/share-panel';
+export { viewableFilesIcon } from './src/menus/viewable-files';
+export { IauxViewableFiles } from './src/menus/viewable-files';
+export { IauxSortFilesButton } from './src/menus/viewable-files';
