@@ -117,8 +117,8 @@ export const viewableFilesIcon = html`
   </svg>
 `;
 
-/* <iaux-sort-viewable-files> side panel header button */
-@customElement('iaux-sort-viewable-files')
+/* <iaux-in-sort-files-button> side panel header button */
+@customElement('iaux-in-sort-files-button')
 export class IauxSortFilesButton extends LitElement {
   @property({ type: Array }) fileListRaw: any[] = [];
 
@@ -201,8 +201,8 @@ export class IauxSortFilesButton extends LitElement {
   }
 }
 
-/* <iaux-viewable-files> side panel menu */
-@customElement('iaux-viewable-files')
+/* <iaux-in-viewable-files-panel> side panel menu */
+@customElement('iaux-in-viewable-files-panel')
 export class IauxViewableFiles extends LitElement {
   @property({ type: String }) baseHost: string = 'archive.org';
 
@@ -263,7 +263,9 @@ export class IauxViewableFiles extends LitElement {
   }
 
   get pdfLabel(): TemplateResult {
-    return html`<span class="pdf-label"><span class="sr-only">view this</span> PDF</span>`;
+    return html`<span class="pdf-label"
+      ><span class="sr-only">view this</span> PDF</span
+    >`;
   }
 
   fileLi(item: ItemInfo): TemplateResult {
@@ -276,7 +278,9 @@ export class IauxViewableFiles extends LitElement {
         <div class="separator"></div>
         <div class="content${activeClass}">
           <a href=${hrefUrl}>
-            <p class="item-title">${item.title}${isPdf ? this.pdfLabel : nothing}</p>
+            <p class="item-title">
+              ${item.title}${isPdf ? this.pdfLabel : nothing}
+            </p>
           </a>
         </div>
       </li>

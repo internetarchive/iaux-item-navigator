@@ -1,7 +1,7 @@
 import { html, fixture, expect } from '@open-wc/testing';
 import sinon from 'sinon';
-import '../src/menus/iaux-sharing-options';
-import type { IauxSharingOptions } from '../src/menus/iaux-sharing-options';
+import '../src/menus/share-panel';
+import type { IauxSharingOptions } from '../src/menus/share-panel';
 
 const identifier = 'goody';
 const itemType = 'book';
@@ -10,16 +10,16 @@ const description =
   'The history of Little Goody Two-Shoes : otherwise called Mrs. Margery Two-Shoes ... [1766 edition]';
 
 const container = (optionalFileSubprefix = '') =>
-  html`<iaux-sharing-options
+  html`<iaux-in-share-panel
     identifier="${identifier}"
     type="${itemType}"
     creator="${creator}"
     description="${description}"
     baseHost="archive.org"
     fileSubPrefix="${optionalFileSubprefix}"
-  ></iaux-sharing-options>`;
+  ></iaux-in-share-panel>`;
 
-describe('<iaux-sharing-options>', () => {
+describe('<iaux-in-share-panel>', () => {
   afterEach(() => {
     sinon.restore();
   });
