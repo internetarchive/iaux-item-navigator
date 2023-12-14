@@ -273,7 +273,6 @@ export class IauxViewableFiles extends LitElement {
   }
 
   fileLi(item: ItemInfo): TemplateResult {
-    console.log(this.subPrefix)
     const activeClass = this.subPrefix === item.file_subprefix ? ' active' : '';
     const hrefUrl = this.fileUrl(item);
     const isPdf = (item.file_source ?? '').match(/^[^+]+\.pdf$/i);
