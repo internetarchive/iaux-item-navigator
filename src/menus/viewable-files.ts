@@ -222,12 +222,16 @@ export class IauxViewableFiles extends LitElement {
     // allow for css animations to run before scrolling to active file
     setTimeout(() => {
       // scroll active file into view if needed
-      // note: `scrollIntoViewIfNeeded` handles auto-scroll gracefully for Chrome, Safari
-      // Firefox does not have this capability yet as it does not support `scrollIntoViewIfNeeded`
-      activeFile?.scrollIntoViewIfNeeded(true);
-
-      // Todo: support `scrollIntoView` or `parentContainer.crollTop = x` for FF & "IE 11"
-      // currently, the hard `position: absolutes` misaligns subpanel when `scrollIntoView` is applied :(
+      // note:
+      // - `scrollIntoViewIfNeeded` handles auto-scroll gracefully for Chrome, Safari
+      // - `scrollIntoView` handles auto-scroll for almost all the browsers. specifially FF.
+      if (activeFile?.scrollIntoViewIfNeeded) {
+        // `scrollIntoViewIfNeeded` auto-scroll only if element not is visible area 
+        activeFile?.scrollIntoViewIfNeeded(true);
+      } else {
+        // `scrollIntoView` always auto-scroll to center of visible area
+        activeFile?.scrollIntoView({ behavior: 'auto', block:   'center' });
+      }
     }, 350);
   }
 
@@ -269,6 +273,7 @@ export class IauxViewableFiles extends LitElement {
   }
 
   fileLi(item: ItemInfo): TemplateResult {
+    console.log(this.subPrefix)
     const activeClass = this.subPrefix === item.file_subprefix ? ' active' : '';
     const hrefUrl = this.fileUrl(item);
     const isPdf = (item.file_source ?? '').match(/^[^+]+\.pdf$/i);
