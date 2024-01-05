@@ -34,7 +34,6 @@ export default css`
   }
 
   button {
-    outline: none;
     cursor: pointer;
   }
 
@@ -47,7 +46,6 @@ export default css`
     display: inline-block;
   }
   header button {
-    outline: none;
     cursor: pointer;
   }
 

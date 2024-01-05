@@ -415,11 +415,6 @@ export class ItemNavigator
         border: 0;
       }
 
-      button:focus,
-      button:active {
-        outline: none;
-      }
-
       .menu-and-reader {
         position: relative;
         display: flex;
