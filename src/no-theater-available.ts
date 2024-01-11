@@ -63,7 +63,6 @@ export class IANoTheaterAvailable extends LitElement {
         color: var(--primaryTextColor, #fff);
         background-color: rgb(25, 72, 128);
         min-height: 35px;
-        outline: none;
         cursor: pointer;
         line-height: normal;
         border-radius: 0.4rem;

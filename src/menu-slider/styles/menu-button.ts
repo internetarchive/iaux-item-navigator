@@ -26,10 +26,6 @@ export default css`
     border-radius: 0;
   }
 
-  .menu-item:focus {
-    outline: none;
-  }
-
   .label {
     display: var(--menuButtonLabelDisplay, none);
     padding: 0;

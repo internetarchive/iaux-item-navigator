@@ -343,7 +343,6 @@ export class IauxViewableFiles extends LitElement {
 
       li {
         cursor: pointer;
-        outline: none;
         position: relative;
       }
 
