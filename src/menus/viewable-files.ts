@@ -226,11 +226,11 @@ export class IauxViewableFiles extends LitElement {
       // - `scrollIntoViewIfNeeded` handles auto-scroll gracefully for Chrome, Safari
       // - `scrollIntoView` handles auto-scroll for almost all the browsers. specifially FF.
       if (activeFile?.scrollIntoViewIfNeeded) {
-        // `scrollIntoViewIfNeeded` auto-scroll only if element not is visible area 
+        // `scrollIntoViewIfNeeded` auto-scroll only if element not is visible area
         activeFile?.scrollIntoViewIfNeeded(true);
       } else {
         // `scrollIntoView` always auto-scroll to center of visible area
-        activeFile?.scrollIntoView({ behavior: 'auto', block:   'center' });
+        activeFile?.scrollIntoView({ behavior: 'auto', block: 'center' });
       }
     }, 350);
   }
