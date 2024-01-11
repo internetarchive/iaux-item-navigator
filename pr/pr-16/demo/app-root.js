@@ -567,7 +567,6 @@
   }
 
   button {
-    outline: none;
     cursor: pointer;
   }
 
@@ -580,7 +579,6 @@
     display: inline-block;
   }
   header button {
-    outline: none;
     cursor: pointer;
   }
 
@@ -708,10 +706,6 @@
     -webkit-appearance: none;
     appearance: none;
     border-radius: 0;
-  }
-
-  .menu-item:focus {
-    outline: none;
   }
 
   .label {
@@ -918,7 +912,6 @@
         color: var(--primaryTextColor, #fff);
         background-color: rgb(25, 72, 128);
         min-height: 35px;
-        outline: none;
         cursor: pointer;
         line-height: normal;
         border-radius: 0.4rem;
@@ -1065,11 +1058,6 @@
         cursor: pointer;
         padding: 0;
         border: 0;
-      }
-
-      button:focus,
-      button:active {
-        outline: none;
       }
 
       .menu-and-reader {
@@ -1744,7 +1732,6 @@
 
       li {
         cursor: pointer;
-        outline: none;
         position: relative;
       }
 
