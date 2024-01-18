@@ -230,7 +230,7 @@ export class IauxViewableFiles extends LitElement {
         activeFile?.scrollIntoViewIfNeeded(true);
       } else {
         // `scrollIntoView` always auto-scroll to center of visible area
-        activeFile?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
+        activeFile?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
       }
     }, 350);
   }
