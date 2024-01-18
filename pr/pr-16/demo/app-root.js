@@ -1668,7 +1668,7 @@
         --iconWidth: var(--menuSliderHeaderIconWidth);
         --iconHeight: var(--menuSliderHeaderIconHeight);
       }
-    `}};f([g({type:Array})],os.prototype,"fileListRaw",void 0);f([g({type:Array})],os.prototype,"fileListSorted",void 0);f([g({type:String,reflect:!0})],os.prototype,"sortOrderBy",void 0);os=f([J("iaux-in-sort-files-button")],os);let Re=class extends U{constructor(){super(...arguments),this.baseHost="archive.org",this.sortOrderBy="default",this.subPrefix="",this.fileList=[],this.addSortToUrl=!1}firstUpdated(){const e=this.shadowRoot.querySelector(".content.active");setTimeout(()=>{e!=null&&e.scrollIntoViewIfNeeded?e==null||e.scrollIntoViewIfNeeded(!0):e==null||e.scrollIntoView({behavior:"auto",block:"center"})},350)}volumeItemWithImageTitle(e){const t=this.fileUrl(e);return _`
+    `}};f([g({type:Array})],os.prototype,"fileListRaw",void 0);f([g({type:Array})],os.prototype,"fileListSorted",void 0);f([g({type:String,reflect:!0})],os.prototype,"sortOrderBy",void 0);os=f([J("iaux-in-sort-files-button")],os);let Re=class extends U{constructor(){super(...arguments),this.baseHost="archive.org",this.sortOrderBy="default",this.subPrefix="",this.fileList=[],this.addSortToUrl=!1}firstUpdated(){const e=this.shadowRoot.querySelector(".content.active");setTimeout(()=>{e!=null&&e.scrollIntoViewIfNeeded?e==null||e.scrollIntoViewIfNeeded(!0):e==null||e.scrollIntoView({behavior:"smooth",block:"nearest",inline:"nearest"})},350)}volumeItemWithImageTitle(e){const t=this.fileUrl(e);return _`
       <li class="content active">
         <div class="separator"></div>
         <a class="container" href="${t}">
