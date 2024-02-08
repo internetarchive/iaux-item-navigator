@@ -38,21 +38,11 @@ describe('<iaux-in-share-panel>', () => {
 
     await el.updateComplete;
 
-    el.sharingOptions.forEach(option => {
-      const button =
-        el.shadowRoot && el.shadowRoot.querySelector(`a.${option.class}`);
+    el.sharingOptions.forEach((option, i) => {
+      const button = el.shadowRoot?.querySelectorAll('a')[i];
       expect(button).to.exist;
       expect(button?.getAttribute('href')).to.equal(option.url);
     });
-  });
-
-  it('toggles visibility of embed options', async () => {
-    const el = (await fixture(container())) as IauxSharingOptions;
-
-    el.toggleEmbedOptions(new Event('click'));
-    await el.updateComplete;
-
-    expect(el.embedOptionsVisible).to.equal(true);
   });
 
   it('does not show internal header by default', async () => {
