@@ -102,10 +102,11 @@ export class IauxSharingOptions extends LitElement {
       {
         name: 'Tumblr',
         icon: html`<ia-icon-tumblr></ia-icon-tumblr>`,
-        url: `https://www.tumblr.com/share/video?${
+        url: `https://www.tumblr.com/widgets/share/tool/preview?${
           new URLSearchParams({
-            embed: `<iframe width="640" height="480" frameborder="0" allowfullscreen src="https://${this.baseHost}/embed/" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>`,
-            name: shareBlurb,
+            posttype: 'link',
+            canonicalUrl: shareUrl,
+            title: shareBlurb,
           })
         }`
       },
