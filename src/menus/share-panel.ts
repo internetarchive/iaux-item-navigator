@@ -76,59 +76,55 @@ export class IauxSharingOptions extends LitElement {
       this.creator,
       'Free Download, Borrow, and Streaming',
       'Internet Archive',
-    ].filter(Boolean).join(' : ');
+    ]
+      .filter(Boolean)
+      .join(' : ');
 
     this.sharingOptions = [
       {
         name: 'Twitter',
         icon: html`<ia-icon-twitter></ia-icon-twitter>`,
-        url: `https://twitter.com/intent/tweet?${
-          new URLSearchParams({
-            url: shareUrl,
-            text: shareBlurb,
-            via: 'internetarchive',
-          })
-        }`
+        url: `https://twitter.com/intent/tweet?${new URLSearchParams({
+          url: shareUrl,
+          text: shareBlurb,
+          via: 'internetarchive',
+        })}`,
       },
       {
         name: 'Facebook',
         icon: html`<ia-icon-facebook></ia-icon-facebook>`,
-        url: `https://www.facebook.com/sharer/sharer.php?${
-          new URLSearchParams({
-            u: shareUrl,
-          })
-        }`
+        url: `https://www.facebook.com/sharer/sharer.php?${new URLSearchParams({
+          u: shareUrl,
+        })}`,
       },
       {
         name: 'Tumblr',
         icon: html`<ia-icon-tumblr></ia-icon-tumblr>`,
-        url: `https://www.tumblr.com/widgets/share/tool/preview?${
-          new URLSearchParams({
+        url: `https://www.tumblr.com/widgets/share/tool/preview?${new URLSearchParams(
+          {
             posttype: 'link',
             canonicalUrl: shareUrl,
             title: shareBlurb,
-          })
-        }`
+          },
+        )}`,
       },
       {
         name: 'Pinterest',
         icon: html`<ia-icon-pinterest></ia-icon-pinterest>`,
-        url: `http://www.pinterest.com/pin/create/button/?${
-          new URLSearchParams({
+        url: `http://www.pinterest.com/pin/create/button/?${new URLSearchParams(
+          {
             url: shareUrl,
             description: shareBlurb,
-          })
-        }`
+          },
+        )}`,
       },
       {
         name: 'Email',
         icon: html`<ia-icon-email></ia-icon-email>`,
-        url: `mailto:?${
-          new URLSearchParams({
-            subject: shareBlurb,
-            body: shareUrl,
-          })
-        }`
+        url: `mailto:?${new URLSearchParams({
+          subject: shareBlurb,
+          body: shareUrl,
+        })}`,
       },
     ];
   }
@@ -158,11 +154,12 @@ export class IauxSharingOptions extends LitElement {
     return html`
       ${this.header}
       <main>
-        ${this.sharingOptions.map(option => html`
-          <a class="share-option" href="${option.url}" target="_blank">
-            ${option.icon} ${option.name}
-          </a>`)
-        }
+        ${this.sharingOptions.map(
+          option =>
+            html` <a class="share-option" href="${option.url}" target="_blank">
+              ${option.icon} ${option.name}
+            </a>`,
+        )}
         <details>
           <summary class="share-option">
             <ia-icon-link></ia-icon-link>
@@ -238,7 +235,7 @@ export class IauxSharingOptions extends LitElement {
         cursor: pointer;
       }
 
-      .share-option > *  {
+      .share-option > * {
         display: inline-block;
         padding: 0.2rem;
         margin-right: 1rem;
@@ -250,7 +247,7 @@ export class IauxSharingOptions extends LitElement {
 
       /* Hide the triangle that appears on details tags */
       summary::marker {
-        content: "";
+        content: '';
       }
 
       summary::-webkit-details-marker {
