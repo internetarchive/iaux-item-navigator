@@ -69,7 +69,7 @@ export class IauxSharingOptions extends LitElement {
   loadProviders() {
     let shareUrl = `https://${this.baseHost}/details/${this.identifier}`;
     if (this.fileSubPrefix) {
-      shareUrl += `/${encodeURIComponent(this.fileSubPrefix)}`;
+      shareUrl += `/${this.fileSubPrefix}`;
     }
     const shareBlurb = [
       this.description,
