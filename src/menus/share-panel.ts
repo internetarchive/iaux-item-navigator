@@ -132,17 +132,6 @@ export class IauxSharingOptions extends LitElement {
     ];
   }
 
-  get sharingItems() {
-    return this.sharingOptions.map(
-      option =>
-        html`<li>
-          <a class="share-option" href="${option.url}" target="_blank">
-            ${option.icon} ${option.name}
-          </a>
-        </li>`,
-    );
-  }
-
   get iframeEmbed() {
     return `<iframe
       src="https://${this.baseHost}/embed/${this.identifier}"
@@ -167,38 +156,40 @@ export class IauxSharingOptions extends LitElement {
   render() {
     return html`
       ${this.header}
-      <ul>
-        ${this.sharingItems}
-        <li>
-          <details>
-            <summary class="share-option">
-              <ia-icon-link></ia-icon-link>
-              Get an embeddable link
-            </summary>
-            <div class="embed">
-              <h4>Embed</h4>
-              <div class="code" @click=${copyToClipboard}>
-                <textarea readonly>${this.iframeEmbed}</textarea>
-                <small>Copied to clipboard</small>
-              </div>
-              <h4>
-                Embed for wordpress.com hosted blogs and archive.org item
-                &lt;description&gt; tags
-              </h4>
-              <div class="code" @click=${copyToClipboard}>
-                <textarea readonly>${this.bbcodeEmbed}</textarea>
-                <small>Copied to clipboard</small>
-              </div>
-              <p>
-                Want more?
-                <a href=${this.helpURL}
-                  >Advanced embedding details, examples, and help</a
-                >!
-              </p>
+      <main>
+        ${this.sharingOptions.map(option => html`
+          <a class="share-option" href="${option.url}" target="_blank">
+            ${option.icon} ${option.name}
+          </a>`)
+        }
+        <details>
+          <summary class="share-option">
+            <ia-icon-link></ia-icon-link>
+            Get an embeddable link
+          </summary>
+          <div class="embed">
+            <h4>Embed</h4>
+            <div class="code" @click=${copyToClipboard}>
+              <textarea readonly>${this.iframeEmbed}</textarea>
+              <small>Copied to clipboard</small>
             </div>
-          </details>
-        </li>
-      </ul>
+            <h4>
+              Embed for wordpress.com hosted blogs and archive.org item
+              &lt;description&gt; tags
+            </h4>
+            <div class="code" @click=${copyToClipboard}>
+              <textarea readonly>${this.bbcodeEmbed}</textarea>
+              <small>Copied to clipboard</small>
+            </div>
+            <p>
+              Want more?
+              <a href=${this.helpURL}
+                >Advanced embedding details, examples, and help</a
+              >!
+            </p>
+          </div>
+        </details>
+      </main>
     `;
   }
 
@@ -233,16 +224,13 @@ export class IauxSharingOptions extends LitElement {
         font-size: 1.4rem;
       }
 
-      ul {
-        padding: 0 0 2rem 0;
-        list-style: none;
-      }
-
-      li {
-        padding: 0 0 1rem 0;
+      main {
+        padding: 1rem 0;
       }
 
       .share-option {
+        display: block;
+        padding: 0.5rem 0;
         font-size: 1.6rem;
         text-decoration: none;
         color: var(--shareLinkColor);
