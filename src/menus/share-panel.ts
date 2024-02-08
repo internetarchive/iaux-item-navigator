@@ -18,14 +18,14 @@ import '@internetarchive/icon-pinterest/icon-pinterest';
 import '@internetarchive/icon-email/icon-email';
 import '@internetarchive/icon-link/icon-link';
 
-type ProviderParams = {
+type ShareOption = {
   name: string;
   icon: TemplateResult | string;
   url: string;
 };
 
-const copyToClipboard = (options: Record<any, any>) => {
-  const currentTarget = options.currentTarget as HTMLElement;
+const copyToClipboard = (event: MouseEvent) => {
+  const currentTarget = event.currentTarget as HTMLElement;
   const textarea = currentTarget.querySelector('textarea');
   const note = currentTarget.querySelector('small') as any;
   textarea!.select();
@@ -52,7 +52,7 @@ export class IauxSharingOptions extends LitElement {
 
   @property({ type: String }) identifier = '';
 
-  @property({ type: Array }) sharingOptions: ProviderParams[] = [];
+  @property({ type: Array }) sharingOptions: ShareOption[] = [];
 
   @property({ type: String }) type = '';
 
