@@ -1382,10 +1382,9 @@
     ></iframe>`}get bbcodeEmbed(){return`[archiveorg ${this.identifier} width=560 height=384 frameborder=0 webkitallowfullscreen=true mozallowfullscreen=true]`}get helpURL(){return`https://${this.baseHost}/help/audio.php?identifier=${this.identifier}`}get header(){const e=_`<header><h3>Share this ${this.type}</h3></header>`;return this.renderHeader?e:A}render(){return _`
       ${this.header}
       <main>
-        ${this.sharingOptions.map(e=>_`
-          <a class="share-option" href="${e.url}" target="_blank">
-            ${e.icon} ${e.name}
-          </a>`)}
+        ${this.sharingOptions.map(e=>_` <a class="share-option" href="${e.url}" target="_blank">
+              ${e.icon} ${e.name}
+            </a>`)}
         <details>
           <summary class="share-option">
             <ia-icon-link></ia-icon-link>
@@ -1453,7 +1452,7 @@
         cursor: pointer;
       }
 
-      .share-option > *  {
+      .share-option > * {
         display: inline-block;
         padding: 0.2rem;
         margin-right: 1rem;
@@ -1465,7 +1464,7 @@
 
       /* Hide the triangle that appears on details tags */
       summary::marker {
-        content: "";
+        content: '';
       }
 
       summary::-webkit-details-marker {
