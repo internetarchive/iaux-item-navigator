@@ -38,21 +38,11 @@ describe('<iaux-in-share-panel>', () => {
 
     await el.updateComplete;
 
-    el.sharingOptions.forEach(option => {
-      const button =
-        el.shadowRoot && el.shadowRoot.querySelector(`a.${option.class}`);
+    el.sharingOptions.forEach((option, i) => {
+      const button = el.shadowRoot?.querySelectorAll('a')[i];
       expect(button).to.exist;
       expect(button?.getAttribute('href')).to.equal(option.url);
     });
-  });
-
-  it('toggles visibility of embed options', async () => {
-    const el = (await fixture(container())) as IauxSharingOptions;
-
-    el.toggleEmbedOptions(new Event('click'));
-    await el.updateComplete;
-
-    expect(el.embedOptionsVisible).to.equal(true);
   });
 
   it('does not show internal header by default', async () => {
@@ -68,17 +58,10 @@ describe('<iaux-in-share-panel>', () => {
   });
 
   it('sets file subprefix to end of share URLs if present', async () => {
-    const optionalFileSubprefix = 'foo- bar - 123-';
-    const el = (await fixture(
-      container(optionalFileSubprefix),
-    )) as IauxSharingOptions;
+    const el = (await fixture(container('foo 123'))) as IauxSharingOptions;
 
     el.sharingOptions.forEach(option => {
-      if (option.name !== 'Tumblr') {
-        expect(option.url).to.contain(
-          encodeURIComponent(optionalFileSubprefix),
-        );
-      }
+      expect(option.url).to.contain('foo+123');
     });
   });
 });

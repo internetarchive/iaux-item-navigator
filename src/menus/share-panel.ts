@@ -1,7 +1,5 @@
 /* eslint-disable lit-a11y/click-events-have-key-events */
 /* eslint-disable lit-a11y/list */
-import { classMap } from 'lit/directives/class-map.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
 import {
   css,
   CSSResult,
@@ -12,19 +10,22 @@ import {
   TemplateResult,
 } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import '@internetarchive/icon-link/icon-link';
 import '@internetarchive/icon-share/icon-share';
+import '@internetarchive/icon-twitter/icon-twitter';
+import '@internetarchive/icon-facebook/icon-facebook';
+import '@internetarchive/icon-tumblr/icon-tumblr';
+import '@internetarchive/icon-pinterest/icon-pinterest';
+import '@internetarchive/icon-email/icon-email';
+import '@internetarchive/icon-link/icon-link';
 
-import EmailProvider from './share-providers/email';
-import FacebookProvider from './share-providers/facebook';
-import PinterestProvider from './share-providers/pinterest';
-import TumblrProvider from './share-providers/tumblr';
-import TwitterProvider from './share-providers/twitter';
-import { ProviderParams } from './share-providers/share-provider-interface';
-import type Provider from './share-providers/provider';
+type ShareOption = {
+  name: string;
+  icon: TemplateResult | string;
+  url: string;
+};
 
-const copyToClipboard = (options: Record<any, any>) => {
-  const currentTarget = options.currentTarget as HTMLElement;
+const copyToClipboard = (event: MouseEvent) => {
+  const currentTarget = event.currentTarget as HTMLElement;
   const textarea = currentTarget.querySelector('textarea');
   const note = currentTarget.querySelector('small') as any;
   textarea!.select();
@@ -51,7 +52,7 @@ export class IauxSharingOptions extends LitElement {
 
   @property({ type: String }) identifier = '';
 
-  @property({ type: Array }) sharingOptions: Provider[] = [];
+  @property({ type: Array }) sharingOptions: ShareOption[] = [];
 
   @property({ type: String }) type = '';
 
@@ -66,55 +67,74 @@ export class IauxSharingOptions extends LitElement {
   }
 
   loadProviders() {
-    const { baseHost, creator, description, identifier, type, fileSubPrefix } =
-      this;
-    const params = {
-      baseHost,
-      creator,
-      description,
-      identifier,
-      type,
-      fileSubPrefix,
-    } as unknown as ProviderParams;
+    let shareUrl = `https://${this.baseHost}/details/${this.identifier}`;
+    if (this.fileSubPrefix) {
+      shareUrl += `/${this.fileSubPrefix}`;
+    }
+    const shareBlurb = [
+      this.description,
+      this.creator,
+      'Free Download, Borrow, and Streaming',
+      'Internet Archive',
+    ]
+      .filter(Boolean)
+      .join(' : ');
 
     this.sharingOptions = [
-      new TwitterProvider(params),
-      new FacebookProvider(params),
-      new TumblrProvider(params),
-      new PinterestProvider(params),
-      new EmailProvider(params),
+      {
+        name: 'Twitter',
+        icon: html`<ia-icon-twitter></ia-icon-twitter>`,
+        url: `https://twitter.com/intent/tweet?${new URLSearchParams({
+          url: shareUrl,
+          text: shareBlurb,
+          via: 'internetarchive',
+        })}`,
+      },
+      {
+        name: 'Facebook',
+        icon: html`<ia-icon-facebook></ia-icon-facebook>`,
+        url: `https://www.facebook.com/sharer/sharer.php?${new URLSearchParams({
+          u: shareUrl,
+        })}`,
+      },
+      {
+        name: 'Tumblr',
+        icon: html`<ia-icon-tumblr></ia-icon-tumblr>`,
+        url: `https://www.tumblr.com/widgets/share/tool/preview?${new URLSearchParams(
+          {
+            posttype: 'link',
+            canonicalUrl: shareUrl,
+            title: shareBlurb,
+          },
+        )}`,
+      },
+      {
+        name: 'Pinterest',
+        icon: html`<ia-icon-pinterest></ia-icon-pinterest>`,
+        url: `http://www.pinterest.com/pin/create/button/?${new URLSearchParams(
+          {
+            url: shareUrl,
+            description: shareBlurb,
+          },
+        )}`,
+      },
+      {
+        name: 'Email',
+        icon: html`<ia-icon-email></ia-icon-email>`,
+        url: `mailto:?${new URLSearchParams({
+          subject: shareBlurb,
+          body: shareUrl,
+        })}`,
+      },
     ];
   }
 
-  get sharingItems() {
-    return this.sharingOptions.map(
-      option =>
-        html`<li>
-          <a
-            class="${ifDefined(option.class)}"
-            href="${option.url}"
-            target="_blank"
-          >
-            ${option.icon} ${option.name}
-          </a>
-        </li>`,
-    );
-  }
-
-  get embedOption() {
-    return html`<li>
-      <a href="#" @click=${this.toggleEmbedOptions}>
-        <ia-icon-link></ia-icon-link>
-        Get an embeddable link
-      </a>
-    </li>`;
-  }
-
   get iframeEmbed() {
-    return html`&lt;iframe
-    src="https://${this.baseHost}/embed/${this.identifier}" width="560"
-    height="384" frameborder="0" webkitallowfullscreen="true"
-    mozallowfullscreen="true" allowfullscreen&gt;&lt;/iframe&gt;`;
+    return `<iframe
+      src="https://${this.baseHost}/embed/${this.identifier}"
+      width="560" height="384" frameborder="0"
+      webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen
+    ></iframe>`;
   }
 
   get bbcodeEmbed() {
@@ -125,11 +145,6 @@ export class IauxSharingOptions extends LitElement {
     return `https://${this.baseHost}/help/audio.php?identifier=${this.identifier}`;
   }
 
-  toggleEmbedOptions(e: Event) {
-    e.preventDefault();
-    this.embedOptionsVisible = !this.embedOptionsVisible;
-  }
-
   get header() {
     const header = html`<header><h3>Share this ${this.type}</h3></header>`;
     return this.renderHeader ? header : nothing;
@@ -138,32 +153,41 @@ export class IauxSharingOptions extends LitElement {
   render() {
     return html`
       ${this.header}
-      <ul>
-        ${this.sharingItems} ${this.embedOption}
-        <div
-          class=${classMap({ visible: this.embedOptionsVisible, embed: true })}
-        >
-          <h4>Embed</h4>
-          <div class="code" @click=${copyToClipboard}>
-            <textarea readonly>${this.iframeEmbed}</textarea>
-            <small>Copied to clipboard</small>
+      <main>
+        ${this.sharingOptions.map(
+          option =>
+            html` <a class="share-option" href="${option.url}" target="_blank">
+              ${option.icon} ${option.name}
+            </a>`,
+        )}
+        <details>
+          <summary class="share-option">
+            <ia-icon-link></ia-icon-link>
+            Get an embeddable link
+          </summary>
+          <div class="embed">
+            <h4>Embed</h4>
+            <div class="code" @click=${copyToClipboard}>
+              <textarea readonly>${this.iframeEmbed}</textarea>
+              <small>Copied to clipboard</small>
+            </div>
+            <h4>
+              Embed for wordpress.com hosted blogs and archive.org item
+              &lt;description&gt; tags
+            </h4>
+            <div class="code" @click=${copyToClipboard}>
+              <textarea readonly>${this.bbcodeEmbed}</textarea>
+              <small>Copied to clipboard</small>
+            </div>
+            <p>
+              Want more?
+              <a href=${this.helpURL}
+                >Advanced embedding details, examples, and help</a
+              >!
+            </p>
           </div>
-          <h4>
-            Embed for wordpress.com hosted blogs and archive.org item
-            &lt;description&gt; tags
-          </h4>
-          <div class="code" @click=${copyToClipboard}>
-            <textarea readonly>${this.bbcodeEmbed}</textarea>
-            <small>Copied to clipboard</small>
-          </div>
-          <p>
-            Want more?
-            <a href=${this.helpURL}
-              >Advanced embedding details, examples, and help</a
-            >!
-          </p>
-        </div>
-      </ul>
+        </details>
+      </main>
     `;
   }
 
@@ -198,22 +222,20 @@ export class IauxSharingOptions extends LitElement {
         font-size: 1.4rem;
       }
 
-      ul {
-        padding: 0 0 2rem 0;
-        list-style: none;
+      main {
+        padding: 1rem 0;
       }
 
-      li {
-        padding: 0 0 1rem 0;
-      }
-
-      li a {
+      .share-option {
+        display: block;
+        padding: 0.5rem 0;
         font-size: 1.6rem;
         text-decoration: none;
         color: var(--shareLinkColor);
+        cursor: pointer;
       }
 
-      li a * {
+      .share-option > * {
         display: inline-block;
         padding: 0.2rem;
         margin-right: 1rem;
@@ -223,12 +245,17 @@ export class IauxSharingOptions extends LitElement {
         background: var(--shareIconBg);
       }
 
-      .embed {
+      /* Hide the triangle that appears on details tags */
+      summary::marker {
+        content: '';
+      }
+
+      summary::-webkit-details-marker {
         display: none;
       }
-      .embed.visible {
-        display: block;
-        width: 95%;
+
+      .embed {
+        padding-right: 5px;
       }
 
       .embed a {
