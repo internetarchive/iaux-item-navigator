@@ -8,7 +8,7 @@ import {
   nothing,
 } from 'lit';
 import { customElement, property, state, query } from 'lit/decorators.js';
-import { MetadataResponse } from '@internetarchive/search-service';
+import { MetadataResponse } from '@internetarchive/metadata-service';
 import {
   SharedResizeObserver,
   SharedResizeObserverResizeHandlerInterface,
@@ -84,6 +84,7 @@ export class ItemNavigator
   @query('slot[name="main"]') private mainSlot!: HTMLSlotElement;
 
   disconnectedCallback() {
+    super.disconnectedCallback();
     this.removeResizeObserver();
   }
 

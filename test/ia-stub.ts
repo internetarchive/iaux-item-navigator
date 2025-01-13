@@ -5,7 +5,7 @@ import {
   File,
   Review,
   SpeechMusicASREntry,
-} from '@internetarchive/search-service';
+} from '@internetarchive/metadata-service';
 import { html } from 'lit';
 import {
   MenuShortcutInterface,

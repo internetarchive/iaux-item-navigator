@@ -1,13 +1,13 @@
 /* eslint-disable no-restricted-globals */
 import { html, css, LitElement, TemplateResult } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
-import {
-  MetadataResponse,
-  SearchService,
-} from '@internetarchive/search-service';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import { ModalManager } from '@internetarchive/modal-manager';
 import '@internetarchive/modal-manager';
+import {
+  MetadataResponse,
+  MetadataService,
+} from '@internetarchive/metadata-service';
 import type { ItemNavigator } from '../src/iaux-item-navigator';
 import '../src/iaux-item-navigator';
 import '../src/menus/share-panel';
@@ -147,7 +147,7 @@ export class AppRoot extends LitElement {
 
   @property({ type: String }) encodedManifest = '';
 
-  @property({ attribute: false }) sharedObserver = new SharedResizeObserver();
+  sharedObserver = new SharedResizeObserver();
 
   @property({ type: Array, attribute: false })
   menuContents: MenuProviderInterface[] = [];
@@ -203,7 +203,7 @@ export class AppRoot extends LitElement {
   }
 
   async fetchItemMD() {
-    const searchService = SearchService.default;
+    const searchService = MetadataService.default;
 
     // masterbookofamericanfolksong00shep => multiple files
     // ux-team-books => item
@@ -441,7 +441,7 @@ export class AppRoot extends LitElement {
           .item=${this.itemMD}
           .modal=${this.modalMgr}
           .sharedObserver=${this.sharedObserver}
-          .loaded=${this.loaded}
+          ?loaded=${this.loaded}
           ?viewAvailable=${!!this.showTheaterExample}
           .menuContents=${this.menuContents}
           .menuShortcuts=${this.menuShortcuts}
