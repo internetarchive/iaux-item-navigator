@@ -21,11 +21,11 @@
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
     "format": "eslint --ext .ts,.html . --fix --ignore-path .gitignore && prettier \"**/*.ts\" --write --ignore-path .gitignore",
     "circular": "madge --circular --extensions ts .",
-    "test": "tsc && yarn run lint && yarn run circular && wtr --coverage",
+    "test": "tsc && npm run lint && npm run circular && wtr --coverage",
     "test:watch": "tsc && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch\"",
-    "ghpages:build": "rimraf ghpages && yarn run prepare && vite build",
-    "ghpages:publish": "yarn run ghpages:prepare -e $(git branch --show-current)",
-    "ghpages:prepare": "yarn run ghpages:build && touch ghpages/.nojekyll && yarn run ghpages:generate",
+    "ghpages:build": "rimraf ghpages && npm run prepare && vite build",
+    "ghpages:publish": "npm run ghpages:prepare -e $(git branch --show-current)",
+    "ghpages:prepare": "npm run ghpages:build && touch ghpages/.nojekyll && npm run ghpages:generate",
     "ghpages:generate": "gh-pages -t -d ghpages -m \"Build for $(git log --pretty=format:\"%h %an %ai %s\" -n1) [skip ci]\""
   },
   "dependencies": {
