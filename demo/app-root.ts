@@ -203,11 +203,11 @@ export class AppRoot extends LitElement {
   }
 
   async fetchItemMD() {
-    const searchService = MetadataService.default;
+    const metadataService = MetadataService.default;
 
     // masterbookofamericanfolksong00shep => multiple files
     // ux-team-books => item
-    const mdResponse = await searchService.fetchMetadata(
+    const mdResponse = await metadataService.fetchMetadata(
       'masterbookofamericanfolksong00shep',
     );
 
