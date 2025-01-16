@@ -1,15 +1,15 @@
 /* eslint-disable camelcase */
+import { Metadata } from '@internetarchive/iaux-item-metadata';
 import {
-  MetadataResponse,
-  Metadata,
   File,
+  MetadataResponse,
   Review,
   SpeechMusicASREntry,
 } from '@internetarchive/metadata-service';
 import { html } from 'lit';
 import {
-  MenuShortcutInterface,
   MenuProviderInterface,
+  MenuShortcutInterface,
 } from '../src/interfaces/menu-interfaces';
 
 export class ItemStub implements MetadataResponse {
