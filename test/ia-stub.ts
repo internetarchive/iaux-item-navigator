@@ -22,7 +22,7 @@ export class ItemStub implements MetadataResponse {
     this.files_count = 0;
     this.item_last_updated = 2020;
     this.item_size = 111;
-    this.metadata = { identifier: 'foo' } as Metadata;
+    this.metadata = new Metadata({ identifier: 'foo' });
     this.server = 'foo-server';
     this.uniq = 2;
     this.workable_servers = ['abc'];
