@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { Metadata } from '@internetarchive/iaux-item-metadata';
 import {
   File,

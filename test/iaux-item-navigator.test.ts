@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { html, fixture, expect } from '@open-wc/testing';
 import Sinon from 'sinon';
 

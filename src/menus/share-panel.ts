@@ -1,5 +1,3 @@
-/* eslint-disable lit-a11y/click-events-have-key-events */
-/* eslint-disable lit-a11y/list */
 import {
   css,
   CSSResult,

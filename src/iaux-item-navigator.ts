@@ -51,7 +51,7 @@ export class ItemNavigator
   })
   item?: MetadataResponse;
 
-  @property({ type: Boolean, reflect: true }) viewAvailable: Boolean = true;
+  @property({ type: Boolean, reflect: true }) viewAvailable: boolean = true;
 
   @property({ type: String }) baseHost = 'archive.org';
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import { html, css, LitElement, TemplateResult } from 'lit';
 import { customElement, property, query } from 'lit/decorators.js';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';

@@ -1,5 +1,3 @@
-/* eslint-disable max-classes-per-file */
-/* eslint-disable lit-a11y/list */
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { repeat } from 'lit/directives/repeat.js';
