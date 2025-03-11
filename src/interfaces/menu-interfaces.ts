@@ -1,5 +1,5 @@
 import { TemplateResult } from 'lit';
-import { MetadataResponse } from '@internetarchive/search-service';
+import { MetadataResponse } from '@internetarchive/metadata-service';
 
 export type MenuId = string;
 export interface MenuShortcutInterface {

@@ -3,6 +3,9 @@
 export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   files: 'dist/test/**/*.test.js',
   nodeResolve: true,
+  coverageConfig: {
+    exclude: ['./dist/test/**/*', './node_modules/**/*'],
+  },
 
   /** Compile JS for older browsers. Requires @web/dev-server-esbuild plugin */
   // esbuildTarget: 'auto',

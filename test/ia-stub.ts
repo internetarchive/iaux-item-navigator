@@ -1,15 +1,14 @@
-/* eslint-disable camelcase */
+import { Metadata } from '@internetarchive/iaux-item-metadata';
 import {
-  MetadataResponse,
-  Metadata,
   File,
+  MetadataResponse,
   Review,
   SpeechMusicASREntry,
-} from '@internetarchive/search-service';
+} from '@internetarchive/metadata-service';
 import { html } from 'lit';
 import {
-  MenuShortcutInterface,
   MenuProviderInterface,
+  MenuShortcutInterface,
 } from '../src/interfaces/menu-interfaces';
 
 export class ItemStub implements MetadataResponse {
@@ -23,7 +22,7 @@ export class ItemStub implements MetadataResponse {
     this.files_count = 0;
     this.item_last_updated = 2020;
     this.item_size = 111;
-    this.metadata = { identifier: 'foo' } as Metadata;
+    this.metadata = new Metadata({ identifier: 'foo' });
     this.server = 'foo-server';
     this.uniq = 2;
     this.workable_servers = ['abc'];

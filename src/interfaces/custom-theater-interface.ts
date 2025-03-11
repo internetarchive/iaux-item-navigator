@@ -1,5 +1,5 @@
 import { LitElement } from 'lit';
-import { MetadataResponse } from '@internetarchive/search-service';
+import { MetadataResponse } from '@internetarchive/metadata-service';
 import { ModalManager } from '@internetarchive/modal-manager';
 import { SharedResizeObserver } from '@internetarchive/shared-resize-observer';
 import {

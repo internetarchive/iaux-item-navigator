@@ -11,7 +11,6 @@ describe('IANoTheaterAvailable', () => {
     );
     let eventFired = false;
     el.addEventListener('loadingStateUpdated', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       eventFired = true;
     });
     expect(eventFired).to.be.false;
