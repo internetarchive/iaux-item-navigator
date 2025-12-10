@@ -49,7 +49,12 @@ export class MenuButton extends LitElement {
 
   get menuItem() {
     return html`
-      <span class="icon ${this.iconClass}"> ${this.icon} </span>
+      <span
+        class="icon ${this.iconClass}"
+        aria-hidden="true"
+        role="presentation"
+        title="${this.label}"
+      >${this.icon}</span>
       <span class="label">${this.label}</span>
       <span class="menu-details">${this.menuDetails}</span>
     `;

@@ -5,25 +5,20 @@ export type MenuId = string;
 export interface MenuShortcutInterface {
   icon: TemplateResult;
   id: MenuId;
+  label: string;
 }
 
 export interface MenuDetailsInterface extends MenuShortcutInterface {
-  label: string;
   menuDetails?: TemplateResult;
   selected?: boolean;
   followable?: boolean;
   href?: string;
 }
 
-export interface MenuProviderBaseConfigInterface {
+export interface MenuProviderInterface extends MenuDetailsInterface {
   item: MetadataResponse;
   baseHost: string;
   subPrefix: string;
   updated?: any;
-}
-export interface MenuProviderInterface
-  extends MenuProviderBaseConfigInterface,
-    MenuDetailsInterface,
-    MenuShortcutInterface {
   actionButton: TemplateResult;
 }

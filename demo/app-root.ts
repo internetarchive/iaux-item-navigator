@@ -286,6 +286,7 @@ export class AppRoot extends LitElement {
           Exit
         </button>`,
         id: 'exit',
+        label: 'Exit',
       },
     ];
     this.menuContents = [

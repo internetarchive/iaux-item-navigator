@@ -6,6 +6,11 @@ export default css`
     text-decoration: none;
   }
 
+  button.menu-item {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
   .menu-item {
     display: inline-flex;
     width: 100%;
@@ -18,12 +23,12 @@ export default css`
     align-items: center;
     border: none;
     cursor: pointer;
+    transition: background-color 0.2s;
+    border-radius: 6px;
   }
 
-  button.menu-item {
-    -webkit-appearance: none;
-    appearance: none;
-    border-radius: 0;
+  .menu-item:hover {
+    background-color: rgba(255,255,255,0.1);
   }
 
   .label {
@@ -58,6 +63,11 @@ export default css`
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
+  }
+
+  .menu-item > .icon > * {
+    /* Prevent tooltip containing icon literal description */
+    pointer-events: none;
   }
 
   .menu-item.selected .icon {
