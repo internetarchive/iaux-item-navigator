@@ -238,14 +238,20 @@ export class ItemNavigator
     if (this.menuOpened) {
       // Move focus to the <ia-menu-slider>
       this.updateComplete.then(() => {
-        const menuSlider = this.renderRoot.querySelector('ia-menu-slider') as HTMLElement;
-        const closeButton = menuSlider?.shadowRoot?.querySelector('button.close') as HTMLElement;
+        const menuSlider = this.renderRoot.querySelector(
+          'ia-menu-slider',
+        ) as HTMLElement;
+        const closeButton = menuSlider?.shadowRoot?.querySelector(
+          'button.close',
+        ) as HTMLElement;
         closeButton?.focus();
       });
     } else {
       // Move focus back to the menu toggle button
       this.updateComplete.then(() => {
-        const toggleButton = this.renderRoot.querySelector('button.toggle-menu') as HTMLElement;
+        const toggleButton = this.renderRoot.querySelector(
+          'button.toggle-menu',
+        ) as HTMLElement;
         toggleButton?.focus();
       });
     }
@@ -292,7 +298,10 @@ export class ItemNavigator
         title="Toggle theater side panels"
         aria-label="Toggle theater side panels"
       >
-        <ia-icon-ellipses aria-hidden="true" role="presentation"></ia-icon-ellipses>
+        <ia-icon-ellipses
+          aria-hidden="true"
+          role="presentation"
+        ></ia-icon-ellipses>
       </button>
     `;
   }
@@ -304,10 +313,10 @@ export class ItemNavigator
   get renderSideMenu(): TemplateResult {
     return html`
       <nav>
-        <div class="minimized ${classMap({hidden: this.menuOpened})}">
+        <div class="minimized ${classMap({ hidden: this.menuOpened })}">
           ${this.shortcuts} ${this.menuToggleButton}
         </div>
-        <div id="menu" class=${classMap({hidden: !this.menuOpened})}>
+        <div id="menu" class=${classMap({ hidden: !this.menuOpened })}>
           <ia-menu-slider
             .menus=${this.menuContents}
             .selectedMenu=${this.selectedMenuId}

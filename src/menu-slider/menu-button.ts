@@ -54,7 +54,8 @@ export class MenuButton extends LitElement {
         aria-hidden="true"
         role="presentation"
         title="${this.label}"
-      >${this.icon}</span>
+        >${this.icon}</span
+      >
       <span class="label">${this.label}</span>
       <span class="menu-details">${this.menuDetails}</span>
     `;
