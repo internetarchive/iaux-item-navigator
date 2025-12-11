@@ -1,5 +1,5 @@
 import { LitElement, html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, query } from 'lit/decorators.js';
 import menuSliderCSS from './styles/menu-slider';
 import '@internetarchive/icon-collapse-sidebar';
 import './menu-button';
@@ -27,14 +27,8 @@ export class IaMenuSlider extends LitElement {
 
   @property({ type: Boolean }) animateMenuOpen = false;
 
-  updated() {
-    const { actionButton } =
-      this.selectedMenuDetails || ({} as Record<string, any>);
-    const actionButtonHasChanged = actionButton !== this.selectedMenuAction;
-    if (actionButtonHasChanged) {
-      this.selectedMenuAction = actionButton || nothing;
-    }
-  }
+  @query('.content.open button.close') contentCloseButton!: HTMLElement;
+
 
   /**
    * Event handler, captures state of selected menu
@@ -45,6 +39,9 @@ export class IaMenuSlider extends LitElement {
     const { actionButton } =
       this.selectedMenuDetails || ({} as Record<string, any>);
     this.selectedMenuAction = actionButton || nothing;
+    this.updateComplete.then(() => {
+      this.contentCloseButton?.focus();
+    });
   }
 
   /**
