@@ -151,7 +151,7 @@ export class IauxSharingOptions extends LitElement {
   render() {
     return html`
       ${this.header}
-      <main>
+      <div>
         ${this.sharingOptions.map(
           option =>
             html` <a class="share-option" href="${option.url}" target="_blank">
@@ -185,7 +185,7 @@ export class IauxSharingOptions extends LitElement {
             </p>
           </div>
         </details>
-      </main>
+      </div>
     `;
   }
 
@@ -220,7 +220,7 @@ export class IauxSharingOptions extends LitElement {
         font-size: 1.4rem;
       }
 
-      main {
+      :host > div {
         padding: 1rem 0;
       }
 
