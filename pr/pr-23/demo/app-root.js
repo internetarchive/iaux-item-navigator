@@ -521,10 +521,6 @@
     transform: translateX(calc(${Ke} * -1));
   }
 
-  .menu > button.close {
-    right: 0.7rem;
-  }
-
   button {
     cursor: pointer;
   }
@@ -564,11 +560,13 @@
     position: absolute;
   }
   button.close {
-    right: 0.5rem;
-  }
-
-  button.close * {
-    float: right;
+    min-width: 38px;
+    min-height: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 0;
+    top: 0;
   }
 
   .content {
