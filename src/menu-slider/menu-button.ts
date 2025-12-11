@@ -8,6 +8,11 @@ export class MenuButton extends LitElement {
     return menuButtonCSS;
   }
 
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
+  };
+
   @property({ type: String }) icon = '';
 
   @property({ type: String }) href = '';

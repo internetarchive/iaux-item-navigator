@@ -29,6 +29,7 @@ export class IaMenuSlider extends LitElement {
 
   @query('.content.open button.close') contentCloseButton!: HTMLElement;
 
+  @query('.menu-list') menuList!: HTMLUListElement;
 
   /**
    * Event handler, captures state of selected menu
@@ -56,6 +57,39 @@ export class IaMenuSlider extends LitElement {
       detail: this.selectedMenuDetails,
     });
     this.dispatchEvent(drawerClosed);
+  }
+
+  closePanel() {
+    const menuId = this.selectedMenu;
+    this.selectedMenu = '';
+    this.selectedMenuAction = nothing;
+
+    // Return focus to the menu button that was previously selected
+    if (menuId) {
+      this.updateComplete.then(() => {
+        const menuIndex = this.menus.findIndex(menu => menu.id === menuId);
+        if (menuIndex !== -1) {
+          const menuButton = this.menuList.querySelector(
+            `li:nth-child(${menuIndex + 1}) menu-button`,
+          ) as HTMLElement;
+          menuButton?.focus();
+        }
+      });
+    }
+  }
+
+  /**
+   * Handle keyboard events, specifically ESC key to close menu details
+   */
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (this.selectedMenu) {
+        this.closePanel();
+      } else {
+        this.closeMenu();
+      }
+    }
   }
 
   get selectedMenuDetails() {
@@ -116,7 +150,14 @@ export class IaMenuSlider extends LitElement {
           <h3>${label}</h3>
           <span class="extra-details">${menuDetails}</span>
         </div>
-        ${actionBlock} ${this.closeButton}
+        ${actionBlock}
+        <button
+          class="close"
+          aria-label="Close this menu"
+          @click=${this.closePanel}
+        >
+          <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
+        </button>
       </header>
     `;
   }
@@ -136,7 +177,7 @@ export class IaMenuSlider extends LitElement {
   /** @inheritdoc */
   render() {
     return html`
-      <div class="main">
+      <div class="main" @keydown=${this.handleKeyDown}>
         <div class="menu ${this.sliderDetailsClass}">
           ${this.closeButton}
           <ul class="menu-list">
