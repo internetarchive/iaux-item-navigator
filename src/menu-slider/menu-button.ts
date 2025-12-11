@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import menuButtonCSS from './styles/menu-button';
 
@@ -13,13 +13,13 @@ export class MenuButton extends LitElement {
     delegatesFocus: true,
   };
 
-  @property({ type: String }) icon = '';
+  @property({ type: String }) icon: TemplateResult | string = '';
 
   @property({ type: String }) href = '';
 
   @property({ type: String }) label = '';
 
-  @property({ type: String }) menuDetails = '';
+  @property({ type: String }) menuDetails: TemplateResult | string = '';
 
   @property({ type: String }) buttonId = '';
 

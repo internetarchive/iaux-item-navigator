@@ -13,6 +13,7 @@ export interface MenuDetailsInterface extends MenuShortcutInterface {
   selected?: boolean;
   followable?: boolean;
   href?: string;
+  component?: TemplateResult;
 }
 
 export interface MenuProviderInterface extends MenuDetailsInterface {
@@ -20,5 +21,5 @@ export interface MenuProviderInterface extends MenuDetailsInterface {
   baseHost: string;
   subPrefix: string;
   updated?: any;
-  actionButton: TemplateResult;
+  actionButton?: TemplateResult;
 }

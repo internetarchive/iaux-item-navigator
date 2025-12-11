@@ -13,6 +13,7 @@ import '../src/menus/share-panel';
 import {
   MenuShortcutInterface,
   MenuProviderInterface,
+  MenuDetailsInterface,
 } from '../src/interfaces/menu-interfaces';
 import { iauxShareIcon } from '../src/menus/share-panel';
 import { viewableFilesIcon } from '../src/menus/viewable-files';
@@ -149,7 +150,7 @@ export class AppRoot extends LitElement {
   sharedObserver = new SharedResizeObserver();
 
   @property({ type: Array, attribute: false })
-  menuContents: MenuProviderInterface[] = [];
+  menuContents: MenuDetailsInterface[] = [];
 
   @property({ type: Array, attribute: false })
   menuShortcuts: MenuShortcutInterface[] = [];
@@ -326,7 +327,7 @@ export class AppRoot extends LitElement {
   }
 
   drawMenus() {
-    const shareMenu = {
+    const shareMenu: MenuDetailsInterface = {
       icon: iauxShareIcon,
       label: 'Share this item',
       id: 'share',
@@ -338,7 +339,7 @@ export class AppRoot extends LitElement {
         .baseHost=${'archive.org'}
         .fileSubPrefix=${''}
       ></iaux-in-share-panel>`,
-    } as unknown as MenuProviderInterface;
+    };
 
     const filesNewArr = [...fileList];
     const viewableFilesMenu = {
@@ -370,7 +371,6 @@ export class AppRoot extends LitElement {
     await this.updateComplete;
     console.log('fileListSortedasyncd', { sortType, sortedFiles });
     this.drawMenus();
-    // debugger;
   }
 
   /** Views */
