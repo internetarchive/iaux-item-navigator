@@ -713,7 +713,6 @@
       <span
         class="icon ${this.iconClass}"
         aria-hidden="true"
-        role="presentation"
         title="${this.label}"
         >${this.icon}</span
       >
@@ -730,7 +729,7 @@
       <button class="menu-item ${this.buttonClass}" @click=${this.onClick}>
         ${this.menuItem}
       </button>
-    `}render(){return this.href?this.linkButton:this.clickButton}};O.shadowRootOptions={...A.shadowRootOptions,delegatesFocus:!0};a([f({type:String})],O.prototype,"icon",void 0);a([f({type:String})],O.prototype,"href",void 0);a([f({type:String})],O.prototype,"label",void 0);a([f({type:String})],O.prototype,"menuDetails",void 0);a([f({type:String})],O.prototype,"buttonId",void 0);a([f({type:Boolean})],O.prototype,"selected",void 0);a([f({type:Boolean})],O.prototype,"followable",void 0);O=a([L("menu-button")],O);const kr={closeDrawer:"menuSliderClosed"};let D=class extends A{constructor(){super(...arguments),this.menus=[],this.open=!1,this.manuallyHandleClose=!1,this.selectedMenu="",this.selectedMenuAction=y,this.animateMenuOpen=!1}static get styles(){return $r}updated(){var e;const t=((e=this.selectedMenuDetails)===null||e===void 0?void 0:e.actionButton)||y;t!==this.selectedMenuAction&&(this.selectedMenuAction=t)}setSelectedMenu({detail:e}){var t;const{id:i}=e;this.selectedMenu=this.selectedMenu===i?"":i,this.selectedMenuAction=((t=this.selectedMenuDetails)===null||t===void 0?void 0:t.actionButton)||y,this.updateComplete.then(()=>{var r;(r=this.contentCloseButton)===null||r===void 0||r.focus()})}closeMenu(){this.manuallyHandleClose||(this.open=!1);const{closeDrawer:e}=kr,t=new CustomEvent(e,{detail:this.selectedMenuDetails});this.dispatchEvent(t)}closePanel(){const e=this.selectedMenu;this.selectedMenu="",this.selectedMenuAction=y,e&&this.updateComplete.then(()=>{const t=this.menus.findIndex(i=>i.id===e);if(t!==-1){const i=this.menuList.querySelector(`li:nth-child(${t+1}) menu-button`);i==null||i.focus()}})}handleKeyDown(e){e.key==="Escape"&&(e.preventDefault(),this.selectedMenu?this.closePanel():this.closeMenu())}get selectedMenuDetails(){return this.menus.find(e=>e.id===this.selectedMenu)}get sliderDetailsClass(){const e=this.animateMenuOpen?"animate":"",t=this.open?"open":"";return`${e} ${t}`}get selectedMenuClass(){return this.selectedMenu?"open":""}get menuItems(){return this.menus.map(e=>u`
+    `}render(){return this.href?this.linkButton:this.clickButton}};O.shadowRootOptions={...A.shadowRootOptions,delegatesFocus:!0};a([f({type:Object})],O.prototype,"icon",void 0);a([f({type:String})],O.prototype,"href",void 0);a([f({type:String})],O.prototype,"label",void 0);a([f({type:Object})],O.prototype,"menuDetails",void 0);a([f({type:String})],O.prototype,"buttonId",void 0);a([f({type:Boolean})],O.prototype,"selected",void 0);a([f({type:Boolean})],O.prototype,"followable",void 0);O=a([L("menu-button")],O);const kr={closeDrawer:"menuSliderClosed"};let D=class extends A{constructor(){super(...arguments),this.menus=[],this.open=!1,this.manuallyHandleClose=!1,this.selectedMenu="",this.selectedMenuAction=y,this.animateMenuOpen=!1}static get styles(){return $r}updated(){var e;const t=((e=this.selectedMenuDetails)===null||e===void 0?void 0:e.actionButton)||y;t!==this.selectedMenuAction&&(this.selectedMenuAction=t)}setSelectedMenu({detail:e}){var t;const{id:i}=e;this.selectedMenu=this.selectedMenu===i?"":i,this.selectedMenuAction=((t=this.selectedMenuDetails)===null||t===void 0?void 0:t.actionButton)||y,this.updateComplete.then(()=>{var r;(r=this.contentCloseButton)===null||r===void 0||r.focus()})}closeMenu(){this.manuallyHandleClose||(this.open=!1);const{closeDrawer:e}=kr,t=new CustomEvent(e,{detail:this.selectedMenuDetails});this.dispatchEvent(t)}closePanel(){const e=this.selectedMenu;this.selectedMenu="",this.selectedMenuAction=y,e&&this.updateComplete.then(()=>{const t=this.menus.findIndex(i=>i.id===e);if(t!==-1){const i=this.menuList.querySelector(`li:nth-child(${t+1}) menu-button`);i==null||i.focus()}})}handleKeyDown(e){e.key==="Escape"&&(e.preventDefault(),this.selectedMenu?this.closePanel():this.closeMenu())}get selectedMenuDetails(){return this.menus.find(e=>e.id===this.selectedMenu)}get sliderDetailsClass(){const e=this.animateMenuOpen?"animate":"",t=this.open?"open":"";return`${e} ${t}`}get selectedMenuClass(){return this.selectedMenu?"open":""}get menuItems(){return this.menus.map(e=>u`
         <li>
           <menu-button
             @menuTypeSelected=${this.setSelectedMenu}
@@ -753,6 +752,7 @@
         <button
           class="close"
           aria-label="Close this menu"
+          title="Close this menu"
           @click=${this.closePanel}
         >
           <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
@@ -762,6 +762,7 @@
       <button
         class="close"
         aria-label="Close this menu"
+        title="Close this menu"
         @click=${this.closeMenu}
       >
         <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
@@ -938,10 +939,7 @@
         title="Toggle theater side panels"
         aria-label="Toggle theater side panels"
       >
-        <ia-icon-ellipses
-          aria-hidden="true"
-          role="presentation"
-        ></ia-icon-ellipses>
+        <ia-icon-ellipses aria-hidden="true"></ia-icon-ellipses>
       </button>
     `}get selectedMenuId(){return this.openMenu||""}get renderSideMenu(){return u`
       <nav>
