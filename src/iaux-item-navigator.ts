@@ -35,6 +35,7 @@ import {
   MenuId,
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
+import type { IaMenuSlider } from './menu-slider/ia-menu-slider';
 
 @customElement('iaux-item-navigator')
 export class ItemNavigator
@@ -83,6 +84,10 @@ export class ItemNavigator
   @query('slot[name="header"]') private headerSlot!: HTMLSlotElement;
 
   @query('slot[name="main"]') private mainSlot!: HTMLSlotElement;
+
+  @query('ia-menu-slider') private menuSlider!: IaMenuSlider;
+
+  @query('button.toggle-menu') private toggleMenuButton!: HTMLButtonElement;
 
   disconnectedCallback() {
     super.disconnectedCallback();
@@ -238,10 +243,7 @@ export class ItemNavigator
     if (this.menuOpened) {
       // Move focus to the <ia-menu-slider>
       this.updateComplete.then(() => {
-        const menuSlider = this.renderRoot.querySelector(
-          'ia-menu-slider',
-        ) as HTMLElement;
-        const closeButton = menuSlider?.shadowRoot?.querySelector(
+        const closeButton = this.menuSlider?.shadowRoot?.querySelector(
           'button.close',
         ) as HTMLElement;
         closeButton?.focus();
@@ -249,10 +251,7 @@ export class ItemNavigator
     } else {
       // Move focus back to the menu toggle button
       this.updateComplete.then(() => {
-        const toggleButton = this.renderRoot.querySelector(
-          'button.toggle-menu',
-        ) as HTMLElement;
-        toggleButton?.focus();
+        this.toggleMenuButton?.focus();
       });
     }
   }
