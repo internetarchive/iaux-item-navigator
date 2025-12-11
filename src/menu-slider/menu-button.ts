@@ -13,13 +13,13 @@ export class MenuButton extends LitElement {
     delegatesFocus: true,
   };
 
-  @property({ type: String }) icon: TemplateResult | string = '';
+  @property({ type: Object }) icon: TemplateResult | string = '';
 
   @property({ type: String }) href = '';
 
   @property({ type: String }) label = '';
 
-  @property({ type: String }) menuDetails: TemplateResult | string = '';
+  @property({ type: Object }) menuDetails: TemplateResult | string = '';
 
   @property({ type: String }) buttonId = '';
 
@@ -57,7 +57,6 @@ export class MenuButton extends LitElement {
       <span
         class="icon ${this.iconClass}"
         aria-hidden="true"
-        role="presentation"
         title="${this.label}"
         >${this.icon}</span
       >

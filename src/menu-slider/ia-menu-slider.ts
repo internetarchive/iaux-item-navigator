@@ -151,6 +151,7 @@ export class IaMenuSlider extends LitElement {
         <button
           class="close"
           aria-label="Close this menu"
+          title="Close this menu"
           @click=${this.closePanel}
         >
           <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
@@ -164,6 +165,7 @@ export class IaMenuSlider extends LitElement {
       <button
         class="close"
         aria-label="Close this menu"
+        title="Close this menu"
         @click=${this.closeMenu}
       >
         <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>

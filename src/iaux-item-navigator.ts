@@ -297,10 +297,7 @@ export class ItemNavigator
         title="Toggle theater side panels"
         aria-label="Toggle theater side panels"
       >
-        <ia-icon-ellipses
-          aria-hidden="true"
-          role="presentation"
-        ></ia-icon-ellipses>
+        <ia-icon-ellipses aria-hidden="true"></ia-icon-ellipses>
       </button>
     `;
   }
