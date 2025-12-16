@@ -1,5 +1,5 @@
-import { LitElement, html, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, TemplateResult, html, nothing } from 'lit';
+import { customElement, property, query } from 'lit/decorators.js';
 import menuSliderCSS from './styles/menu-slider';
 import '@internetarchive/icon-collapse-sidebar';
 import './menu-button';
@@ -23,16 +23,21 @@ export class IaMenuSlider extends LitElement {
 
   @property({ type: String }) selectedMenu = '';
 
-  @property({ type: Object }) selectedMenuAction = nothing;
+  @property({ type: Object }) selectedMenuAction:
+    | TemplateResult
+    | typeof nothing = nothing;
 
   @property({ type: Boolean }) animateMenuOpen = false;
 
+  @query('.content.open button.close') contentCloseButton!: HTMLElement;
+
+  @query('.menu-list') menuList!: HTMLUListElement;
+
   updated() {
-    const { actionButton } =
-      this.selectedMenuDetails || ({} as Record<string, any>);
+    const actionButton = this.selectedMenuDetails?.actionButton || nothing;
     const actionButtonHasChanged = actionButton !== this.selectedMenuAction;
     if (actionButtonHasChanged) {
-      this.selectedMenuAction = actionButton || nothing;
+      this.selectedMenuAction = actionButton;
     }
   }
 
@@ -42,9 +47,10 @@ export class IaMenuSlider extends LitElement {
   setSelectedMenu({ detail }: CustomEvent) {
     const { id } = detail;
     this.selectedMenu = this.selectedMenu === id ? '' : id;
-    const { actionButton } =
-      this.selectedMenuDetails || ({} as Record<string, any>);
-    this.selectedMenuAction = actionButton || nothing;
+    this.selectedMenuAction = this.selectedMenuDetails?.actionButton || nothing;
+    this.updateComplete.then(() => {
+      this.contentCloseButton?.focus();
+    });
   }
 
   /**
@@ -61,18 +67,41 @@ export class IaMenuSlider extends LitElement {
     this.dispatchEvent(drawerClosed);
   }
 
-  get selectedMenuDetails() {
-    const selectedMenu = this.menus.find(
-      menu => (menu as any).id === this.selectedMenu,
-    );
-    return selectedMenu;
+  closePanel() {
+    const menuId = this.selectedMenu;
+    this.selectedMenu = '';
+    this.selectedMenuAction = nothing;
+
+    // Return focus to the menu button that was previously selected
+    if (menuId) {
+      this.updateComplete.then(() => {
+        const menuIndex = this.menus.findIndex(menu => menu.id === menuId);
+        if (menuIndex !== -1) {
+          const menuButton = this.menuList.querySelector(
+            `li:nth-child(${menuIndex + 1}) menu-button`,
+          ) as HTMLElement;
+          menuButton?.focus();
+        }
+      });
+    }
   }
 
-  get selectedMenuComponent() {
-    const menuItem = this.selectedMenuDetails;
-    return menuItem && (menuItem as any)?.component
-      ? (menuItem as any).component
-      : html``;
+  /**
+   * Handle keyboard events, specifically ESC key to close menu details
+   */
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (this.selectedMenu) {
+        this.closePanel();
+      } else {
+        this.closeMenu();
+      }
+    }
+  }
+
+  get selectedMenuDetails() {
+    return this.menus.find(menu => menu.id === this.selectedMenu);
   }
 
   /* render */
@@ -89,17 +118,17 @@ export class IaMenuSlider extends LitElement {
 
   get menuItems() {
     return this.menus.map(
-      (menu: Record<string, any>) => html`
+      menu => html`
         <li>
           <menu-button
             @menuTypeSelected=${this.setSelectedMenu}
             .icon=${menu.icon}
             .label=${menu.label}
-            .menuDetails=${menu.menuDetails}
+            .menuDetails=${menu.menuDetails || ''}
             .buttonId=${menu.id}
             .selected=${menu.id === this.selectedMenu}
-            .followable=${menu.followable}
-            .href=${menu.href}
+            .followable=${menu.followable || false}
+            .href=${menu.href || ''}
           ></menu-button>
         </li>
       `,
@@ -107,8 +136,7 @@ export class IaMenuSlider extends LitElement {
   }
 
   get renderMenuHeader() {
-    const { label = '', menuDetails = '' } =
-      this.selectedMenuDetails || ({} as Record<string, any>);
+    const { label = '', menuDetails = '' } = this.selectedMenuDetails || {};
     const headerClass = this.selectedMenuAction ? 'with-secondary-action' : '';
     const actionBlock = this.selectedMenuAction
       ? html`<span class="custom-action">${this.selectedMenuAction}</span>`
@@ -119,7 +147,15 @@ export class IaMenuSlider extends LitElement {
           <h3>${label}</h3>
           <span class="extra-details">${menuDetails}</span>
         </div>
-        ${actionBlock} ${this.closeButton}
+        ${actionBlock}
+        <button
+          class="close"
+          aria-label="Close this menu"
+          title="Close this menu"
+          @click=${this.closePanel}
+        >
+          <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
+        </button>
       </header>
     `;
   }
@@ -129,6 +165,7 @@ export class IaMenuSlider extends LitElement {
       <button
         class="close"
         aria-label="Close this menu"
+        title="Close this menu"
         @click=${this.closeMenu}
       >
         <ia-icon-collapse-sidebar></ia-icon-collapse-sidebar>
@@ -139,7 +176,7 @@ export class IaMenuSlider extends LitElement {
   /** @inheritdoc */
   render() {
     return html`
-      <div class="main">
+      <div class="main" @keydown=${this.handleKeyDown}>
         <div class="menu ${this.sliderDetailsClass}">
           ${this.closeButton}
           <ul class="menu-list">
@@ -151,7 +188,9 @@ export class IaMenuSlider extends LitElement {
           >
             ${this.renderMenuHeader}
             <section>
-              <div class="selected-menu">${this.selectedMenuComponent}</div>
+              <div class="selected-menu">
+                ${this.selectedMenuDetails?.component || nothing}
+              </div>
             </section>
           </div>
         </div>

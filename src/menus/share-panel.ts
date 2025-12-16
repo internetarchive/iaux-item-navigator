@@ -81,7 +81,7 @@ export class IauxSharingOptions extends LitElement {
     this.sharingOptions = [
       {
         name: 'Twitter',
-        icon: html`<ia-icon-twitter></ia-icon-twitter>`,
+        icon: html`<ia-icon-twitter aria-hidden="true"></ia-icon-twitter>`,
         url: `https://twitter.com/intent/tweet?${new URLSearchParams({
           url: shareUrl,
           text: shareBlurb,
@@ -90,14 +90,14 @@ export class IauxSharingOptions extends LitElement {
       },
       {
         name: 'Facebook',
-        icon: html`<ia-icon-facebook></ia-icon-facebook>`,
+        icon: html`<ia-icon-facebook aria-hidden="true"></ia-icon-facebook>`,
         url: `https://www.facebook.com/sharer/sharer.php?${new URLSearchParams({
           u: shareUrl,
         })}`,
       },
       {
         name: 'Tumblr',
-        icon: html`<ia-icon-tumblr></ia-icon-tumblr>`,
+        icon: html`<ia-icon-tumblr aria-hidden="true"></ia-icon-tumblr>`,
         url: `https://www.tumblr.com/widgets/share/tool/preview?${new URLSearchParams(
           {
             posttype: 'link',
@@ -108,7 +108,7 @@ export class IauxSharingOptions extends LitElement {
       },
       {
         name: 'Pinterest',
-        icon: html`<ia-icon-pinterest></ia-icon-pinterest>`,
+        icon: html`<ia-icon-pinterest aria-hidden="true"></ia-icon-pinterest>`,
         url: `http://www.pinterest.com/pin/create/button/?${new URLSearchParams(
           {
             url: shareUrl,
@@ -118,7 +118,7 @@ export class IauxSharingOptions extends LitElement {
       },
       {
         name: 'Email',
-        icon: html`<ia-icon-email></ia-icon-email>`,
+        icon: html`<ia-icon-email aria-hidden="true"></ia-icon-email>`,
         url: `mailto:?${new URLSearchParams({
           subject: shareBlurb,
           body: shareUrl,
@@ -151,7 +151,7 @@ export class IauxSharingOptions extends LitElement {
   render() {
     return html`
       ${this.header}
-      <main>
+      <div>
         ${this.sharingOptions.map(
           option =>
             html` <a class="share-option" href="${option.url}" target="_blank">
@@ -160,7 +160,7 @@ export class IauxSharingOptions extends LitElement {
         )}
         <details>
           <summary class="share-option">
-            <ia-icon-link></ia-icon-link>
+            <ia-icon-link aria-hidden="true"></ia-icon-link>
             Get an embeddable link
           </summary>
           <div class="embed">
@@ -185,7 +185,7 @@ export class IauxSharingOptions extends LitElement {
             </p>
           </div>
         </details>
-      </main>
+      </div>
     `;
   }
 
@@ -220,7 +220,7 @@ export class IauxSharingOptions extends LitElement {
         font-size: 1.4rem;
       }
 
-      main {
+      :host > div {
         padding: 1rem 0;
       }
 
@@ -231,6 +231,12 @@ export class IauxSharingOptions extends LitElement {
         text-decoration: none;
         color: var(--shareLinkColor);
         cursor: pointer;
+        transition: background-color 0.2s;
+        border-radius: 6px;
+      }
+
+      .share-option:hover {
+        background-color: rgba(255, 255, 255, 0.05);
       }
 
       .share-option > * {

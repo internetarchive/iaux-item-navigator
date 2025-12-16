@@ -8,6 +8,7 @@ import {
   nothing,
 } from 'lit';
 import { customElement, property, state, query } from 'lit/decorators.js';
+import { classMap } from 'lit/directives/class-map.js';
 import { MetadataResponse } from '@internetarchive/metadata-service';
 import {
   SharedResizeObserver,
@@ -34,6 +35,7 @@ import {
   MenuId,
 } from './interfaces/menu-interfaces';
 import './no-theater-available';
+import type { IaMenuSlider } from './menu-slider/ia-menu-slider';
 
 @customElement('iaux-item-navigator')
 export class ItemNavigator
@@ -82,6 +84,10 @@ export class ItemNavigator
   @query('slot[name="header"]') private headerSlot!: HTMLSlotElement;
 
   @query('slot[name="main"]') private mainSlot!: HTMLSlotElement;
+
+  @query('ia-menu-slider') private menuSlider!: IaMenuSlider;
+
+  @query('button.toggle-menu') private toggleMenuButton!: HTMLButtonElement;
 
   disconnectedCallback() {
     super.disconnectedCallback();
@@ -232,12 +238,26 @@ export class ItemNavigator
     return !!this.menuContents?.length;
   }
 
-  toggleMenu(): void {
-    this.menuOpened = !this.menuOpened;
+  toggleMenu(forceValue: boolean | undefined = undefined): void {
+    this.menuOpened = forceValue !== undefined ? forceValue : !this.menuOpened;
+    if (this.menuOpened) {
+      // Move focus to the <ia-menu-slider>
+      this.updateComplete.then(() => {
+        const closeButton = this.menuSlider?.shadowRoot?.querySelector(
+          'button.close',
+        ) as HTMLElement;
+        closeButton?.focus();
+      });
+    } else {
+      // Move focus back to the menu toggle button
+      this.updateComplete.then(() => {
+        this.toggleMenuButton?.focus();
+      });
+    }
   }
 
   closeMenu(): void {
-    this.menuOpened = false;
+    this.toggleMenu(false);
   }
 
   setOpenMenu(e: ToggleSidePanelOpenEvent): void {
@@ -275,12 +295,9 @@ export class ItemNavigator
         class="toggle-menu"
         @click=${this.toggleMenu}
         title="Toggle theater side panels"
+        aria-label="Toggle theater side panels"
       >
-        <div>
-          <ia-icon-ellipses
-            style="width: var(--iconWidth); height: var(--iconHeight);"
-          ></ia-icon-ellipses>
-        </div>
+        <ia-icon-ellipses aria-hidden="true"></ia-icon-ellipses>
       </button>
     `;
   }
@@ -290,11 +307,12 @@ export class ItemNavigator
   }
 
   get renderSideMenu(): TemplateResult {
-    const drawerState = this.menuOpened ? '' : 'hidden';
     return html`
       <nav>
-        <div class="minimized">${this.shortcuts} ${this.menuToggleButton}</div>
-        <div id="menu" class=${drawerState}>
+        <div class="minimized ${classMap({ hidden: this.menuOpened })}">
+          ${this.shortcuts} ${this.menuToggleButton}
+        </div>
+        <div id="menu" class=${classMap({ hidden: !this.menuOpened })}>
           <ia-menu-slider
             .menus=${this.menuContents}
             .selectedMenu=${this.selectedMenuId}
@@ -316,13 +334,18 @@ export class ItemNavigator
   }
 
   get shortcuts(): TemplateResult {
-    const shortcuts = this.menuShortcuts.map(({ icon, id }) => {
+    const shortcuts = this.menuShortcuts.map(({ icon, id, label }) => {
       if (id === 'fullscreen') {
         return html`${icon}`;
       }
 
       return html`
-        <button class="shortcut ${id}" @click="${() => this.openShortcut(id)}">
+        <button
+          class="shortcut ${id}"
+          @click="${() => this.openShortcut(id)}"
+          title=${label}
+          aria-label=${label}
+        >
           ${icon}
         </button>
       `;
@@ -449,6 +472,11 @@ export class ItemNavigator
         justify-content: center;
         width: ${menuMargin};
         height: ${menuMargin};
+      }
+
+      nav .minimized button > * {
+        /** Prevent the icon's SVG description from stealing tooltip message */
+        pointer-events: none;
       }
 
       nav .minimized button.toggle-menu > * {

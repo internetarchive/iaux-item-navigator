@@ -343,6 +343,7 @@ describe('ItemNavigator', () => {
       const anotherShortcut = {
         id: 'foo',
         icon: html`<i class="foo-shortcut"></i>`,
+        label: 'Foo',
       };
       el.menuContents = [menuProvider];
       el.menuShortcuts = [shortcut, anotherShortcut];

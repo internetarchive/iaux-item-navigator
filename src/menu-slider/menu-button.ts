@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit';
+import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import menuButtonCSS from './styles/menu-button';
 
@@ -8,13 +8,18 @@ export class MenuButton extends LitElement {
     return menuButtonCSS;
   }
 
-  @property({ type: String }) icon = '';
+  static shadowRootOptions = {
+    ...LitElement.shadowRootOptions,
+    delegatesFocus: true,
+  };
+
+  @property({ type: Object }) icon: TemplateResult | string = '';
 
   @property({ type: String }) href = '';
 
   @property({ type: String }) label = '';
 
-  @property({ type: String }) menuDetails = '';
+  @property({ type: Object }) menuDetails: TemplateResult | string = '';
 
   @property({ type: String }) buttonId = '';
 
@@ -49,7 +54,12 @@ export class MenuButton extends LitElement {
 
   get menuItem() {
     return html`
-      <span class="icon ${this.iconClass}"> ${this.icon} </span>
+      <span
+        class="icon ${this.iconClass}"
+        aria-hidden="true"
+        title="${this.label}"
+        >${this.icon}</span
+      >
       <span class="label">${this.label}</span>
       <span class="menu-details">${this.menuDetails}</span>
     `;
