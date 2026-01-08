@@ -345,6 +345,7 @@ export class ItemNavigator
           @click="${() => this.openShortcut(id)}"
           title=${label}
           aria-label=${label}
+          aria-expanded="false"
         >
           ${icon}
         </button>
