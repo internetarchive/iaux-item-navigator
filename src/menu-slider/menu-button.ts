@@ -44,10 +44,6 @@ export class MenuButton extends LitElement {
     );
   }
 
-  get buttonClass() {
-    return this.selected ? 'selected' : '';
-  }
-
   get iconClass() {
     return this.selected ? 'active' : '';
   }
@@ -69,7 +65,8 @@ export class MenuButton extends LitElement {
     return html`
       <a
         href="${this.href}"
-        class="menu-item ${this.buttonClass}"
+        class="menu-item"
+        aria-expanded="${this.selected}"
         @click=${this.followable ? undefined : this.onClick}
         >${this.menuItem}</a
       >
@@ -78,7 +75,11 @@ export class MenuButton extends LitElement {
 
   get clickButton() {
     return html`
-      <button class="menu-item ${this.buttonClass}" @click=${this.onClick}>
+      <button
+        class="menu-item"
+        aria-expanded="${this.selected}"
+        @click=${this.onClick}
+      >
         ${this.menuItem}
       </button>
     `;

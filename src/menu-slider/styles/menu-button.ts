@@ -70,7 +70,7 @@ export default css`
     pointer-events: none;
   }
 
-  .menu-item.selected .icon {
+  .menu-item[aria-expanded='true'] .icon {
     background-color: var(--activeButtonBg);
     border-radius: 1rem 0 0 1rem;
   }
