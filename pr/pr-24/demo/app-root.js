@@ -941,8 +941,9 @@
       <button
         class="toggle-menu"
         @click=${this.toggleMenu}
-        title="Toggle theater side panels"
-        aria-label="Toggle theater side panels"
+        title="Open side panel"
+        aria-label="Open side panel"
+        aria-expanded="false"
       >
         <ia-icon-ellipses aria-hidden="true"></ia-icon-ellipses>
       </button>
