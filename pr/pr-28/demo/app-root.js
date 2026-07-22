@@ -943,7 +943,10 @@
       </button>
     `}get selectedMenuId(){return this.openMenu||""}get renderSideMenu(){return u`
       <nav>
-        <div class="minimized ${Xt({hidden:this.menuOpened})}" part="minimized-menu">
+        <div
+          class="minimized ${Xt({hidden:this.menuOpened})}"
+          part="minimized-menu"
+        >
           ${this.shortcuts} ${this.menuToggleButton}
         </div>
         <div id="menu" class=${Xt({hidden:!this.menuOpened})}>
