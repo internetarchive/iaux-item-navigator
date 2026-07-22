@@ -1,6 +1,6 @@
 {
   "name": "@internetarchive/ia-item-navigator",
-  "version": "2.2.4",
+  "version": "2.3.1",
   "description": "Internet Archive's Item Navigator, visually explore an item's contents.",
   "repository": {
     "type": "git",
