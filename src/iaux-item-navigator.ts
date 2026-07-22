@@ -310,7 +310,7 @@ export class ItemNavigator
   get renderSideMenu(): TemplateResult {
     return html`
       <nav>
-        <div class="minimized ${classMap({ hidden: this.menuOpened })}">
+        <div class="minimized ${classMap({ hidden: this.menuOpened })}" part="minimized-menu">
           ${this.shortcuts} ${this.menuToggleButton}
         </div>
         <div id="menu" class=${classMap({ hidden: !this.menuOpened })}>
