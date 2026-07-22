@@ -7,3 +7,11 @@ export { IauxSharingOptions, iauxShareIcon } from './src/menus/share-panel';
 export { viewableFilesIcon } from './src/menus/viewable-files';
 export { IauxViewableFiles } from './src/menus/viewable-files';
 export { IauxSortFilesButton } from './src/menus/viewable-files';
+
+// menu interfaces
+export type {
+  MenuId,
+  MenuShortcutInterface,
+  MenuDetailsInterface,
+  MenuProviderInterface,
+} from './src/interfaces/menu-interfaces';
