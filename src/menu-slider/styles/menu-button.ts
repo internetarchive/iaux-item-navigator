@@ -12,7 +12,7 @@ export default css`
   }
 
   .menu-item {
-    display: inline-flex;
+    display: flex;
     width: 100%;
     padding: 0;
     font-size: 1.6rem;
@@ -32,17 +32,11 @@ export default css`
   }
 
   .label {
-    display: var(--menuButtonLabelDisplay, none);
-    padding: 0;
-    font-weight: 400;
-    color: var(--primaryTextColor);
-    text-align: left;
     vertical-align: middle;
     margin-left: 1rem;
   }
 
   .menu-details {
-    color: var(--primaryTextColor);
     display: inline-block;
     margin-left: 0.5rem;
     font-style: italic;
