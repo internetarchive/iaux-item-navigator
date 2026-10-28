@@ -1,3 +1,11 @@
+> **Deprecated.** This package has moved into [`@internetarchive/elements`](https://github.com/internetarchive/elements). Use the elements version instead:
+>
+> ```js
+> import '@internetarchive/elements/ia-item-navigator/ia-item-navigator';
+> ```
+>
+> This package won't get new features.
+
 [![Build Status](https://travis-ci.com/internetarchive/iaux-item-navigator.svg?branch=master)](https://travis-ci.com/internetarchive/iaux-item-navigator) [![codecov](https://codecov.io/gh/internetarchive/iaux-item-navigator/branch/master/graph/badge.svg)](https://codecov.io/gh/internetarchive/iaux-item-navigator)
 
 # Internet Archive Item Navigator - theater menu manager
